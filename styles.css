@@ -221,14 +221,23 @@ a:hover {
 .main {
   margin-top: calc(var(--space-lg) + var(--space-sm));
   padding-left: var(--page-margin);
-  padding-right: min(30vw, 350px); /* Responsive space for sidebar */
+  padding-right: var(--page-margin);
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
   display: flex;
-  gap: var(--space-md);
+  flex-direction: column; /* Mobile: stack vertically */
+  gap: var(--space-lg);
   min-height: calc(100vh - var(--space-lg) - var(--space-sm));
   margin-left: 0;
   margin-right: 0;
+}
+
+/* Mobile tagline - shown at top on small screens */
+.mobile-tagline {
+  display: block;
+  font-size: var(--type-label);
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
 }
 
 /* Responsive Grid Pages - Fluid Column System */
@@ -246,21 +255,17 @@ a:hover {
 .explorer-log {
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
-  padding-right: var(--space-sm);
-  padding-left: 0; /* No left padding - container provides page margin */
-  flex: 1;
-  min-width: 0; /* Allow shrinking */
-  max-width: var(--content-width);
+  padding-right: 0;
+  padding-left: 0;
+  width: 100%; /* Full width on mobile */
 }
 
 .project-highlights {
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
-  padding-right: var(--space-sm);
-  padding-left: 0; /* No left padding - container provides page margin */
-  flex: 1;
-  min-width: 0; /* Allow shrinking */
-  max-width: var(--content-width);
+  padding-right: 0;
+  padding-left: 0;
+  width: 100%; /* Full width on mobile */
 }
 
 /* Section titles: uniform typography, hierarchy through position */
@@ -649,29 +654,63 @@ a:hover {
 
 /* Mobile-First Responsive Design - Continuous Adaptation */
 
-/* Small screens: Simplified layout */
-@media (max-width: 768px) {
+/* COMPREHENSIVE RESPONSIVE SYSTEM */
+
+/* Step 1: Medium screens - Explorer log and projects side by side */
+@media (min-width: 600px) {
+  .main {
+    flex-direction: row; /* Side by side layout */
+    gap: var(--space-md);
+    padding-right: var(--page-margin); /* Remove sidebar space */
+  }
+  
+  .explorer-log,
+  .project-highlights {
+    width: 50%; /* Half width each */
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .mobile-tagline {
+    display: none; /* Hide mobile tagline */
+  }
+}
+
+/* Step 2: Large screens - Add sidebar, cap explorer log width */
+@media (min-width: 1024px) {
+  .main {
+    padding-right: min(30vw, 350px); /* Space for sidebar */
+  }
+  
+  .explorer-log {
+    max-width: 300px; /* Cap explorer log width */
+    flex: 0 0 300px; /* Don't grow beyond 300px */
+  }
+  
+  .project-highlights {
+    flex: 1; /* Take remaining space */
+    max-width: none;
+  }
+  
+  /* Show desktop sidebar */
+  .sidebar,
+  .view-controls {
+    display: block;
+  }
+}
+
+/* Step 3: Extra large screens - Featured projects become 2 columns */
+@media (min-width: 1400px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for projects */
+  }
+}
+
+/* Mobile-first: Small screens - stack everything */
+@media (max-width: 599px) {
   :root {
     --page-margin: clamp(1rem, 4vw, 2rem);
     --space-md: var(--space-sm);
-  }
-  
-  /* Hide fixed sidebar on mobile */
-  .sidebar {
-    display: none;
-  }
-  
-  /* Remove sidebar spacing from main content */
-  .main {
-    padding-right: var(--page-margin);
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-  
-  /* Make homepage blocks stack */
-  .explorer-log,
-  .project-highlights {
-    max-width: none;
   }
   
   /* Simplify navigation */
@@ -684,7 +723,7 @@ a:hover {
     margin-top: 0;
   }
   
-  /* Add mobile sidebar content to bottom */
+  /* Add mobile footer with quote and controls */
   body::after {
     content: "I am an inventor-storyteller working in film, code, narrative, and more. 'Honor thy error as a hidden intention.' – Eno";
     display: block;
@@ -693,6 +732,16 @@ a:hover {
     line-height: 1.4;
     border-top: 1px solid var(--color-text);
     margin-top: var(--space-xl);
+  }
+  
+  .nav-links {
+    gap: var(--space-sm);
+  }
+  
+  /* Hide desktop sidebar and controls on mobile */
+  .sidebar,
+  .view-controls {
+    display: none;
   }
 }
 
