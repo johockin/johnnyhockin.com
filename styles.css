@@ -142,7 +142,7 @@ a:hover {
 /* Persistent Right Sidebar - Tom Sachs systematic approach */
 .sidebar {
   position: fixed;
-  right: var(--grid-quarter);
+  right: 0;
   top: var(--grid-half);
   width: calc(var(--grid) * 1.5); /* 1.5 grid units wide */
   min-height: var(--grid);
@@ -151,7 +151,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: var(--grid-quarter);
-  z-index: 999;
+  z-index: 10; /* Lower z-index to prevent covering important content */
+  border-left: 1px solid var(--color-text); /* Subtle separator */
 }
 
 .sidebar-controls {
@@ -211,25 +212,24 @@ a:hover {
 .main {
   margin-top: var(--grid-half);
   padding: var(--grid-quarter);
+  padding-right: calc(var(--grid) * 2); /* Space for sidebar */
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
   gap: var(--grid-quarter);
   min-height: calc(100vh - var(--grid-half));
   max-width: calc(var(--grid) * var(--grid-columns));
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0; /* Left-aligned, never centered */
+  margin-right: 0;
 }
 
 /* Homepage: Content blocks arranged for cross-reading */
 .explorer-log {
   grid-column: 1 / 4;
-  grid-row: 1;
   padding: var(--grid-quarter);
 }
 
 .project-highlights {
   grid-column: 4 / 7;
-  grid-row: 1;
   padding: var(--grid-quarter);
 }
 
@@ -364,12 +364,14 @@ a:hover {
 .contact-main {
   /* Use responsive column count */
   grid-template-columns: repeat(var(--grid-columns), 1fr);
+  margin-left: 0; /* Left-aligned, never centered */
+  margin-right: 0;
 }
 
 /* Log Archive - Raw single column, double width */
 .log-archive-main {
   grid-template-columns: repeat(6, var(--grid));
-  margin-right: 270px; /* Account for sidebar */
+  padding-right: calc(var(--grid) * 2); /* Account for sidebar */
 }
 
 .log-archive {
@@ -502,7 +504,9 @@ a:hover {
 /* Individual Project Page */
 .project-main {
   grid-template-columns: repeat(var(--grid-columns), 1fr);
+  margin-left: 0; /* Left-aligned */
   margin-right: 0;
+  padding-right: calc(var(--grid) * 2); /* Account for sidebar */
 }
 
 .project-controls {
@@ -632,8 +636,31 @@ a:hover {
     --grid: min(var(--grid-base), 45vw); /* Larger percentage for 2 columns */
   }
   
+  /* Sidebar moves to top on mobile */
   .sidebar {
-    display: none;
+    position: static;
+    width: 100%;
+    border-left: none;
+    border-bottom: 1px solid var(--color-text);
+    margin-bottom: var(--grid-half);
+    order: -1; /* Place before nav */
+  }
+  
+  /* Adjust body layout for mobile sidebar */
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nav {
+    position: static;
+    order: 0;
+  }
+  
+  .main {
+    padding-right: var(--grid-quarter); /* Reset sidebar spacing */
+    margin-top: 0;
+    order: 1;
   }
   
   /* View controls stay on grid */
@@ -715,6 +742,14 @@ body.chaos-mode .section-title {
 body.chaos-mode .sidebar {
   border-left-color: var(--color-accent);
   box-shadow: -5px 0 15px rgba(0, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  body.chaos-mode .sidebar {
+    border-left-color: transparent;
+    border-bottom-color: var(--color-accent);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+  }
 }
 
 body.chaos-mode .sidebar-tagline,
