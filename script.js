@@ -249,6 +249,7 @@ class SiteManager {
     if (container && projects) {
       const projectsHTML = projects.map(project => `
         <div class="project-item">
+          ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
           <div class="project-title">
             <a href="project.html?id=${project.id}">${project.title}</a>
           </div>
@@ -256,16 +257,18 @@ class SiteManager {
         </div>
       `).join('');
       
-      const moreProjectsHTML = `
-        <div class="project-item project-more">
-          <div class="project-title">
-            <a href="projects.html">More Projects</a>
-          </div>
-          <div class="project-description">View all experimental projects in code, film, and invention.</div>
-        </div>
-      `;
+      // Add the "MORE PROJECTS" link outside the grid
+      container.innerHTML = projectsHTML;
       
-      container.innerHTML = projectsHTML + moreProjectsHTML;
+      // Add the more projects link after the grid
+      const moreProjectsLink = container.parentElement.querySelector('.more-projects-link') || 
+        document.createElement('div');
+      moreProjectsLink.className = 'more-projects-link';
+      moreProjectsLink.innerHTML = '<a href="projects.html">MORE PROJECTS...</a>';
+      
+      if (!container.parentElement.querySelector('.more-projects-link')) {
+        container.parentElement.appendChild(moreProjectsLink);
+      }
     }
   }
 
