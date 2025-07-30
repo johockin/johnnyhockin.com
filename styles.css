@@ -152,7 +152,6 @@ a:hover {
   flex-direction: column;
   gap: var(--grid-quarter);
   z-index: 10; /* Lower z-index to prevent covering important content */
-  border-left: 1px solid var(--color-text); /* Subtle separator */
 }
 
 .sidebar-controls {
@@ -213,24 +212,34 @@ a:hover {
   margin-top: var(--grid-half);
   padding: var(--grid-quarter);
   padding-right: calc(var(--grid) * 2); /* Space for sidebar */
-  display: grid;
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  display: flex;
   gap: var(--grid-quarter);
   min-height: calc(100vh - var(--grid-half));
-  max-width: calc(var(--grid) * var(--grid-columns));
   margin-left: 0; /* Left-aligned, never centered */
   margin-right: 0;
 }
 
-/* Homepage: Content blocks arranged for cross-reading */
+/* Non-homepage pages use grid */
+.projects-main,
+.log-main,
+.about-main,
+.contact-main,
+.project-main {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+/* Homepage: Content blocks with responsive widths */
 .explorer-log {
-  grid-column: 1 / 4;
   padding: var(--grid-quarter);
+  min-width: 300px; /* Minimum readable width */
+  flex: 1; /* Take available space */
 }
 
 .project-highlights {
-  grid-column: 4 / 7;
   padding: var(--grid-quarter);
+  min-width: 280px; /* Minimum for 2-column projects */
+  flex: 1; /* Take available space */
 }
 
 /* Section titles: uniform typography, hierarchy through position */
@@ -294,9 +303,16 @@ a:hover {
 /* Featured Projects - Block layout for horizontal reading */
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; /* Default 2 columns */
   gap: var(--content-block-gap);
   row-gap: var(--grid-half);
+}
+
+/* Single column on smaller screens */
+@media (max-width: 600px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .project-item {
@@ -362,8 +378,7 @@ a:hover {
 .log-main,
 .about-main,
 .contact-main {
-  /* Use responsive column count */
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  /* Grid styles inherited from main class */
   margin-left: 0; /* Left-aligned, never centered */
   margin-right: 0;
 }
@@ -636,14 +651,26 @@ a:hover {
     --grid: min(var(--grid-base), 45vw); /* Larger percentage for 2 columns */
   }
   
-  /* Sidebar moves to top on mobile */
+  /* Split sidebar on mobile - tagline at top, controls at bottom */
   .sidebar {
-    position: static;
-    width: 100%;
-    border-left: none;
-    border-bottom: 1px solid var(--color-text);
-    margin-bottom: var(--grid-half);
-    order: -1; /* Place before nav */
+    display: none; /* Hide original sidebar */
+  }
+  
+  /* Move tagline to top */
+  .sidebar-tagline {
+    order: -1; /* Above nav */
+    padding: var(--grid-quarter);
+    text-align: left;
+    display: block;
+  }
+  
+  /* Move quote and controls to footer */
+  .sidebar-quote,
+  .sidebar-controls {
+    order: 10; /* After main content */
+    padding: var(--grid-quarter);
+    text-align: left;
+    display: block;
   }
   
   /* Adjust body layout for mobile sidebar */
@@ -661,6 +688,7 @@ a:hover {
     padding-right: var(--grid-quarter); /* Reset sidebar spacing */
     margin-top: 0;
     order: 1;
+    flex-direction: column; /* Stack vertically on mobile */
   }
   
   /* View controls stay on grid */
@@ -668,10 +696,11 @@ a:hover {
     left: var(--grid-eighth);
   }
   
-  /* Stack content vertically but maintain grid alignment */
+  /* Remove flex properties on mobile - full width */
   .explorer-log,
   .project-highlights {
-    grid-column: 1 / -1;
+    flex: none;
+    min-width: unset;
   }
   
   .explorer-log {
@@ -740,14 +769,11 @@ body.chaos-mode .section-title {
 }
 
 body.chaos-mode .sidebar {
-  border-left-color: var(--color-accent);
-  box-shadow: -5px 0 15px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
 @media (max-width: 768px) {
   body.chaos-mode .sidebar {
-    border-left-color: transparent;
-    border-bottom-color: var(--color-accent);
     box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
   }
 }
