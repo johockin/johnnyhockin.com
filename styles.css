@@ -8,9 +8,18 @@
   --color-accent: #000000;
   
   /* 180px grid system - Tom Sachs modular approach */
-  --grid: 180px;
-  --grid-half: 90px;
-  --grid-quarter: 45px;
+  /* Responsive grid that maintains proportions */
+  --grid-base: 180px;
+  --grid: min(var(--grid-base), 25vw); /* Scales down on smaller screens */
+  --grid-half: calc(var(--grid) / 2);
+  --grid-quarter: calc(var(--grid) / 4);
+  --grid-eighth: calc(var(--grid) / 8);
+  
+  /* Grid columns that adapt to viewport */
+  --grid-columns-desktop: 6;
+  --grid-columns-tablet: 4;
+  --grid-columns-mobile: 2;
+  --grid-columns: var(--grid-columns-desktop);
   
   /* Uniform typography - hierarchy through space, not weight/color */
   --type-uniform: 14px;
@@ -18,7 +27,7 @@
   
   /* Content block dimensions for horizontal reading */
   --content-width: 30ch;
-  --content-block-gap: 2.5rem;
+  --content-block-gap: var(--grid-quarter);
 }
 
 /* Chaos Mode */
@@ -135,13 +144,13 @@ a:hover {
   position: fixed;
   right: var(--grid-quarter);
   top: var(--grid-half);
-  width: 250px;
-  height: 250px;
+  width: calc(var(--grid) * 1.5); /* 1.5 grid units wide */
+  min-height: var(--grid);
   background: var(--color-bg);
-  padding: 1rem;
+  padding: var(--grid-quarter);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--grid-quarter);
   z-index: 999;
 }
 
@@ -201,13 +210,14 @@ a:hover {
 /* Tom Sachs Grid Layout - Horizontal & Vertical Reading */
 .main {
   margin-top: var(--grid-half);
-  margin-right: var(--grid);
   padding: var(--grid-quarter);
   display: grid;
-  grid-template-columns: repeat(6, var(--grid));
-  grid-template-rows: auto;
-  gap: 0;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-quarter);
   min-height: calc(100vh - var(--grid-half));
+  max-width: calc(var(--grid) * var(--grid-columns));
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Homepage: Content blocks arranged for cross-reading */
@@ -264,7 +274,7 @@ a:hover {
 
 /* Log archive link */
 .log-archive-link {
-  margin-top: 2rem;
+  margin-top: var(--grid-quarter);
   padding-left: 0;
 }
 
@@ -286,7 +296,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--content-block-gap);
-  row-gap: calc(var(--content-block-gap) * 1.5);
+  row-gap: var(--grid-half);
 }
 
 .project-item {
@@ -330,7 +340,7 @@ a:hover {
 
 /* More projects link - positioned closer below grid, underlined */
 .more-projects-link {
-  margin-top: 1rem;
+  margin-top: var(--grid-quarter);
   padding-left: 0;
 }
 
@@ -352,7 +362,8 @@ a:hover {
 .log-main,
 .about-main,
 .contact-main {
-  grid-template-columns: repeat(6, var(--grid));
+  /* Use responsive column count */
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
 }
 
 /* Log Archive - Raw single column, double width */
@@ -490,8 +501,8 @@ a:hover {
 
 /* Individual Project Page */
 .project-main {
-  grid-template-columns: repeat(8, var(--grid));
-  margin-right: var(--grid);
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  margin-right: 0;
 }
 
 .project-controls {
@@ -595,9 +606,10 @@ a:hover {
 }
 
 /* Responsive: Maintain Tom Sachs grid reading at all sizes */
-@media (max-width: 1400px) {
-  .main {
-    grid-template-columns: repeat(4, var(--grid));
+/* Tablet: 4 column grid */
+@media (max-width: 1200px) {
+  :root {
+    --grid-columns: var(--grid-columns-tablet);
   }
   
   .explorer-log {
@@ -608,71 +620,63 @@ a:hover {
     grid-column: 3 / 5;
   }
   
-  .log-entries {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .project-items {
+  .project-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 1000px) {
-  .main {
-    grid-template-columns: repeat(2, var(--grid));
-    padding: var(--grid-quarter) 20px;
-    margin-right: 0;
+/* Mobile: 2 column grid - maintains proportional system */
+@media (max-width: 768px) {
+  :root {
+    --grid-columns: var(--grid-columns-mobile);
+    --grid: min(var(--grid-base), 45vw); /* Larger percentage for 2 columns */
   }
   
   .sidebar {
     display: none;
   }
   
+  /* View controls stay on grid */
   .view-controls {
-    display: flex;
-    position: fixed;
-    left: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 1000;
+    left: var(--grid-eighth);
   }
   
-  .view-controls .font-toggle,
-  .view-controls .chaos-toggle {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    text-align: center;
-    text-decoration: none;
-    font-size: 11px;
-    padding: 0.5rem;
-  }
-  
+  /* Stack content vertically but maintain grid alignment */
   .explorer-log,
   .project-highlights {
     grid-column: 1 / -1;
-    margin-bottom: calc(var(--content-block-gap) * 2);
   }
   
-  .log-entries,
-  .project-grid,
-  .project-items {
-    grid-template-columns: 1fr 1fr;
+  .explorer-log {
+    margin-bottom: var(--grid-half);
+  }
+  
+  /* Maintain 2-column sub-grids */
+  .log-entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-quarter);
+  }
+  
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-quarter);
   }
 }
 
-@media (max-width: 600px) {
+/* Small mobile: Single column with maintained grid spacing */
+@media (max-width: 480px) {
+  :root {
+    --grid: calc(100vw - (var(--grid-quarter) * 2)); /* Full width minus padding */
+    --grid-columns: 1;
+  }
+  
   .main {
     grid-template-columns: 1fr;
-    padding: var(--grid-quarter) 15px;
-    margin-right: 0;
+    padding: var(--grid-quarter);
   }
   
-  .sidebar {
-    display: none;
-  }
-  
+  /* All content single column */
   .log-entries,
   .project-grid,
   .project-items {
@@ -680,7 +684,7 @@ a:hover {
   }
   
   .nav-links {
-    gap: 2rem;
+    gap: var(--grid-quarter);
   }
 }
 
