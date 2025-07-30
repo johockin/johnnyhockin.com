@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnny Hockin - Inventor, Filmmaker, Coder</title>
+    <meta name="description" content="Raw experiments in code, film, and invention. Personal process, projects, and digital lab notes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Helvetica+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16.png">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="projects.html" class="nav-link">Projects</a>
+            <a href="about.html" class="nav-link">Biography</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    
+    <div class="view-controls">
+        <button class="font-toggle" id="fontToggle">Helvetica</button>
+        <button class="chaos-toggle" id="chaosToggle">Chaos</button>
+    </div>
+
+    <main class="main">
+        <section class="explorer-log">
+            <h2 class="section-title">Explorer Log</h2>
+            <div class="log-entries" id="logEntries">
+                <div class="log-entry">
+                    <div class="log-date">2024.01.28</div>
+                    <div class="log-content">Keyboard project update: The PCB arrived from JLCPCB today. Quality looks excellent—the silkscreen is crisp and all the vias are properly filled. Time to start assembly.</div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">2024.01.25</div>
+                    <div class="log-content">Deep dive into WebGL shaders for a new visualization project. The math is brutal but the results are worth it. Managed to get real-time particle systems running at 60fps.</div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">2024.01.22</div>
+                    <div class="log-content">Spent the weekend building a custom MIDI controller from salvaged arcade buttons. The tactile feedback is incredible—way better than any commercial controller I've used.</div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">2024.01.19</div>
+                    <div class="log-content">Breakthrough on the gesture recognition project. Switched from OpenCV to MediaPipe and the performance improvement is dramatic. Latency dropped from 150ms to 45ms.</div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">2024.01.15</div>
+                    <div class="log-content">Started building a custom mechanical keyboard. The switches arrived today—tactile, 67g actuation. The PCB design is proving more complex than expected.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-highlights">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-grid" id="projectGrid">
+                <div class="project-item">
+                    <img src="Photos that can be used/prt_275x115_1495567625_2x.png" alt="Custom Mechanical Keyboard" class="project-image">
+                    <div class="project-title">
+                        <a href="project.html?id=mechanical-keyboard">Custom Mechanical Keyboard</a>
+                    </div>
+                    <div class="project-description">Building a 60% keyboard from scratch. PCB design, firmware, and case machining.</div>
+                </div>
+                <div class="project-item">
+                    <img src="Photos that can be used/prt_275x139_1495568799_2x.png" alt="Hand Gesture Recognition" class="project-image">
+                    <div class="project-title">
+                        <a href="project.html?id=gesture-recognition">Hand Gesture Recognition</a>
+                    </div>
+                    <div class="project-description">Computer vision experiment for controlling devices through hand movements.</div>
+                </div>
+                <div class="project-item">
+                    <img src="Photos that can be used/prt_275x196_1495569553_2x.png" alt="WebGL Audio Visualizer" class="project-image">
+                    <div class="project-title">
+                        <a href="project.html?id=webgl-visualizer">WebGL Audio Visualizer</a>
+                    </div>
+                    <div class="project-description">Real-time audio visualization using WebGL shaders and Web Audio API.</div>
+                </div>
+                <div class="project-item">
+                    <img src="Photos that can be used/prt_534x300_1609784442_2x.jpg.jpeg" alt="Arcade Button MIDI Controller" class="project-image">
+                    <div class="project-title">
+                        <a href="project.html?id=midi-controller">Arcade Button MIDI Controller</a>
+                    </div>
+                    <div class="project-description">Custom MIDI controller built from salvaged arcade buttons with velocity-sensitive RGB feedback.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

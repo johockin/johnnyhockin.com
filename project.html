@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="projectTitle">Project - Johnny Hockin</title>
+    <meta name="description" content="Project details and process notes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Helvetica+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16.png">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="projects.html" class="nav-link">Projects</a>
+            <a href="about.html" class="nav-link">Biography</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    
+    <div class="view-controls">
+        <button class="font-toggle" id="fontToggle">Helvetica</button>
+        <button class="chaos-toggle" id="chaosToggle">Chaos</button>
+    </div>
+
+    <main class="main project-main">
+        <div class="project-controls">
+            <button class="shuffle-btn" id="shuffleBtn">Shuffle Project</button>
+        </div>
+        
+        <article class="project-content" id="projectContent">
+            <!-- Populated by JS -->
+        </article>
+
+        <section class="other-projects">
+            <h3 class="other-title">Other past projects</h3>
+            <div class="other-list" id="otherProjects">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

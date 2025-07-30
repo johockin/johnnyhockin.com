@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Johnny Hockin</title>
+    <meta name="description" content="Experimental projects in code, film, and invention.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Helvetica+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16.png">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="projects.html" class="nav-link active">Projects</a>
+            <a href="about.html" class="nav-link">Biography</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    
+    <div class="view-controls">
+        <button class="font-toggle" id="fontToggle">Helvetica</button>
+        <button class="chaos-toggle" id="chaosToggle">Chaos</button>
+    </div>
+
+    <main class="main projects-main">
+        <section class="projects-list">
+            <h1 class="page-title">All Projects</h1>
+            <div class="project-items" id="allProjects">
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=mechanical-keyboard">Custom Mechanical Keyboard</a>
+                    </div>
+                    <div class="project-description">Building a 60% keyboard from scratch. PCB design, firmware, and case machining.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=gesture-recognition">Hand Gesture Recognition</a>
+                    </div>
+                    <div class="project-description">Computer vision experiment for controlling devices through hand movements.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=webgl-visualizer">WebGL Audio Visualizer</a>
+                    </div>
+                    <div class="project-description">Real-time audio visualization using WebGL shaders and Web Audio API.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=midi-controller">Arcade Button MIDI Controller</a>
+                    </div>
+                    <div class="project-description">Custom MIDI controller built from salvaged arcade buttons with velocity-sensitive RGB feedback.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=led-matrix">LED Matrix Controller</a>
+                    </div>
+                    <div class="project-description">Real-time graphics on a 32x32 RGB LED matrix. Custom protocols and timing.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=pcb-business-card">Interactive PCB Business Card</a>
+                    </div>
+                    <div class="project-description">Custom PCB business cards with embedded microcontrollers, LEDs, and IR communication.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=mesh-sensor-network">Wireless Mesh Sensor Network</a>
+                    </div>
+                    <div class="project-description">ESP32-based mesh network for distributed environmental monitoring throughout the house.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=modular-synthesizer">3D Printed Modular Synthesizer</a>
+                    </div>
+                    <div class="project-description">Analog modular synthesizer with 3D printed panels and hand-wound components.</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="project.html?id=neural-schematic-parser">Neural Network Schematic Parser</a>
+                    </div>
+                    <div class="project-description">Deep learning system to convert hand-drawn circuit diagrams into proper schematics.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

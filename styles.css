@@ -1,0 +1,557 @@
+/* 100px Grid System - True Modular Layout */
+:root {
+  --font-primary: 'Courier Prime', monospace;
+  --font-secondary: 'Helvetica Neue', Arial, sans-serif;
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-link: #000000;
+  --color-accent: #666666;
+  
+  /* 180px grid system */
+  --grid: 180px;
+  --grid-half: 90px;
+  --grid-quarter: 45px;
+  
+  /* Typography scale */
+  --type-xs: 13px;
+  --type-sm: 14px;
+  --type-base: 15px;
+  --type-lg: 16px;
+}
+
+/* Chaos Mode */
+body.chaos-mode {
+  --color-bg: #000011;
+  --color-text: #00ffff;
+  --color-link: #ff00ff;
+  --color-accent: #ffff00;
+  background: linear-gradient(45deg, #000011, #110033, #330011);
+  background-size: 400% 400%;
+  animation: chaosGradient 3s ease infinite;
+}
+
+@keyframes chaosGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--type-base);
+  line-height: 1.2;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  cursor: url('cursor.png') 8 8, crosshair;
+}
+
+body.font-helvetica {
+  font-family: var(--font-secondary);
+}
+
+/* Global link styling with custom underlines */
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+}
+
+a:hover::after {
+  background-color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* CMS content uses default browser link styling */
+.log-content a,
+.project-description a,
+.bio-content a,
+.contact-info a {
+  color: #0066cc;
+  text-decoration: underline;
+  position: static;
+  display: inline;
+}
+
+.log-content a::after,
+.project-description a::after,
+.bio-content a::after,
+.contact-info a::after {
+  display: none;
+}
+
+.log-content a:hover,
+.project-description a:hover,
+.bio-content a:hover,
+.contact-info a:hover {
+  color: #0052a3;
+}
+
+/* 100px Grid Layout System */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--grid-half);
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  z-index: 1000;
+  background: var(--color-bg);
+  padding-top: var(--grid-quarter);
+  padding-left: var(--grid-quarter);
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--type-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  background-color: var(--color-accent);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-accent);
+}
+
+/* View Controls - Left Edge, Vertical */
+.view-controls {
+  position: fixed;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.nav-controls {
+  display: none;
+}
+
+.font-toggle,
+.chaos-toggle {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--type-xs);
+  color: var(--color-text);
+  cursor: url('cursor.png') 8 8, crosshair;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.font-toggle:hover,
+.chaos-toggle:hover {
+  color: var(--color-accent);
+}
+
+/* Main Grid Layout */
+.main {
+  margin-top: var(--grid-half);
+  padding-left: var(--grid-quarter);
+  padding-right: var(--grid-quarter);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, var(--grid));
+  min-height: calc(100vh - var(--grid-half));
+}
+
+/* Homepage Layout - Sections spaced apart but internally tight */
+.explorer-log {
+  grid-column: 1 / 3;
+  padding: var(--grid-half) 2rem 0 2rem;
+}
+
+.project-highlights {
+  grid-column: 5 / 7;
+  padding: var(--grid-half) 2rem 0 2rem;
+}
+
+.section-title {
+  font-size: var(--type-base);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  color: var(--color-accent);
+}
+
+/* Log Entries - Modular Grid Placement */
+.log-entries {
+  display: grid;
+  grid-template-columns: var(--grid-half) 1fr;
+  row-gap: 3rem;
+  column-gap: 1rem;
+}
+
+.log-entry {
+  display: contents;
+}
+
+.log-date {
+  font-size: var(--type-sm);
+  color: var(--color-accent);
+  text-align: right;
+  padding-top: 0.5rem;
+}
+
+.log-content {
+  font-size: var(--type-base);
+  line-height: 1.6;
+  max-width: 40ch;
+}
+
+/* Project Grid - Modular Layout */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 3rem;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+}
+
+.project-image {
+  width: 100%;
+  max-width: calc(var(--grid) * 2);
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.project-title {
+  font-size: var(--type-lg);
+  font-weight: normal;
+}
+
+.project-title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.project-title a:hover {
+  text-decoration: underline;
+}
+
+.project-description {
+  font-size: var(--type-base);
+  color: var(--color-accent);
+  line-height: 1.6;
+  max-width: 40ch;
+}
+
+/* Page-specific layouts */
+.projects-main,
+.log-main,
+.about-main,
+.contact-main {
+  grid-template-columns: repeat(6, var(--grid));
+}
+
+.projects-list,
+.log-section,
+.about-content,
+.contact-content {
+  grid-column: 1 / 4;
+  padding-top: var(--grid-half);
+}
+
+.page-title {
+  font-size: var(--type-lg);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--grid-half);
+  color: var(--color-text);
+}
+
+/* Project Items List */
+.project-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: calc(var(--grid) * 2);
+}
+
+/* Biography Content */
+.bio-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--grid-half);
+  max-width: calc(var(--grid) * 2.5);
+}
+
+.bio-content p {
+  font-size: var(--type-base);
+  line-height: 1.5;
+}
+
+/* Contact Layout */
+.contact-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--grid-half);
+  max-width: calc(var(--grid) * 2);
+}
+
+.contact-info p {
+  font-size: var(--type-base);
+  line-height: 1.5;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--grid-half);
+}
+
+.contact-links strong {
+  font-weight: normal;
+  color: var(--color-accent);
+}
+
+.contact-links a {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.contact-note {
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+/* Individual Project Page */
+.project-main {
+  grid-template-columns: repeat(8, var(--grid));
+}
+
+.project-controls {
+  grid-column: 1 / 3;
+  padding-top: var(--grid-half);
+}
+
+.project-content {
+  grid-column: 1 / 6;
+  padding-top: var(--grid);
+}
+
+.shuffle-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--type-xs);
+  color: var(--color-text);
+  cursor: crosshair;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+}
+
+.project-meta {
+  font-size: var(--type-xs);
+  color: var(--color-accent);
+  margin-bottom: var(--grid-half);
+}
+
+.project-description {
+  font-size: var(--type-sm);
+  line-height: 1.4;
+  margin-bottom: var(--grid-half);
+  max-width: calc(var(--grid) * 4);
+}
+
+.project-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-quarter);
+  margin: var(--grid-half) 0;
+}
+
+.project-links a {
+  color: var(--color-text);
+  text-decoration: underline;
+  font-size: var(--type-xs);
+}
+
+/* Other Projects Section */
+.other-projects {
+  grid-column: 7 / 9;
+  padding-top: var(--grid);
+}
+
+.other-title {
+  font-size: var(--type-xs);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--grid-half);
+}
+
+.other-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--grid-quarter);
+}
+
+.other-project {
+  font-size: var(--type-xs);
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+/* Easter Egg */
+.easter-egg {
+  display: none;
+  margin-top: var(--grid);
+  max-width: calc(var(--grid) * 3);
+}
+
+.easter-egg.revealed {
+  display: block;
+}
+
+.easter-egg p {
+  font-size: var(--type-xs);
+  line-height: 1.4;
+  margin-bottom: var(--grid-quarter);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .nav {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .main {
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-template-columns: repeat(auto-fit, var(--grid));
+  }
+  
+  .explorer-log,
+  .project-highlights {
+    grid-column: 1 / -1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .project-highlights {
+    margin-top: 4rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .nav {
+    left: 15px;
+    width: calc(100% - 30px);
+  }
+  
+  .main {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .explorer-log,
+  .project-highlights {
+    grid-column: 1 / -1;
+    padding: 2rem 1rem;
+  }
+  
+  .project-highlights {
+    margin-top: 4rem;
+  }
+  
+  .projects-list,
+  .log-section,
+  .about-content,
+  .contact-content {
+    grid-column: 1 / -1;
+    padding: 2rem 1rem;
+  }
+}
+
+/* Chaos mode enhancements */
+body.chaos-mode a {
+  color: var(--color-link);
+}
+
+body.chaos-mode a::after {
+  background-color: var(--color-link);
+}
+
+body.chaos-mode a:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 5px currentColor;
+}
+
+body.chaos-mode a:hover::after {
+  background-color: var(--color-accent);
+}
+
+body.chaos-mode .nav-link:hover,
+body.chaos-mode .nav-link.active {
+  color: var(--color-link);
+  text-shadow: 0 0 5px currentColor;
+}
+
+body.chaos-mode .section-title {
+  text-shadow: 0 0 10px var(--color-text);
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}
