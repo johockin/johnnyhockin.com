@@ -21,8 +21,8 @@ This site now uses a bulletproof hybrid data loading architecture that provides 
 const response = await fetch('data.json');
 
 // 2. On failure, use embedded fallback
-if (window.EMBEDDED_DATA) {
-  data = window.EMBEDDED_DATA;
+if (window.EMBEDDED_SITE_DATA) {
+  data = window.EMBEDDED_SITE_DATA;
 }
 
 // 3. Route to same content loading logic

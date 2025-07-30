@@ -12,7 +12,7 @@ This website uses a bulletproof **three-tier data loading system** that ensures 
 
 ### Architecture
 - **SiteManager.loadContent()** tries external `data.json` first
-- If that fails, uses `window.EMBEDDED_DATA` from `data-embedded.js`
+- If that fails, uses `window.EMBEDDED_SITE_DATA` from `data-embedded.js`
 - Falls back to minimal placeholder content as last resort
 - Smart console logging shows which data source is being used
 

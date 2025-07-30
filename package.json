@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Fast and simple static site with hybrid data loading",
   "scripts": {
-    "sync-data": "node sync-data.js",
-    "watch-data": "nodemon --watch data.json --exec \"node sync-data.js\"",
+    "sync-data": "node sync-embedded-data.js",
+    "watch-data": "nodemon --watch data.json --exec \"node sync-embedded-data.js\"",
     "serve": "python3 -m http.server 8080"
   },
   "devDependencies": {

@@ -68,14 +68,14 @@ function generateEmbeddedDataFile(data) {
 // Last updated: ${timestamp}
 // This file provides complete fallback data when external data.json cannot be loaded
 
-window.EMBEDDED_DATA = ${JSON.stringify(data, null, 2)};
+window.EMBEDDED_SITE_DATA = ${JSON.stringify(data, null, 2)};
 
 // Data integrity check
-if (window.EMBEDDED_DATA) {
+if (window.EMBEDDED_SITE_DATA) {
   console.log('📦 Embedded data loaded successfully:', {
-    explorerLogEntries: window.EMBEDDED_DATA.explorerLog?.length || 0,
-    projects: window.EMBEDDED_DATA.projects?.length || 0,
-    otherProjects: window.EMBEDDED_DATA.otherProjects?.length || 0
+    explorerLogEntries: window.EMBEDDED_SITE_DATA.explorerLog?.length || 0,
+    projects: window.EMBEDDED_SITE_DATA.projects?.length || 0,
+    otherProjects: window.EMBEDDED_SITE_DATA.otherProjects?.length || 0
   });
 } else {
   console.error('❌ Failed to load embedded data');
@@ -100,7 +100,7 @@ function compareFiles() {
     const embeddedJs = fs.readFileSync(EMBEDDED_DATA_PATH, 'utf8');
     
     // Extract the JSON from the embedded file
-    const match = embeddedJs.match(/window\.EMBEDDED_DATA = ({[\s\S]*?});/);
+    const match = embeddedJs.match(/window\.EMBEDDED_SITE_DATA = ({[\s\S]*?});/);
     if (!match) {
       return { upToDate: false, reason: 'Cannot parse embedded data' };
     }

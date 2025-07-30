@@ -34,7 +34,7 @@ Three-tier fallback system for bulletproof functionality:
 
 ### Workflow
 1. Edit `data.json` (single source of truth)
-2. Run `node sync-data.js` or `npm run sync-data` to update embedded fallback
+2. Run `node sync-embedded-data.js` or `npm run sync-data` to update embedded fallback
 3. Deploy both `data.json` and `data-embedded.js`
 
 ### Console Output
