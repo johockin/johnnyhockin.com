@@ -1,4 +1,4 @@
-/* Tom Sachs Grid System - Horizontal & Vertical Reading */
+/* Fully Responsive Grid System - Tom Sachs Inspired */
 :root {
   --font-primary: 'Courier Prime', monospace;
   --font-secondary: 'Helvetica Neue', Arial, sans-serif;
@@ -7,27 +7,32 @@
   --color-link: #000000;
   --color-accent: #000000;
   
-  /* 180px grid system - Tom Sachs modular approach */
-  /* Responsive grid that maintains proportions */
-  --grid-base: 180px;
-  --grid: min(var(--grid-base), 25vw); /* Scales down on smaller screens */
+  /* Fluid responsive system - scales continuously with viewport */
+  --viewport-unit: clamp(12px, 4vw, 48px);
+  --grid: var(--viewport-unit);
   --grid-half: calc(var(--grid) / 2);
   --grid-quarter: calc(var(--grid) / 4);
   --grid-eighth: calc(var(--grid) / 8);
   
-  /* Grid columns that adapt to viewport */
-  --grid-columns-desktop: 6;
-  --grid-columns-tablet: 4;
-  --grid-columns-mobile: 2;
-  --grid-columns: var(--grid-columns-desktop);
+  /* Responsive spacing that scales with viewport */
+  --space-xs: clamp(0.25rem, 1vw, 1rem);
+  --space-sm: clamp(0.5rem, 2vw, 1.5rem);
+  --space-md: clamp(1rem, 3vw, 2.5rem);
+  --space-lg: clamp(1.5rem, 4vw, 4rem);
+  --space-xl: clamp(2rem, 6vw, 6rem);
   
-  /* Uniform typography - hierarchy through space, not weight/color */
-  --type-uniform: 14px;
-  --type-label: 12px;
+  /* Fluid typography */
+  --type-uniform: clamp(12px, 2.5vw, 16px);
+  --type-label: clamp(10px, 2vw, 14px);
+  --type-body: var(--type-uniform);
   
-  /* Content block dimensions for horizontal reading */
-  --content-width: 30ch;
-  --content-block-gap: var(--grid-quarter);
+  /* Responsive content widths */
+  --content-width: min(65ch, 90vw);
+  --content-block-gap: var(--space-sm);
+  
+  /* Dynamic margins that respond to viewport */
+  --page-margin: clamp(1rem, 5vw, 8rem);
+  --content-margin: clamp(0.5rem, 3vw, 3rem);
 }
 
 /* Chaos Mode */
@@ -56,11 +61,13 @@ body.chaos-mode {
 
 body {
   font-family: var(--font-primary);
-  font-size: var(--type-body);
+  font-size: var(--type-uniform);
   line-height: 1.4;
   background-color: var(--color-bg);
   color: var(--color-text);
   cursor: url('cursor.png') 8 8, crosshair;
+  margin: 0;
+  padding: 0;
 }
 
 body.font-helvetica {
@@ -101,25 +108,25 @@ a:hover {
   text-decoration: underline;
 }
 
-/* 100px Grid Layout System */
+/* Fully Responsive Navigation */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--grid-half);
+  min-height: var(--space-lg);
   display: flex;
   justify-content: start;
   align-items: start;
   z-index: 1000;
   background: var(--color-bg);
-  padding-top: var(--grid-quarter);
-  padding-left: var(--grid-quarter);
+  padding: var(--space-sm) var(--page-margin);
 }
 
 .nav-links {
   display: flex;
-  gap: 3rem;
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -139,19 +146,19 @@ a:hover {
   text-decoration: none;
 }
 
-/* Persistent Right Sidebar - Tom Sachs systematic approach */
+/* Responsive Sidebar - Adapts to Available Space */
 .sidebar {
   position: fixed;
-  right: 0;
-  top: var(--grid-half);
-  width: calc(var(--grid) * 1.5); /* 1.5 grid units wide */
-  min-height: var(--grid);
+  right: var(--page-margin);
+  top: calc(var(--space-lg) + var(--space-sm));
+  width: min(25vw, 300px);
+  min-height: var(--space-lg);
   background: var(--color-bg);
-  padding: var(--grid-quarter);
+  padding: var(--space-sm);
   display: flex;
   flex-direction: column;
-  gap: var(--grid-quarter);
-  z-index: 10; /* Lower z-index to prevent covering important content */
+  gap: var(--space-sm);
+  z-index: 10;
 }
 
 .sidebar-controls {
@@ -207,39 +214,42 @@ a:hover {
   text-underline-offset: 2px;
 }
 
-/* Tom Sachs Grid Layout - Horizontal & Vertical Reading */
+/* Fully Responsive Main Content Area */
 .main {
-  margin-top: var(--grid-half);
-  padding: var(--grid-quarter);
-  padding-right: calc(var(--grid) * 2); /* Space for sidebar */
+  margin-top: calc(var(--space-lg) + var(--space-sm));
+  padding: var(--space-sm) var(--page-margin);
+  padding-right: min(30vw, 350px); /* Responsive space for sidebar */
   display: flex;
-  gap: var(--grid-quarter);
-  min-height: calc(100vh - var(--grid-half));
-  margin-left: 0; /* Left-aligned, never centered */
+  gap: var(--space-md);
+  min-height: calc(100vh - var(--space-lg) - var(--space-sm));
+  margin-left: 0;
   margin-right: 0;
 }
 
-/* Non-homepage pages use grid */
+/* Responsive Grid Pages - Fluid Column System */
 .projects-main,
 .log-main,
 .about-main,
 .contact-main,
 .project-main {
   display: grid;
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-md);
 }
 
-/* Homepage: Content blocks with responsive widths */
+/* Homepage: Fully Responsive Content Blocks */
 .explorer-log {
-  padding: var(--grid-quarter);
-  min-width: 300px; /* Minimum readable width */
-  flex: 1; /* Take available space */
+  padding: var(--space-sm);
+  flex: 1;
+  min-width: 0; /* Allow shrinking */
+  max-width: var(--content-width);
 }
 
 .project-highlights {
-  padding: var(--grid-quarter);
-  min-width: 280px; /* Minimum for 2-column projects */
-  flex: 1; /* Take available space */
+  padding: var(--space-sm);
+  flex: 1;
+  min-width: 0; /* Allow shrinking */
+  max-width: var(--content-width);
 }
 
 /* Section titles: uniform typography, hierarchy through position */
@@ -300,26 +310,18 @@ a:hover {
   text-decoration-color: var(--color-text);
 }
 
-/* Featured Projects - Block layout for horizontal reading */
+/* Fully Responsive Project Grid */
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Default 2 columns */
-  gap: var(--content-block-gap);
-  row-gap: var(--grid-half);
-}
-
-/* Single column on smaller screens */
-@media (max-width: 600px) {
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: var(--space-md);
 }
 
 .project-item {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: 0.5rem;
-  max-width: var(--content-width);
+  gap: var(--space-sm);
+  width: 100%;
 }
 
 .project-image {
@@ -383,23 +385,23 @@ a:hover {
   margin-right: 0;
 }
 
-/* Log Archive - Raw single column, double width */
+/* Responsive Log Archive */
 .log-archive-main {
-  grid-template-columns: repeat(6, var(--grid));
-  padding-right: calc(var(--grid) * 2); /* Account for sidebar */
+  display: block;
+  padding-right: min(30vw, 350px);
 }
 
 .log-archive {
-  grid-column: 1 / 4; /* Double width of homepage log */
-  padding-top: var(--grid-half);
-  padding-left: var(--grid-quarter);
+  max-width: min(80ch, 90vw);
+  padding-top: var(--space-lg);
+  padding-left: var(--space-sm);
 }
 
 .log-archive-entries {
   display: grid;
-  grid-template-columns: var(--grid-half) 1fr;
-  row-gap: 3rem;
-  column-gap: 1rem;
+  grid-template-columns: minmax(min-content, 20%) 1fr;
+  row-gap: var(--space-lg);
+  column-gap: var(--space-md);
 }
 
 .log-archive-entry {
@@ -423,8 +425,9 @@ a:hover {
 .log-section,
 .about-content,
 .contact-content {
-  grid-column: 1 / 7;
-  padding: var(--grid-quarter);
+  width: 100%;
+  max-width: min(90ch, 90vw);
+  padding: var(--space-sm);
 }
 
 .page-title {
@@ -437,19 +440,19 @@ a:hover {
   line-height: 1.4;
 }
 
-/* Projects grid - horizontal reading blocks */
+/* Fully Responsive Projects Grid */
 .project-items {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--content-block-gap);
-  row-gap: calc(var(--content-block-gap) * 2);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-md);
+  row-gap: var(--space-lg);
 }
 
 .project-items .project-item {
-  max-width: var(--content-width);
+  width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .project-items .project-title {
@@ -467,12 +470,13 @@ a:hover {
   line-height: 1.4;
 }
 
-/* Biography Content */
+/* Responsive Biography Content */
 .bio-content {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: var(--grid-half);
-  max-width: calc(var(--grid) * 2.5);
+  row-gap: var(--space-lg);
+  max-width: var(--content-width);
+  width: 100%;
 }
 
 .bio-content p {
@@ -480,12 +484,13 @@ a:hover {
   line-height: 1.4;
 }
 
-/* Contact Layout */
+/* Responsive Contact Layout */
 .contact-info {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: var(--grid-half);
-  max-width: calc(var(--grid) * 2);
+  row-gap: var(--space-lg);
+  max-width: var(--content-width);
+  width: 100%;
 }
 
 .contact-info p {
@@ -496,7 +501,7 @@ a:hover {
 .contact-links {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: var(--grid-half);
+  row-gap: var(--space-lg);
 }
 
 .contact-links strong {
@@ -516,22 +521,25 @@ a:hover {
   font-style: italic;
 }
 
-/* Individual Project Page */
+/* Responsive Individual Project Page */
 .project-main {
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
-  margin-left: 0; /* Left-aligned */
+  display: block;
+  margin-left: 0;
   margin-right: 0;
-  padding-right: calc(var(--grid) * 2); /* Account for sidebar */
+  padding-right: min(30vw, 350px);
 }
 
 .project-controls {
-  grid-column: 1 / 3;
-  padding-top: var(--grid-half);
+  width: 100%;
+  max-width: min(40ch, 90vw);
+  padding-top: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .project-content {
-  grid-column: 1 / 6;
-  padding-top: var(--grid);
+  width: 100%;
+  max-width: min(80ch, 90vw);
+  padding-top: var(--space-lg);
 }
 
 .shuffle-btn {
@@ -560,15 +568,16 @@ a:hover {
 .project-description {
   font-size: var(--type-body);
   line-height: 1.4;
-  margin-bottom: var(--grid-half);
-  max-width: calc(var(--grid) * 4);
+  margin-bottom: var(--space-lg);
+  max-width: var(--content-width);
+  width: 100%;
 }
 
 .project-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--grid-quarter);
-  margin: var(--grid-half) 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
 }
 
 .project-links a {
@@ -581,10 +590,12 @@ a:hover {
   letter-spacing: 0.5px;
 }
 
-/* Other Projects Section */
+/* Responsive Other Projects Section */
 .other-projects {
-  grid-column: 7 / 9;
-  padding-top: var(--grid);
+  width: 100%;
+  max-width: min(30ch, 90vw);
+  padding-top: var(--space-xl);
+  margin-top: var(--space-xl);
 }
 
 .other-title {
@@ -598,7 +609,7 @@ a:hover {
 .other-list {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: var(--grid-quarter);
+  row-gap: var(--space-sm);
 }
 
 .other-project {
@@ -610,8 +621,9 @@ a:hover {
 /* Easter Egg */
 .easter-egg {
   display: none;
-  margin-top: var(--grid);
-  max-width: calc(var(--grid) * 3);
+  margin-top: var(--space-xl);
+  max-width: var(--content-width);
+  width: 100%;
 }
 
 .easter-egg.revealed {
@@ -621,126 +633,73 @@ a:hover {
 .easter-egg p {
   font-size: var(--type-label);
   line-height: 1.4;
-  margin-bottom: var(--grid-quarter);
+  margin-bottom: var(--space-sm);
 }
 
-/* Responsive: Maintain Tom Sachs grid reading at all sizes */
-/* Tablet: 4 column grid */
-@media (max-width: 1200px) {
-  :root {
-    --grid-columns: var(--grid-columns-tablet);
-  }
-  
-  .explorer-log {
-    grid-column: 1 / 3;
-  }
-  
-  .project-highlights {
-    grid-column: 3 / 5;
-  }
-  
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* Mobile-First Responsive Design - Continuous Adaptation */
 
-/* Mobile: 2 column grid - maintains proportional system */
+/* Small screens: Simplified layout */
 @media (max-width: 768px) {
   :root {
-    --grid-columns: var(--grid-columns-mobile);
-    --grid: min(var(--grid-base), 45vw); /* Larger percentage for 2 columns */
+    --page-margin: clamp(1rem, 4vw, 2rem);
+    --space-md: var(--space-sm);
   }
   
-  /* Split sidebar on mobile - tagline at top, controls at bottom */
+  /* Hide fixed sidebar on mobile */
   .sidebar {
-    display: none; /* Hide original sidebar */
+    display: none;
   }
   
-  /* Move tagline to top */
-  .sidebar-tagline {
-    order: -1; /* Above nav */
-    padding: var(--grid-quarter);
-    text-align: left;
-    display: block;
-  }
-  
-  /* Move quote and controls to footer */
-  .sidebar-quote,
-  .sidebar-controls {
-    order: 10; /* After main content */
-    padding: var(--grid-quarter);
-    text-align: left;
-    display: block;
-  }
-  
-  /* Adjust body layout for mobile sidebar */
-  body {
-    display: flex;
+  /* Remove sidebar spacing from main content */
+  .main {
+    padding-right: var(--page-margin);
     flex-direction: column;
+    gap: var(--space-lg);
   }
   
+  /* Make homepage blocks stack */
+  .explorer-log,
+  .project-highlights {
+    max-width: none;
+  }
+  
+  /* Simplify navigation */
   .nav {
-    position: static;
-    order: 0;
+    position: relative;
+    padding: var(--space-sm) var(--page-margin);
   }
   
   .main {
-    padding-right: var(--grid-quarter); /* Reset sidebar spacing */
     margin-top: 0;
-    order: 1;
-    flex-direction: column; /* Stack vertically on mobile */
   }
   
-  /* View controls stay on grid */
-  .view-controls {
-    left: var(--grid-eighth);
-  }
-  
-  /* Remove flex properties on mobile - full width */
-  .explorer-log,
-  .project-highlights {
-    flex: none;
-    min-width: unset;
-  }
-  
-  .explorer-log {
-    margin-bottom: var(--grid-half);
-  }
-  
-  /* Maintain 2-column sub-grids */
-  .log-entries {
-    display: flex;
-    flex-direction: column;
-    gap: var(--grid-quarter);
-  }
-  
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: var(--grid-quarter);
+  /* Add mobile sidebar content to bottom */
+  body::after {
+    content: "I am an inventor-storyteller working in film, code, narrative, and more. 'Honor thy error as a hidden intention.' – Eno";
+    display: block;
+    padding: var(--space-lg) var(--page-margin);
+    font-size: var(--type-label);
+    line-height: 1.4;
+    border-top: 1px solid var(--color-text);
+    margin-top: var(--space-xl);
   }
 }
 
-/* Small mobile: Single column with maintained grid spacing */
+/* Very small screens: Maximum simplification */
 @media (max-width: 480px) {
   :root {
-    --grid: calc(100vw - (var(--grid-quarter) * 2)); /* Full width minus padding */
-    --grid-columns: 1;
-  }
-  
-  .main {
-    grid-template-columns: 1fr;
-    padding: var(--grid-quarter);
-  }
-  
-  /* All content single column */
-  .log-entries,
-  .project-grid,
-  .project-items {
-    grid-template-columns: 1fr;
+    --page-margin: var(--space-sm);
   }
   
   .nav-links {
-    gap: var(--grid-quarter);
+    gap: var(--space-sm);
+  }
+  
+  /* Ensure readability on small screens */
+  .log-entries,
+  .project-grid,
+  .project-items {
+    gap: var(--space-md);
   }
 }
 
