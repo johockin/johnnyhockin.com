@@ -20,8 +20,27 @@ Raw experiments in code, film, and invention. Personal process, projects, and di
 - Font toggle (Courier Prime ↔ Helvetica Neue) 
 - Chaos mode (80s aesthetic)
 - Custom cursor and underlines
-- JSON-based CMS
+- JSON-based CMS with hybrid data loading
 - Left-aligned design throughout
+- Works seamlessly via HTTP, HTTPS, and file:// URLs
+
+## Hybrid Data Loading Architecture
+
+Three-tier fallback system for bulletproof functionality:
+
+1. **Primary**: External `data.json` via fetch (optimal for HTTP, caching, development)
+2. **Secondary**: Embedded JavaScript data (complete fallback for file:// access) 
+3. **Tertiary**: Minimal placeholder data (absolute failsafe)
+
+### Workflow
+1. Edit `data.json` (single source of truth)
+2. Run `node sync-data.js` or `npm run sync-data` to update embedded fallback
+3. Deploy both `data.json` and `data-embedded.js`
+
+### Console Output
+- `✅ External data loaded successfully` - Primary path working
+- `📦 Using embedded fallback data` - Secondary path for file:// access  
+- `⚠️ No embedded data available` - Tertiary failsafe engaged
 
 ---
 

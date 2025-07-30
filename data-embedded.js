@@ -1,4 +1,8 @@
-{
+// Auto-generated from data.json - DO NOT EDIT MANUALLY
+// Generated at: 2025-07-30T17:08:10.260Z
+// Run 'node sync-data.js' to regenerate when data.json changes
+
+window.EMBEDDED_SITE_DATA = {
   "site": {
     "title": "Johnny Hockin",
     "description": "Inventor, filmmaker, coder, explorer",
@@ -37,7 +41,7 @@
     },
     {
       "id": "log-007",
-      "date": "2024.01.08", 
+      "date": "2024.01.08",
       "content": "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable. Total build time: 3 hours. Added a simple pomodoro timer and session analytics. The data is revealing some interesting patterns about my productivity cycles."
     },
     {
@@ -114,7 +118,7 @@
           "url": "#github-pcb-files"
         },
         {
-          "title": "Firmware Repository", 
+          "title": "Firmware Repository",
           "url": "#github-firmware"
         },
         {
@@ -131,7 +135,7 @@
       "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "fullDescription": "A real-time hand gesture recognition system using computer vision to control devices and applications without physical contact. The system can recognize complex hand gestures and translate them into MIDI commands, mouse movements, or custom application controls. Built with Python and optimized for performance on edge devices like Raspberry Pi. The recognition engine uses a combination of MediaPipe for hand tracking and a custom neural network for gesture classification. Supports training custom gestures through a simple interface.",
       "category": "Software",
-      "date": "2024.01.19", 
+      "date": "2024.01.19",
       "status": "Active Development",
       "featured": true,
       "process": "Started with OpenCV but quickly switched to MediaPipe for better performance and accuracy. The breakthrough came when I realized I needed to track gesture sequences over time rather than just static hand positions. Implemented a sliding window approach to capture gesture dynamics. Trained the classifier using TensorFlow Lite with a dataset of 2,000 gesture samples across 12 different gestures. The system now achieves 97% accuracy with sub-50ms latency on Raspberry Pi 4. Added MIDI output capabilities to control synthesizers and DAWs in real-time.",
@@ -153,7 +157,7 @@
     },
     {
       "id": "led-matrix",
-      "title": "LED Matrix Controller", 
+      "title": "LED Matrix Controller",
       "description": "Real-time graphics on a 32x32 RGB LED matrix. Custom protocols and timing.",
       "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "fullDescription": "A high-performance controller for driving 32x32 RGB LED matrices with real-time graphics and animations. Features custom communication protocols and precise timing control.",
@@ -181,7 +185,7 @@
       "fullDescription": "A simple yet effective application for tracking daily coding sessions, built with vanilla JavaScript and local storage. No external dependencies, no complex build process—just pure functionality.",
       "category": "Software",
       "date": "2024.01.08",
-      "status": "Completed", 
+      "status": "Completed",
       "featured": false,
       "process": "Built in a single 3-hour session using only vanilla JavaScript and browser local storage. The interface is intentionally minimal to avoid distraction from actual coding.",
       "notes": "Sometimes the best tools are the simplest ones. This tracker has been more useful than any complex productivity app I've tried."
@@ -315,7 +319,7 @@
   ],
   "otherProjects": [
     "Automated Plant Watering System",
-    "Solar-Powered Weather Station", 
+    "Solar-Powered Weather Station",
     "Arduino-Based Smart Door Lock",
     "LED Strip Audio Visualizer",
     "Custom Macro Keyboard",
@@ -416,4 +420,6 @@
     "Hardware Security Module",
     "Secure Boot Implementation"
   ]
-}
+};
+
+console.log('📦 Embedded site data loaded (4 sections)');

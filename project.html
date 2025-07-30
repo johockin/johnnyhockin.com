@@ -10,24 +10,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Helvetica+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="project.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16.png">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 <body>
     <nav class="nav">
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
             <a href="projects.html" class="nav-link">Projects</a>
-            <a href="about.html" class="nav-link">Biography</a>
+            <a href="bio.html" class="nav-link">Biography</a>
             <a href="contact.html" class="nav-link">Contact</a>
         </div>
     </nav>
     
     <div class="view-controls">
         <button class="font-toggle" id="fontToggle">Helvetica</button>
-        <button class="chaos-toggle" id="chaosToggle">Chaos</button>
+        <button class="chaos-toggle" id="chaosToggle">B)</button>
     </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-tagline">I am an inventor-storyteller working in film, code, narrative, and more.</div>
+        
+        <div class="sidebar-quote">"Honor thy error as a hidden intention." – Eno</div>
+        
+        <div class="sidebar-controls">
+            <button class="font-toggle" id="fontToggleSidebar">Helvetica</button><br>
+            <button class="chaos-toggle" id="chaosToggleSidebar">B)</button>
+        </div>
+    </aside>
 
     <main class="main project-main">
         <div class="project-controls">
@@ -46,6 +59,7 @@
         </section>
     </main>
 
+    <script src="data-embedded.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -19,12 +19,21 @@ class SiteManager {
   // Font switching functionality
   setupFontToggle() {
     const fontToggle = document.getElementById('fontToggle');
+    const fontToggleSidebar = document.getElementById('fontToggleSidebar');
+    
     if (fontToggle) {
       fontToggle.addEventListener('click', () => {
         this.toggleFont();
       });
-      this.updateFontToggleText();
     }
+    
+    if (fontToggleSidebar) {
+      fontToggleSidebar.addEventListener('click', () => {
+        this.toggleFont();
+      });
+    }
+    
+    this.updateFontToggleText();
   }
 
   toggleFont() {
@@ -44,22 +53,34 @@ class SiteManager {
 
   updateFontToggleText() {
     const fontToggle = document.getElementById('fontToggle');
-    if (fontToggle) {
-      if (this.currentFont === 'courier') {
-        fontToggle.textContent = 'Helvetica';
-        fontToggle.style.fontFamily = 'Helvetica Neue, Arial, sans-serif';
-      } else {
-        fontToggle.textContent = 'Courier';
-        fontToggle.style.fontFamily = 'Courier Prime, monospace';
+    const fontToggleSidebar = document.getElementById('fontToggleSidebar');
+    
+    [fontToggle, fontToggleSidebar].forEach(toggle => {
+      if (toggle) {
+        if (this.currentFont === 'courier') {
+          toggle.textContent = 'Helvetica';
+        } else {
+          toggle.textContent = 'Courier';
+        }
+        // Remove any custom font styling to use the current page font
+        toggle.style.fontFamily = '';
       }
-    }
+    });
   }
 
   // Chaos mode functionality
   setupChaosToggle() {
     const chaosToggle = document.getElementById('chaosToggle');
+    const chaosToggleSidebar = document.getElementById('chaosToggleSidebar');
+    
     if (chaosToggle) {
       chaosToggle.addEventListener('click', () => {
+        this.toggleChaos();
+      });
+    }
+    
+    if (chaosToggleSidebar) {
+      chaosToggleSidebar.addEventListener('click', () => {
         this.toggleChaos();
       });
     }
@@ -111,27 +132,40 @@ class SiteManager {
     this.applyChaos();
   }
 
-  // Content loading functionality
+  // Content loading functionality - Bulletproof hybrid approach
   async loadContent() {
+    let data = null;
+    
     try {
+      // Primary: Try external data.json (fastest, cacheable)
+      console.log('🔄 Loading external data.json...');
       const response = await fetch('data.json');
-      const data = await response.json();
-      
-      // Route-specific content loading
-      const path = window.location.pathname;
-      
-      if (path === '/' || path === '/index.html') {
-        this.loadHomepage(data);
-      } else if (path === '/projects.html') {
-        this.loadProjectsPage(data);
-      } else if (path === '/log.html') {
-        this.loadLogPage(data);
-      } else if (path === '/project.html') {
-        this.loadProjectPage(data);
-      }
+      data = await response.json();
+      console.log('✅ External data loaded successfully');
     } catch (error) {
-      console.log('Content loading fallback - using placeholder data');
-      this.loadPlaceholderContent();
+      // Secondary: Use complete embedded fallback data
+      if (window.EMBEDDED_SITE_DATA) {
+        console.log('📦 Using embedded fallback data');
+        data = window.EMBEDDED_SITE_DATA;
+      } else {
+        console.log('⚠️ No embedded data available - using minimal placeholder');
+        this.loadPlaceholderContent();
+        return;
+      }
+    }
+    
+    // Route-specific content loading using the loaded data
+    const path = window.location.pathname;
+    console.log('🔀 Current path:', path, '| Data source:', data === window.EMBEDDED_SITE_DATA ? 'embedded' : 'external');
+    
+    if (path === '/' || path === '/index.html') {
+      this.loadHomepage(data);
+    } else if (path === '/projects.html' || path.endsWith('/projects.html')) {
+      this.loadProjectsPage(data);
+    } else if (path === '/log.html' || path.endsWith('/log.html')) {
+      this.loadLogPage(data);
+    } else if (path === '/project.html' || path.endsWith('/project.html')) {
+      this.loadProjectPage(data);
     }
   }
 
@@ -145,19 +179,43 @@ class SiteManager {
     if (container && data.projects) {
       container.innerHTML = data.projects.map(project => `
         <div class="project-item">
+          ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
           <div class="project-title">
             <a href="project.html?id=${project.id}">${project.title}</a>
           </div>
           <div class="project-description">${project.description}</div>
         </div>
       `).join('');
+    } else {
+      console.log('Container or data.projects not found', container, data.projects);
     }
   }
 
   loadLogPage(data) {
-    const container = document.getElementById('allLogEntries');
-    if (container && data.explorerLog) {
-      this.loadLogEntries(data.explorerLog, container);
+    const container = document.getElementById('logArchiveEntries');
+    if (container) {
+      // Extended log data with placeholder links for archive
+      const archiveEntries = [
+        { date: "2024.01.28", content: "Keyboard project update: The PCB arrived from <a href=\"https://jlcpcb.com\" target=\"_blank\">JLCPCB</a> today. Quality looks excellent—the silkscreen is crisp and all the vias are properly filled. Time to start assembly. Found a potential issue with the USB-C footprint that might cause problems with some cables." },
+        { date: "2024.01.25", content: "Deep dive into WebGL shaders for a new visualization project. The math is brutal but the results are worth it. Managed to get real-time particle systems running at 60fps with 10,000 particles. The key was batching draw calls and using <a href=\"https://webglfundamentals.org/webgl/lessons/webgl-instanced-drawing.html\" target=\"_blank\">instanced rendering</a>." },
+        { date: "2024.01.22", content: "Spent the weekend building a custom MIDI controller from salvaged arcade buttons. The tactile feedback is incredible—way better than any commercial controller I've used. Posted some photos on <a href=\"#\" target=\"_blank\">my Instagram</a>." },
+        { date: "2024.01.19", content: "Breakthrough on the gesture recognition project. Switched from OpenCV to <a href=\"https://mediapipe.dev/\" target=\"_blank\">MediaPipe</a> and the performance improvement is dramatic. Latency dropped from 150ms to 45ms. The hand tracking is incredibly smooth now." },
+        { date: "2024.01.15", content: "Started building a custom mechanical keyboard. The switches arrived today—tactile, 67g actuation. The PCB design is proving more complex than expected. Using <a href=\"https://kicad.org/\" target=\"_blank\">KiCad</a> for the first time." },
+        { date: "2024.01.12", content: "Experimenting with mesh networking protocols. ESP32 boards scattered around the house are finally talking to each other reliably. Range tests tomorrow. Following <a href=\"https://github.com/gmag11/painlessMesh\" target=\"_blank\">painlessMesh</a> examples." },
+        { date: "2024.01.08", content: "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable. Code is up on <a href=\"#\" target=\"_blank\">GitHub</a>." },
+        { date: "2024.01.05", content: "Found an interesting bug in my LED matrix controller. The issue wasn't in the code—it was in my understanding of the hardware timing requirements. <a href=\"https://www.adafruit.com/product/2278\" target=\"_blank\">This Adafruit guide</a> finally clarified the SPI timing." },
+        { date: "2024.01.02", content: "New year, new experiments. Planning to document everything more thoroughly this time. Raw process notes, not polished blog posts. Inspired by <a href=\"https://notes.andymatuschak.org/\" target=\"_blank\">Andy Matuschak's working notes</a>." },
+        { date: "2023.12.28", content: "Finished the neural network schematic parser. It can now convert hand-drawn circuit diagrams into proper schematics with 85% accuracy. The training data was the hardest part—had to draw hundreds of circuits by hand." },
+        { date: "2023.12.22", content: "Modular synthesizer build is coming along. 3D printed the panels this week. The <a href=\"https://www.muffwiggler.com/\" target=\"_blank\">Muff Wiggler forums</a> have been incredibly helpful for troubleshooting the VCA circuit." },
+        { date: "2023.12.18", content: "Made progress on the PCB business cards. The IR communication is working, but the range is shorter than expected. Need to experiment with different LED power levels. <a href=\"https://learn.adafruit.com/ir-sensor/overview\" target=\"_blank\">This Adafruit tutorial</a> has some good tips." }
+      ];
+      
+      container.innerHTML = archiveEntries.map(entry => `
+        <div class="log-archive-entry">
+          <div class="log-date">${entry.date}</div>
+          <div class="log-content">${entry.content}</div>
+        </div>
+      `).join('');
     }
   }
 
@@ -189,7 +247,7 @@ class SiteManager {
   loadFeaturedProjects(projects) {
     const container = document.getElementById('projectGrid');
     if (container && projects) {
-      container.innerHTML = projects.map(project => `
+      const projectsHTML = projects.map(project => `
         <div class="project-item">
           <div class="project-title">
             <a href="project.html?id=${project.id}">${project.title}</a>
@@ -197,6 +255,17 @@ class SiteManager {
           <div class="project-description">${project.description}</div>
         </div>
       `).join('');
+      
+      const moreProjectsHTML = `
+        <div class="project-item project-more">
+          <div class="project-title">
+            <a href="projects.html">More Projects</a>
+          </div>
+          <div class="project-description">View all experimental projects in code, film, and invention.</div>
+        </div>
+      `;
+      
+      container.innerHTML = projectsHTML + moreProjectsHTML;
     }
   }
 
@@ -253,9 +322,8 @@ class SiteManager {
       ]);
       
       this.loadFeaturedProjects([
-        { id: "mechanical-keyboard", title: "Custom Mechanical Keyboard", description: "Building a 60% keyboard from scratch. PCB design, firmware, and case machining." },
-        { id: "gesture-recognition", title: "Hand Gesture Recognition", description: "Computer vision experiment for controlling devices through hand movements." },
-        { id: "led-matrix", title: "LED Matrix Controller", description: "Real-time graphics on a 32x32 RGB LED matrix. Custom protocols and timing." }
+        { id: "mechanical-keyboard", title: "01 Custom Mechanical Keyboard", description: "Building a 60% keyboard from scratch. PCB design, firmware, and case machining." },
+        { id: "gesture-recognition", title: "02 Hand Gesture Recognition", description: "Computer vision experiment for controlling devices through hand movements." }
       ]);
     }
   }

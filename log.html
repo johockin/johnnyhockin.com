@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Johnny Hockin</title>
-    <meta name="description" content="Get in touch about projects, collaborations, or experiments.">
+    <title>Explorer Log Archive - Johnny Hockin</title>
+    <meta name="description" content="Complete archive of development notes and project updates.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Helvetica+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="project.css">
     <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
@@ -22,7 +21,7 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="projects.html" class="nav-link">Projects</a>
             <a href="bio.html" class="nav-link">Biography</a>
-            <a href="contact.html" class="nav-link active">Contact</a>
+            <a href="contact.html" class="nav-link">Contact</a>
         </div>
     </nav>
     
@@ -34,7 +33,7 @@
     <aside class="sidebar">
         <div class="sidebar-tagline">I am an inventor-storyteller working in film, code, narrative, and more.</div>
         
-        <div class="sidebar-quote">"Paradise is exactly like where you are right now, only much, much better." – Anderson</div>
+        <div class="sidebar-quote">"I have nothing to say, and I am saying it." – Cage</div>
         
         <div class="sidebar-controls">
             <button class="font-toggle" id="fontToggleSidebar">Helvetica</button><br>
@@ -42,25 +41,12 @@
         </div>
     </aside>
 
-    <main class="main contact-main">
-        <section class="contact-content">
-            <h1 class="page-title">Contact</h1>
+    <main class="main log-archive-main">
+        <section class="log-archive">
+            <h1 class="page-title">Explorer Log Archive</h1>
             
-            <div class="contact-info">
-                <p>For projects, collaborations, or questions about the work:</p>
-                
-                <div class="contact-links">
-                    <p><strong>Email:</strong> <a href="mailto:johnny@juniperisland.ca">johnny@juniperisland.ca</a></p>
-                    <p><strong>GitHub:</strong> <a href="https://github.com/johnnyhockin" target="_blank">github.com/johnnyhockin</a></p>
-                </div>
-                
-                <p>I'm particularly interested in collaborations that combine hardware and software, creative applications of technology, or projects that document the making process.</p>
-                
-                <p>If you're working on something experimental and think our approaches might align, I'd love to hear about it. I'm always curious about other people's creative processes and technical solutions.</p>
-                
-                <p>Response time is usually within 24 hours. If you're reaching out about a specific project from the site, feel free to reference it—I'm happy to share more details about the process or technical implementation.</p>
-                
-                <p class="contact-note">No forms, no gatekeepers. Just direct communication.</p>
+            <div class="log-archive-entries" id="logArchiveEntries">
+                <!-- Populated by JS -->
             </div>
         </section>
     </main>

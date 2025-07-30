@@ -1,22 +1,24 @@
-/* 100px Grid System - True Modular Layout */
+/* Tom Sachs Grid System - Horizontal & Vertical Reading */
 :root {
   --font-primary: 'Courier Prime', monospace;
   --font-secondary: 'Helvetica Neue', Arial, sans-serif;
   --color-bg: #ffffff;
   --color-text: #000000;
   --color-link: #000000;
-  --color-accent: #666666;
+  --color-accent: #000000;
   
-  /* 180px grid system */
+  /* 180px grid system - Tom Sachs modular approach */
   --grid: 180px;
   --grid-half: 90px;
   --grid-quarter: 45px;
   
-  /* Typography scale */
-  --type-xs: 13px;
-  --type-sm: 14px;
-  --type-base: 15px;
-  --type-lg: 16px;
+  /* Uniform typography - hierarchy through space, not weight/color */
+  --type-uniform: 14px;
+  --type-label: 12px;
+  
+  /* Content block dimensions for horizontal reading */
+  --content-width: 30ch;
+  --content-block-gap: 2.5rem;
 }
 
 /* Chaos Mode */
@@ -45,8 +47,8 @@ body.chaos-mode {
 
 body {
   font-family: var(--font-primary);
-  font-size: var(--type-base);
-  line-height: 1.2;
+  font-size: var(--type-body);
+  line-height: 1.4;
   background-color: var(--color-bg);
   color: var(--color-text);
   cursor: url('cursor.png') 8 8, crosshair;
@@ -56,48 +58,30 @@ body.font-helvetica {
   font-family: var(--font-secondary);
 }
 
-/* Global link styling with custom underlines */
+/* Tom Sachs uniform typography - links same as text */
 a {
   color: var(--color-text);
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-}
-
-a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 1px;
-  background-color: var(--color-text);
-}
-
-a:hover::after {
-  background-color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 a:hover {
-  color: var(--color-accent);
+  color: var(--color-text);
+  text-decoration: none;
 }
 
-/* CMS content uses default browser link styling */
+/* All content inherits uniform typography */
 .log-content a,
 .project-description a,
 .bio-content a,
 .contact-info a {
   color: #0066cc;
   text-decoration: underline;
-  position: static;
-  display: inline;
-}
-
-.log-content a::after,
-.project-description a::after,
-.bio-content a::after,
-.contact-info a::after {
-  display: none;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .log-content a:hover,
@@ -105,6 +89,7 @@ a:hover {
 .bio-content a:hover,
 .contact-info a:hover {
   color: #0052a3;
+  text-decoration: underline;
 }
 
 /* 100px Grid Layout System */
@@ -130,45 +115,58 @@ a:hover {
 
 .nav-link {
   color: var(--color-text);
-  text-decoration: none;
-  font-size: var(--type-xs);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-size: var(--type-uniform);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   display: block;
-  position: relative;
-  padding-bottom: 8px;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 1px;
-  background-color: var(--color-text);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  background-color: var(--color-accent);
+  line-height: 1.4;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-accent);
+  text-decoration: none;
 }
 
-/* View Controls - Left Edge, Vertical */
-.view-controls {
+/* Persistent Right Sidebar - Tom Sachs systematic approach */
+.sidebar {
   position: fixed;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: var(--grid-quarter);
+  top: var(--grid-half);
+  width: 250px;
+  height: 250px;
+  background: var(--color-bg);
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  z-index: 1000;
+  z-index: 999;
+}
+
+.sidebar-controls {
+  display: block;
+  line-height: 1.1;
+}
+
+.sidebar-tagline {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.sidebar-quote {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  font-style: italic;
+}
+
+
+/* View Controls - Now in Sidebar */
+.view-controls {
+  display: none;
 }
 
 .nav-controls {
@@ -180,119 +178,176 @@ a:hover {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: var(--type-xs);
+  font-size: 12px;
   color: var(--color-text);
   cursor: url('cursor.png') 8 8, crosshair;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  padding: 0.5rem;
-  text-align: center;
+  letter-spacing: 0.8px;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  text-decoration: none;
+  line-height: 1;
 }
 
 .font-toggle:hover,
 .chaos-toggle:hover {
-  color: var(--color-accent);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
-/* Main Grid Layout */
+/* Tom Sachs Grid Layout - Horizontal & Vertical Reading */
 .main {
   margin-top: var(--grid-half);
-  padding-left: var(--grid-quarter);
-  padding-right: var(--grid-quarter);
+  margin-right: var(--grid);
+  padding: var(--grid-quarter);
   display: grid;
-  grid-template-columns: repeat(auto-fit, var(--grid));
+  grid-template-columns: repeat(6, var(--grid));
+  grid-template-rows: auto;
+  gap: 0;
   min-height: calc(100vh - var(--grid-half));
 }
 
-/* Homepage Layout - Sections spaced apart but internally tight */
+/* Homepage: Content blocks arranged for cross-reading */
 .explorer-log {
-  grid-column: 1 / 3;
-  padding: var(--grid-half) 2rem 0 2rem;
+  grid-column: 1 / 4;
+  grid-row: 1;
+  padding: var(--grid-quarter);
 }
 
 .project-highlights {
-  grid-column: 5 / 7;
-  padding: var(--grid-half) 2rem 0 2rem;
+  grid-column: 4 / 7;
+  grid-row: 1;
+  padding: var(--grid-quarter);
 }
 
+/* Section titles: uniform typography, hierarchy through position */
 .section-title {
-  font-size: var(--type-base);
+  font-size: var(--type-uniform);
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
-  color: var(--color-accent);
+  letter-spacing: 1.2px;
+  margin-bottom: var(--content-block-gap);
+  color: var(--color-text);
+  line-height: 1.4;
 }
 
-/* Log Entries - Modular Grid Placement */
+/* Log Entries - Tom Sachs block system for horizontal reading */
 .log-entries {
   display: grid;
-  grid-template-columns: var(--grid-half) 1fr;
-  row-gap: 3rem;
-  column-gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .log-entry {
-  display: contents;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.5rem;
+  max-width: var(--content-width);
 }
 
 .log-date {
-  font-size: var(--type-sm);
-  color: var(--color-accent);
-  text-align: right;
-  padding-top: 0.5rem;
+  font-size: var(--type-uniform);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
 }
 
 .log-content {
-  font-size: var(--type-base);
-  line-height: 1.6;
-  max-width: 40ch;
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
 }
 
-/* Project Grid - Modular Layout */
+/* Log archive link */
+.log-archive-link {
+  margin-top: 2rem;
+  padding-left: 0;
+}
+
+.log-archive-link a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+}
+
+.log-archive-link a:hover {
+  text-decoration-color: var(--color-text);
+}
+
+/* Featured Projects - Block layout for horizontal reading */
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--content-block-gap);
+  row-gap: calc(var(--content-block-gap) * 1.5);
 }
 
 .project-item {
   display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 1rem;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.5rem;
+  max-width: var(--content-width);
 }
 
 .project-image {
   width: 100%;
-  max-width: calc(var(--grid) * 2);
   height: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .project-title {
-  font-size: var(--type-lg);
+  font-size: var(--type-uniform);
   font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+  color: var(--color-text);
 }
 
 .project-title a {
   color: var(--color-text);
-  text-decoration: none;
+  text-decoration: underline;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .project-title a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .project-description {
-  font-size: var(--type-base);
-  color: var(--color-accent);
-  line-height: 1.6;
-  max-width: 40ch;
+  font-size: var(--type-uniform);
+  color: var(--color-text);
+  line-height: 1.4;
 }
 
-/* Page-specific layouts */
+/* More projects link - positioned closer below grid, underlined */
+.more-projects-link {
+  margin-top: 1rem;
+  padding-left: 0;
+}
+
+.more-projects-link a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+}
+
+.more-projects-link a:hover {
+  text-decoration-color: var(--color-text);
+}
+
+/* Projects page - Tom Sachs systematic layout */
 .projects-main,
 .log-main,
 .about-main,
@@ -300,28 +355,88 @@ a:hover {
   grid-template-columns: repeat(6, var(--grid));
 }
 
+/* Log Archive - Raw single column, double width */
+.log-archive-main {
+  grid-template-columns: repeat(6, var(--grid));
+  margin-right: 270px; /* Account for sidebar */
+}
+
+.log-archive {
+  grid-column: 1 / 4; /* Double width of homepage log */
+  padding-top: var(--grid-half);
+  padding-left: var(--grid-quarter);
+}
+
+.log-archive-entries {
+  display: grid;
+  grid-template-columns: var(--grid-half) 1fr;
+  row-gap: 3rem;
+  column-gap: 1rem;
+}
+
+.log-archive-entry {
+  display: contents;
+}
+
+.log-archive-entry .log-date {
+  font-size: var(--type-uniform);
+  color: var(--color-accent);
+  text-align: right;
+  padding-top: 0.5rem;
+}
+
+.log-archive-entry .log-content {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  max-width: 60ch;
+}
+
 .projects-list,
 .log-section,
 .about-content,
 .contact-content {
-  grid-column: 1 / 4;
-  padding-top: var(--grid-half);
+  grid-column: 1 / 7;
+  padding: var(--grid-quarter);
 }
 
 .page-title {
-  font-size: var(--type-lg);
+  font-size: var(--type-uniform);
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: var(--grid-half);
+  letter-spacing: 1.2px;
+  margin-bottom: var(--content-block-gap);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* Projects grid - horizontal reading blocks */
+.project-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--content-block-gap);
+  row-gap: calc(var(--content-block-gap) * 2);
+}
+
+.project-items .project-item {
+  max-width: var(--content-width);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.5rem;
+}
+
+.project-items .project-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
   color: var(--color-text);
 }
 
-/* Project Items List */
-.project-items {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: calc(var(--grid) * 2);
+.project-items .project-description {
+  font-size: var(--type-uniform);
+  color: var(--color-text);
+  line-height: 1.4;
 }
 
 /* Biography Content */
@@ -333,8 +448,8 @@ a:hover {
 }
 
 .bio-content p {
-  font-size: var(--type-base);
-  line-height: 1.5;
+  font-size: var(--type-body);
+  line-height: 1.4;
 }
 
 /* Contact Layout */
@@ -346,8 +461,8 @@ a:hover {
 }
 
 .contact-info p {
-  font-size: var(--type-base);
-  line-height: 1.5;
+  font-size: var(--type-body);
+  line-height: 1.4;
 }
 
 .contact-links {
@@ -358,12 +473,14 @@ a:hover {
 
 .contact-links strong {
   font-weight: normal;
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .contact-links a {
   color: var(--color-text);
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
 .contact-note {
@@ -374,6 +491,7 @@ a:hover {
 /* Individual Project Page */
 .project-main {
   grid-template-columns: repeat(8, var(--grid));
+  margin-right: var(--grid);
 }
 
 .project-controls {
@@ -390,22 +508,27 @@ a:hover {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: var(--type-xs);
+  font-size: var(--type-label);
   color: var(--color-text);
   cursor: crosshair;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
 .project-meta {
-  font-size: var(--type-xs);
-  color: var(--color-accent);
+  font-size: var(--type-uniform);
+  color: var(--color-text);
   margin-bottom: var(--grid-half);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
 }
 
 .project-description {
-  font-size: var(--type-sm);
+  font-size: var(--type-body);
   line-height: 1.4;
   margin-bottom: var(--grid-half);
   max-width: calc(var(--grid) * 4);
@@ -421,7 +544,11 @@ a:hover {
 .project-links a {
   color: var(--color-text);
   text-decoration: underline;
-  font-size: var(--type-xs);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-size: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Other Projects Section */
@@ -431,10 +558,10 @@ a:hover {
 }
 
 .other-title {
-  font-size: var(--type-xs);
-  color: var(--color-accent);
+  font-size: var(--type-label);
+  color: var(--color-text);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   margin-bottom: var(--grid-half);
 }
 
@@ -445,9 +572,9 @@ a:hover {
 }
 
 .other-project {
-  font-size: var(--type-xs);
-  color: var(--color-accent);
-  line-height: 1.2;
+  font-size: var(--type-uniform);
+  color: var(--color-text);
+  line-height: 1.4;
 }
 
 /* Easter Egg */
@@ -462,93 +589,145 @@ a:hover {
 }
 
 .easter-egg p {
-  font-size: var(--type-xs);
+  font-size: var(--type-label);
   line-height: 1.4;
   margin-bottom: var(--grid-quarter);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .nav {
-    left: 20px;
-    width: calc(100% - 40px);
-  }
-  
+/* Responsive: Maintain Tom Sachs grid reading at all sizes */
+@media (max-width: 1400px) {
   .main {
-    padding-left: 20px;
-    padding-right: 20px;
-    grid-template-columns: repeat(auto-fit, var(--grid));
+    grid-template-columns: repeat(4, var(--grid));
   }
   
-  .explorer-log,
-  .project-highlights {
-    grid-column: 1 / -1;
-    max-width: 600px;
-    margin: 0 auto;
+  .explorer-log {
+    grid-column: 1 / 3;
   }
   
   .project-highlights {
-    margin-top: 4rem;
+    grid-column: 3 / 5;
+  }
+  
+  .log-entries {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .project-items {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 800px) {
-  .nav {
-    left: 15px;
-    width: calc(100% - 30px);
+@media (max-width: 1000px) {
+  .main {
+    grid-template-columns: repeat(2, var(--grid));
+    padding: var(--grid-quarter) 20px;
+    margin-right: 0;
   }
   
-  .main {
-    padding-left: 15px;
-    padding-right: 15px;
+  .sidebar {
+    display: none;
+  }
+  
+  .view-controls {
+    display: flex;
+    position: fixed;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1000;
+  }
+  
+  .view-controls .font-toggle,
+  .view-controls .chaos-toggle {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    padding: 0.5rem;
   }
   
   .explorer-log,
   .project-highlights {
     grid-column: 1 / -1;
-    padding: 2rem 1rem;
+    margin-bottom: calc(var(--content-block-gap) * 2);
   }
   
-  .project-highlights {
-    margin-top: 4rem;
+  .log-entries,
+  .project-grid,
+  .project-items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr;
+    padding: var(--grid-quarter) 15px;
+    margin-right: 0;
   }
   
-  .projects-list,
-  .log-section,
-  .about-content,
-  .contact-content {
-    grid-column: 1 / -1;
-    padding: 2rem 1rem;
+  .sidebar {
+    display: none;
+  }
+  
+  .log-entries,
+  .project-grid,
+  .project-items {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-links {
+    gap: 2rem;
   }
 }
 
 /* Chaos mode enhancements */
 body.chaos-mode a {
   color: var(--color-link);
-}
-
-body.chaos-mode a::after {
-  background-color: var(--color-link);
+  text-decoration-color: var(--color-link);
 }
 
 body.chaos-mode a:hover {
   color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
   text-shadow: 0 0 5px currentColor;
-}
-
-body.chaos-mode a:hover::after {
-  background-color: var(--color-accent);
 }
 
 body.chaos-mode .nav-link:hover,
 body.chaos-mode .nav-link.active {
   color: var(--color-link);
+  text-decoration-color: var(--color-link);
   text-shadow: 0 0 5px currentColor;
 }
 
 body.chaos-mode .section-title {
   text-shadow: 0 0 10px var(--color-text);
   animation: pulse 2s ease-in-out infinite alternate;
+}
+
+body.chaos-mode .sidebar {
+  border-left-color: var(--color-accent);
+  box-shadow: -5px 0 15px rgba(0, 255, 255, 0.3);
+}
+
+body.chaos-mode .sidebar-tagline,
+body.chaos-mode .sidebar-quote {
+  text-shadow: 0 0 5px currentColor;
+}
+
+body.chaos-mode .font-toggle,
+body.chaos-mode .chaos-toggle {
+  color: var(--color-link);
+  text-shadow: 0 0 3px currentColor;
+}
+
+body.chaos-mode .font-toggle:hover,
+body.chaos-mode .chaos-toggle:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px currentColor;
 }
 
 @keyframes pulse {
