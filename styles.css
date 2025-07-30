@@ -173,6 +173,7 @@ a:hover {
   font-size: var(--type-uniform);
   line-height: 1.4;
   color: var(--color-text);
+  margin-bottom: var(--space-md); /* Paragraph break */
 }
 
 .sidebar-quote {
@@ -180,6 +181,7 @@ a:hover {
   line-height: 1.4;
   color: var(--color-text);
   font-style: italic;
+  margin-bottom: var(--space-md); /* Paragraph break */
 }
 
 
@@ -235,7 +237,7 @@ a:hover {
 /* Mobile tagline - shown at top on small screens */
 .mobile-tagline {
   display: block;
-  font-size: var(--type-label);
+  font-size: var(--type-uniform); /* Same size as other text */
   line-height: 1.4;
   margin-bottom: var(--space-md);
 }
@@ -661,7 +663,7 @@ a:hover {
   .main {
     flex-direction: row; /* Side by side layout */
     gap: var(--space-md);
-    padding-right: var(--page-margin); /* Remove sidebar space */
+    padding-right: var(--page-margin); /* Keep sidebar in footer */
   }
   
   .explorer-log,
@@ -673,6 +675,23 @@ a:hover {
   
   .mobile-tagline {
     display: none; /* Hide mobile tagline */
+  }
+  
+  /* Keep sidebar and controls hidden until large screens */
+  .sidebar,
+  .view-controls {
+    display: none;
+  }
+  
+  /* Keep mobile footer */
+  body::after {
+    content: "I am an inventor-storyteller working in film, code, narrative, and more. 'Honor thy error as a hidden intention.' – Eno";
+    display: block;
+    padding: var(--space-lg) var(--page-margin);
+    font-size: var(--type-uniform);
+    line-height: 1.4;
+    border-top: 1px solid var(--color-text);
+    margin-top: var(--space-xl);
   }
 }
 
@@ -696,6 +715,11 @@ a:hover {
   .sidebar,
   .view-controls {
     display: block;
+  }
+  
+  /* Hide mobile footer when sidebar appears */
+  body::after {
+    display: none;
   }
 }
 
