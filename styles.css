@@ -244,14 +244,20 @@ a:hover {
 
 /* Homepage: Fully Responsive Content Blocks */
 .explorer-log {
-  padding: var(--space-sm);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  padding-right: var(--space-sm);
+  padding-left: 0; /* No left padding - container provides page margin */
   flex: 1;
   min-width: 0; /* Allow shrinking */
   max-width: var(--content-width);
 }
 
 .project-highlights {
-  padding: var(--space-sm);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  padding-right: var(--space-sm);
+  padding-left: 0; /* No left padding - container provides page margin */
   flex: 1;
   min-width: 0; /* Allow shrinking */
   max-width: var(--content-width);
