@@ -170,8 +170,8 @@ class SiteManager {
   }
 
   loadHomepage(data) {
-    this.loadLogEntries(data.explorerLog.slice(0, 5)); // Show latest 5 entries
-    this.loadFeaturedProjects(data.projects.filter(p => p.featured));
+    this.loadLogEntries(data.explorerLog.slice(0, 3)); // Show latest 3 entries
+    this.loadFeaturedProjects(data.projects.filter(p => p.featured).slice(0, 2)); // Show exactly 2 projects
   }
 
   loadProjectsPage(data) {

@@ -21,9 +21,9 @@
   --space-lg: clamp(1.5rem, 4vw, 4rem);
   --space-xl: clamp(2rem, 6vw, 6rem);
   
-  /* Fluid typography */
-  --type-uniform: clamp(12px, 2.5vw, 16px);
-  --type-label: clamp(10px, 2vw, 14px);
+  /* Fluid typography - reduced by 10% */
+  --type-uniform: clamp(11px, 2.25vw, 14px);
+  --type-label: clamp(9px, 1.8vw, 12px);
   --type-body: var(--type-uniform);
   
   /* Responsive content widths */
