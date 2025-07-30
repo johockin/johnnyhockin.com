@@ -173,7 +173,7 @@ a:hover {
   font-size: var(--type-uniform);
   line-height: 1.4;
   color: var(--color-text);
-  margin-bottom: var(--space-md); /* Paragraph break */
+  margin-bottom: var(--space-xs); /* Tighter paragraph break */
 }
 
 .sidebar-quote {
@@ -181,7 +181,7 @@ a:hover {
   line-height: 1.4;
   color: var(--color-text);
   font-style: italic;
-  margin-bottom: var(--space-md); /* Paragraph break */
+  margin-bottom: var(--space-xs); /* Tighter paragraph break */
 }
 
 
@@ -268,6 +268,11 @@ a:hover {
   padding-right: 0;
   padding-left: 0;
   width: 100%; /* Full width on mobile */
+}
+
+/* Inline sidebar hidden by default (mobile-first) */
+.sidebar-inline {
+  display: none;
 }
 
 /* Section titles: uniform typography, hierarchy through position */
@@ -695,10 +700,11 @@ a:hover {
   }
 }
 
-/* Step 2: Large screens - Add sidebar, cap explorer log width */
+/* Step 2: Large screens - Add sidebar as third column */
 @media (min-width: 1024px) {
   .main {
-    padding-right: min(30vw, 350px); /* Space for sidebar */
+    padding-right: var(--page-margin); /* No floating sidebar space */
+    gap: var(--space-sm); /* Tighter gaps for 3-column */
   }
   
   .explorer-log {
@@ -711,10 +717,22 @@ a:hover {
     max-width: none;
   }
   
-  /* Show desktop sidebar */
-  .sidebar,
-  .view-controls {
+  /* Hide original floating sidebar */
+  .sidebar {
+    display: none;
+  }
+  
+  /* Show inline sidebar as third column */
+  .sidebar-inline {
     display: block;
+    width: 250px; /* Fixed width */
+    flex: 0 0 250px; /* Don't grow/shrink */
+    padding: var(--space-sm);
+    order: 3; /* Come after explorer log and projects */
+  }
+  
+  .view-controls {
+    display: none; /* Hide duplicate controls */
   }
   
   /* Hide mobile footer when sidebar appears */
