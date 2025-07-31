@@ -1290,6 +1290,12 @@ body.chaos-mode .chaos-toggle:hover {
   letter-spacing: 0.8px;
 }
 
+.workshop-shortcuts {
+  font-size: var(--type-label);
+  opacity: 0.7;
+  margin-left: var(--space-sm);
+}
+
 .workshop-exit {
   background: none;
   border: none;

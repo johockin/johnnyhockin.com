@@ -5,8 +5,15 @@ class SiteManager {
     this.chaosMode = localStorage.getItem('chaos') === 'true';
     this.easterEggClicks = 0;
     
+    console.log('🚀 SiteManager initializing...');
+    
     // Initialize WorkshopManager for live editing capabilities
-    this.workshop = new WorkshopManager();
+    try {
+      this.workshop = new WorkshopManager();
+      console.log('✅ WorkshopManager initialized successfully');
+    } catch (error) {
+      console.error('❌ WorkshopManager failed to initialize:', error);
+    }
     
     this.init();
   }
@@ -355,11 +362,18 @@ class SiteManager {
 // Workshop Mode - Live Content Management System
 class WorkshopManager {
   constructor() {
+    console.log('🔧 WorkshopManager constructor starting...');
+    
     this.KONAMI_SEQUENCE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
     this.sequence = [];
     this.sequenceTimeout = null;
     this.isWorkshopMode = false;
     this.session = null;
+    this.undoStack = [];
+    this.redoStack = [];
+    this.maxUndoSteps = 20;
+    
+    console.log('🎮 Konami sequence ready:', this.KONAMI_SEQUENCE);
     
     this.init();
   }
@@ -403,6 +417,7 @@ class WorkshopManager {
   
   onKonamiComplete() {
     console.log('🎮 Konami code detected - Workshop access requested');
+    console.log('🔧 Current workshop mode status:', this.isWorkshopMode);
     
     // Subtle visual feedback
     document.body.style.transition = 'filter 0.3s ease';
@@ -699,6 +714,19 @@ class WorkshopManager {
         e.preventDefault();
         this.saveAllChanges();
       }
+      
+      // Ctrl+Z undo
+      if (e.key === 'z' && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
+        e.preventDefault();
+        this.undo();
+      }
+      
+      // Ctrl+Shift+Z or Ctrl+Y redo
+      if ((e.key === 'z' && (e.ctrlKey || e.metaKey) && e.shiftKey) || 
+          (e.key === 'y' && (e.ctrlKey || e.metaKey))) {
+        e.preventDefault();
+        this.redo();
+      }
     });
   }
   
@@ -729,6 +757,9 @@ class WorkshopManager {
     }
     
     console.log('✏️ Starting edit for:', element.getAttribute('data-workshop-type'));
+    
+    // Save current state for undo
+    this.saveToUndoStack(element, element.textContent);
     
     this.currentEdit = element;
     element.classList.add('workshop-editing');
@@ -823,12 +854,15 @@ class WorkshopManager {
       return;
     }
     
+    // Prevent empty content - use placeholder if empty
+    const safeContent = finalContent.trim() || '[Click to edit]';
+    
     // Show optimistic update immediately
-    this.applyOptimisticUpdate(element, finalContent);
+    this.applyOptimisticUpdate(element, safeContent);
     
     // Save to backend
     try {
-      await this.saveContentChange(element, finalContent, originalContent);
+      await this.saveContentChange(element, safeContent, originalContent);
       this.showWorkshopMessage('Changes forged successfully', 'success');
     } catch (error) {
       console.error('Failed to save changes:', error);
@@ -996,6 +1030,74 @@ class WorkshopManager {
     this.showWorkshopMessage('All changes forged successfully', 'success');
   }
   
+  // Undo/Redo System
+  saveToUndoStack(element, content) {
+    const undoStep = {
+      element: element,
+      selector: this.generateSelector(element),
+      content: content,
+      timestamp: Date.now()
+    };
+    
+    this.undoStack.push(undoStep);
+    
+    // Limit undo stack size
+    if (this.undoStack.length > this.maxUndoSteps) {
+      this.undoStack.shift();
+    }
+    
+    // Clear redo stack when new action is performed
+    this.redoStack = [];
+    
+    console.log('💾 Saved to undo stack:', undoStep);
+  }
+  
+  undo() {
+    if (this.undoStack.length === 0) {
+      this.showWorkshopMessage('Nothing to undo', 'info');
+      return;
+    }
+    
+    const undoStep = this.undoStack.pop();
+    console.log('↶ Undoing:', undoStep);
+    
+    // Save current state to redo stack
+    const currentContent = undoStep.element.textContent;
+    this.redoStack.push({
+      element: undoStep.element,
+      selector: undoStep.selector,
+      content: currentContent,
+      timestamp: Date.now()
+    });
+    
+    // Apply undo
+    this.applyOptimisticUpdate(undoStep.element, undoStep.content);
+    this.showWorkshopMessage('Undid last change', 'success');
+  }
+  
+  redo() {
+    if (this.redoStack.length === 0) {
+      this.showWorkshopMessage('Nothing to redo', 'info');
+      return;
+    }
+    
+    const redoStep = this.redoStack.pop();
+    console.log('↷ Redoing:', redoStep);
+    
+    // Save current state back to undo stack
+    const currentContent = redoStep.element.textContent;
+    this.undoStack.push({
+      element: redoStep.element,
+      selector: redoStep.selector,
+      content: currentContent,
+      timestamp: Date.now()
+    });
+    
+    // Apply redo
+    this.applyOptimisticUpdate(redoStep.element, redoStep.content);
+    this.showWorkshopMessage('Redid last change', 'success');
+  }
+  
   showWorkshopIndicator() {
     const indicator = document.createElement('div');
     indicator.className = 'workshop-indicator';
@@ -1003,6 +1105,7 @@ class WorkshopManager {
       <div class="workshop-status">
         <span class="workshop-icon">🔧</span>
         <span class="workshop-text">Workshop Mode</span>
+        <span class="workshop-shortcuts">Ctrl+Z: Undo | Ctrl+Y: Redo</span>
         <button class="workshop-exit" id="workshop-exit">Exit</button>
       </div>
     `;
