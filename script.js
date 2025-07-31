@@ -775,9 +775,15 @@ class WorkshopManager {
     element.innerHTML = '';
     element.appendChild(editor);
     
-    // Focus and select
+    // Focus and select - ensure content is visible and selected
     editor.focus();
-    editor.select();
+    
+    // For better UX, select all content initially but allow cursor positioning
+    setTimeout(() => {
+      if (document.activeElement === editor) {
+        editor.select();
+      }
+    }, 0);
     
     // Show editing indicators
     this.showEditingState(element);
@@ -801,8 +807,16 @@ class WorkshopManager {
     editor.className = 'workshop-inline-editor';
     editor.value = originalText;
     
-    // Handle save on Enter (single-line) or Ctrl+Enter (multi-line)
+    // Track if user has interacted beyond initial selection
+    let hasUserInteracted = false;
+    
+    // Handle user interaction to preserve cursor position
     editor.addEventListener('keydown', (e) => {
+      // Mark as interacted on any key except Tab/Shift/Ctrl/etc
+      if (!['Tab', 'Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) {
+        hasUserInteracted = true;
+      }
+      
       if (e.key === 'Enter') {
         if (editor.tagName === 'INPUT' || (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
@@ -814,7 +828,19 @@ class WorkshopManager {
       }
     });
     
-    // Handle blur (click outside)
+    // Handle mouse clicks to allow cursor positioning
+    editor.addEventListener('mousedown', (e) => {
+      hasUserInteracted = true;
+    });
+    
+    // Handle arrow keys to allow cursor movement
+    editor.addEventListener('keyup', (e) => {
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
+        hasUserInteracted = true;
+      }
+    });
+    
+    // Handle blur (click outside) - but only save if content changed
     editor.addEventListener('blur', () => {
       setTimeout(() => {
         if (this.currentEdit === element) {
@@ -822,6 +848,13 @@ class WorkshopManager {
         }
       }, 100);
     });
+    
+    // Set up initial selection after a brief moment to ensure focus
+    setTimeout(() => {
+      if (!hasUserInteracted && document.activeElement === editor) {
+        editor.select();
+      }
+    }, 10);
     
     return editor;
   }
