@@ -29,9 +29,13 @@ exports.handler = async (event, context) => {
       bodyLength: event.body ? event.body.length : 0,
     });
 
-    // Verify session token
-    const authHeader = event.headers.authorization;
+    // Verify session token - check multiple header case variations
+    const authHeader = event.headers.authorization || 
+                      event.headers.Authorization || 
+                      event.headers['authorization'] ||
+                      event.headers['Authorization'];
     console.log('Auth header:', authHeader);
+    console.log('All headers:', Object.keys(event.headers));
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       console.log('No valid authorization header found');

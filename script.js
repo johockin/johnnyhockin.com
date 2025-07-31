@@ -1064,8 +1064,27 @@ class WorkshopManager {
     
     // Get session token
     const sessionToken = localStorage.getItem('workshop-session');
+    const sessionExpires = localStorage.getItem('workshop-expires');
+    
+    console.log('🔧 Workshop session check:', {
+      hasToken: !!sessionToken,
+      tokenLength: sessionToken ? sessionToken.length : 0,
+      expires: sessionExpires,
+      currentTime: Date.now(),
+      isExpired: sessionExpires ? Date.now() > parseInt(sessionExpires) : 'no expiry set'
+    });
+    
     if (!sessionToken) {
+      console.error('❌ No workshop session token found');
       throw new Error('No valid workshop session');
+    }
+    
+    // Check if session is expired
+    if (sessionExpires && Date.now() > parseInt(sessionExpires)) {
+      console.error('❌ Workshop session expired');
+      localStorage.removeItem('workshop-session');
+      localStorage.removeItem('workshop-expires');
+      throw new Error('Workshop session expired - please re-authenticate');
     }
     
     try {
