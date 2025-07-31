@@ -30,6 +30,7 @@
   - [x] **HYBRID DATA LOADING SYSTEM** (external JSON + embedded fallback)
   - [x] **FOUR-TIER RESPONSIVE LAYOUT** (mobile → side-by-side → three-column → grid)
   - [x] **TOM SACHS PAGE LAYOUTS** (Biography: CSS columns, Contact: 3-column blocks, Projects: Exhibition table)
+  - [ ] **WORKSHOP MODE CMS** (Konami code + PIN authentication, live editing via Netlify Functions)
 - **Tech constraints / requests from user**:
   - [x] Vanilla HTML/CSS/JS only (no frameworks, no build process)
   - [x] Static front-end for Netlify
@@ -434,6 +435,146 @@ This Tom Sachs aesthetic implementation demonstrates how traditional exhibition 
 
 ---
 
+## 🔧 WORKSHOP MODE CMS ARCHITECTURE
+
+### The Vision
+Transform the static site into a "Workshop Mode" - a live content management system that maintains the experimental, maker aesthetic while providing immediate editing capabilities. Users can access a hidden CMS by entering a Konami code sequence + PIN, then edit content directly on the web with changes appearing live in 2-5 seconds.
+
+### Core Philosophy: "Workshop as Creative Laboratory"
+
+**Design Principles:**
+- **Hidden in Plain Sight**: Access via Konami code maintains the experimental, playful nature
+- **Live Creative Flow**: Edit-to-live cycle under 5 seconds preserves creative momentum  
+- **Workshop Terminology**: "Forge changes" instead of "save", "Tools" instead of "admin panel"
+- **Vanilla Stack Maintained**: No frameworks added, pure enhancement of existing architecture
+- **Maker Aesthetic**: UI transformation reflects the inventor-storyteller identity
+
+### Technical Architecture
+
+**Authentication Flow:**
+```
+Konami Code Sequence → PIN Entry → JWT Session → Workshop Mode Activated
+```
+
+**Live Editing Flow:**
+```
+Content Edit → Optimistic UI Update → Netlify Function → JSON Persistence → Background GitHub Commit → Live Site Update (2-5s)
+```
+
+**Data Architecture:**
+- **Primary**: Netlify Functions for immediate persistence
+- **Secondary**: GitHub API for version control and audit trail
+- **Fallback**: Existing embedded data system for reliability
+- **Client**: Optimistic updates for instant feedback
+
+### Implementation Phases
+
+**Phase I: Secret Access System**
+- Konami code detection (↑↑↓↓←→←→BA)
+- PIN authentication with Web Crypto API hashing
+- Session management with localStorage + expiration
+- Rate limiting and security measures
+
+**Phase II: Live Editing Core**
+- Inline editing activation for content elements
+- Netlify Functions backend for data persistence
+- Optimistic UI updates for immediate feedback
+- Integration with existing data.json structure
+
+**Phase III: Version Control Integration**
+- Background GitHub API commits
+- Audit trail for all changes
+- Rollback capabilities via git history
+- Automated sync with embedded data system
+
+**Phase IV: Workshop UI Transformation**
+- Subtle visual indicators for editable content
+- Workshop-themed success/error messaging
+- Creative terminology throughout interface
+- Performance metrics and editing feedback
+
+### Security Architecture
+
+**Multi-layered Protection:**
+- **Authentication**: Konami code + salted PIN hash + JWT tokens
+- **Authorization**: Session expiration + device fingerprinting
+- **Input Validation**: XSS protection + data structure validation
+- **Rate Limiting**: Failed attempt lockouts + session management
+- **Audit Trail**: All changes logged via GitHub commits
+
+### User Experience Design
+
+**Entry Experience:**
+1. User enters Konami code anywhere on site
+2. Subtle visual cue indicates sequence detected
+3. PIN entry modal appears with workshop theming
+4. Successful auth triggers site transformation
+
+**Workshop Mode Experience:**
+- Content elements gain subtle edit indicators
+- Click-to-edit functionality with inline forms
+- Real-time preview with optimistic updates
+- Workshop terminology: "Forge", "Craft", "Workshop Tools"
+- Status feedback: "Changes forged successfully"
+
+**Exit Experience:**
+- Manual exit or automatic session timeout
+- Site returns to normal appearance
+- All changes persist and remain live
+
+### Technical Benefits
+
+**Performance:**
+- 2-5 second edit-to-live cycle
+- Optimistic UI for instant feedback
+- Background processing for heavy operations
+- Minimal impact on site performance
+
+**Reliability:**
+- Multiple fallback layers
+- Existing hybrid data system maintained
+- GitHub version control for change history
+- Client-side validation before server requests
+
+**Maintainability:**
+- Pure vanilla architecture enhancement
+- Modular implementation in existing SiteManager
+- Clear separation of workshop vs public functionality
+- Comprehensive error handling and logging
+
+### File Structure Enhancement
+
+```
+/Users/johnnyhockin/AI Playground/johnnyhockin.com/
+├── script.js (enhanced with WorkshopManager)
+├── styles.css (workshop mode styles added)
+├── data.json (existing - now editable via workshop)
+├── data-embedded.js (existing - auto-updated)
+├── functions/
+│   ├── workshop-auth.js (authentication endpoint)
+│   ├── workshop-edit.js (content editing endpoint)
+│   └── workshop-sync.js (GitHub integration)
+└── .env (workshop configuration)
+```
+
+### Success Metrics
+
+**User Experience:**
+- Sub-5 second edit-to-live cycle
+- Zero failed authentication attempts after setup
+- 100% content preservation during edits
+- Seamless integration with existing site aesthetic
+
+**Technical Performance:**
+- 99.9% uptime for workshop functionality
+- Zero data corruption incidents
+- Complete audit trail for all changes
+- Backward compatibility maintained
+
+This Workshop Mode architecture represents the perfect evolution of the site - maintaining its experimental, maker identity while adding powerful live editing capabilities that feel native to the overall aesthetic and technical philosophy.
+
+---
+
 ## 🏗️ TECH ARCHITECTURE
 
 - **Framework / language**: Vanilla HTML/CSS/JavaScript - Chosen for maximum simplicity, performance, and maintainability without build complexity
@@ -523,10 +664,14 @@ This Tom Sachs aesthetic implementation demonstrates how traditional exhibition 
 - All core features implemented and working
 
 ### NEXT  
+- **WORKSHOP MODE CMS IMPLEMENTATION**
+  - Phase 1: Konami code + PIN authentication system
+  - Phase 2: Basic inline editing with Netlify Functions backend  
+  - Phase 3: GitHub API integration for version control
+  - Phase 4: Full workshop UI transformation with creative terminology
 - Test and refine Tom Sachs projects table layout with real project data
 - Optimize image sizing and loading for projects table layout
 - Content population with real projects and log entries
-- Cross-browser testing and refinement
 
 ### LATER
 - Mobile-specific interaction improvements

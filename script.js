@@ -5,6 +5,9 @@ class SiteManager {
     this.chaosMode = localStorage.getItem('chaos') === 'true';
     this.easterEggClicks = 0;
     
+    // Initialize WorkshopManager for live editing capabilities
+    this.workshop = new WorkshopManager();
+    
     this.init();
   }
 
@@ -346,6 +349,315 @@ class SiteManager {
         { id: "gesture-recognition", title: "02 Hand Gesture Recognition", description: "Computer vision experiment for controlling devices through hand movements." }
       ]);
     }
+  }
+}
+
+// Workshop Mode - Live Content Management System
+class WorkshopManager {
+  constructor() {
+    this.KONAMI_SEQUENCE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+    this.sequence = [];
+    this.sequenceTimeout = null;
+    this.isWorkshopMode = false;
+    this.session = null;
+    
+    this.init();
+  }
+  
+  init() {
+    this.setupKonamiDetection();
+    this.checkExistingSession();
+  }
+  
+  setupKonamiDetection() {
+    document.addEventListener('keydown', (e) => {
+      // Reset sequence on timeout or wrong key
+      if (this.sequenceTimeout) {
+        clearTimeout(this.sequenceTimeout);
+      }
+      
+      // Check if key matches next in sequence
+      const expectedKey = this.KONAMI_SEQUENCE[this.sequence.length];
+      
+      if (e.code === expectedKey) {
+        this.sequence.push(e.code);
+        
+        // Complete sequence detected
+        if (this.sequence.length === this.KONAMI_SEQUENCE.length) {
+          this.onKonamiComplete();
+          this.sequence = [];
+          return;
+        }
+        
+        // Set timeout to reset sequence if too slow
+        this.sequenceTimeout = setTimeout(() => {
+          this.sequence = [];
+        }, 2000);
+        
+      } else {
+        // Wrong key, reset sequence
+        this.sequence = [];
+      }
+    });
+  }
+  
+  onKonamiComplete() {
+    console.log('🎮 Konami code detected - Workshop access requested');
+    
+    // Subtle visual feedback
+    document.body.style.transition = 'filter 0.3s ease';
+    document.body.style.filter = 'brightness(1.1)';
+    setTimeout(() => {
+      document.body.style.filter = '';
+    }, 300);
+    
+    // Show PIN entry modal
+    this.showPinModal();
+  }
+  
+  showPinModal() {
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.className = 'workshop-modal-overlay';
+    modal.innerHTML = `
+      <div class="workshop-modal">
+        <div class="workshop-header">
+          <h2>Workshop Access</h2>
+          <p>Enter PIN to activate Workshop Mode</p>
+        </div>
+        <div class="workshop-form">
+          <input type="password" id="workshop-pin" placeholder="•••••" maxlength="5" autocomplete="off">
+          <div class="workshop-buttons">
+            <button id="workshop-submit">Enter Workshop</button>
+            <button id="workshop-cancel">Cancel</button>
+          </div>
+        </div>
+        <div class="workshop-attempts" id="workshop-attempts"></div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Focus PIN input
+    const pinInput = document.getElementById('workshop-pin');
+    pinInput.focus();
+    
+    // Handle form submission
+    const submitBtn = document.getElementById('workshop-submit');
+    const cancelBtn = document.getElementById('workshop-cancel');
+    
+    const handleSubmit = () => this.verifyPin(pinInput.value, modal);
+    const handleCancel = () => this.closeModal(modal);
+    
+    submitBtn.addEventListener('click', handleSubmit);
+    cancelBtn.addEventListener('click', handleCancel);
+    
+    // Enter key submits
+    pinInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      } else if (e.key === 'Escape') {
+        handleCancel();
+      }
+    });
+    
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        handleCancel();
+      }
+    });
+  }
+  
+  async verifyPin(pin, modal) {
+    // Check rate limiting
+    const attempts = this.getRateLimitInfo();
+    if (attempts.locked) {
+      this.showError('Workshop access temporarily locked. Try again later.', modal);
+      return;
+    }
+    
+    try {
+      const isValid = await this.validatePin(pin);
+      
+      if (isValid) {
+        this.onAuthSuccess(modal);
+      } else {
+        this.onAuthFailure(modal);
+      }
+    } catch (error) {
+      console.error('Workshop authentication error:', error);
+      this.showError('Authentication system temporarily unavailable.', modal);
+    }
+  }
+  
+  async validatePin(pin) {
+    // For now, use a simple PIN. Later we'll implement proper hashing
+    const WORKSHOP_PIN = '12345'; // TODO: Replace with hashed PIN
+    
+    // Simulate async validation delay
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    return pin === WORKSHOP_PIN;
+  }
+  
+  onAuthSuccess(modal) {
+    console.log('✅ Workshop authentication successful');
+    
+    // Store session
+    const sessionData = {
+      authenticated: true,
+      timestamp: Date.now(),
+      expires: Date.now() + (2 * 60 * 60 * 1000) // 2 hours
+    };
+    
+    localStorage.setItem('workshop-session', JSON.stringify(sessionData));
+    this.session = sessionData;
+    
+    // Clear rate limiting
+    localStorage.removeItem('workshop-attempts');
+    
+    // Close modal with success animation
+    modal.querySelector('.workshop-modal').style.transform = 'scale(1.05)';
+    modal.querySelector('.workshop-modal').style.background = 'var(--color-bg)';
+    
+    setTimeout(() => {
+      this.closeModal(modal);
+      this.activateWorkshopMode();
+    }, 500);
+  }
+  
+  onAuthFailure(modal) {
+    console.log('❌ Workshop authentication failed');
+    
+    // Update rate limiting
+    const attempts = this.getRateLimitInfo();
+    attempts.count++;
+    attempts.lastAttempt = Date.now();
+    
+    if (attempts.count >= 5) {
+      attempts.locked = true;
+      attempts.lockUntil = Date.now() + (15 * 60 * 1000); // 15 minutes
+    }
+    
+    localStorage.setItem('workshop-attempts', JSON.stringify(attempts));
+    
+    // Show error
+    if (attempts.locked) {
+      this.showError('Too many failed attempts. Workshop access locked for 15 minutes.', modal);
+    } else {
+      this.showError(`Invalid PIN. ${5 - attempts.count} attempts remaining.`, modal);
+    }
+    
+    // Clear input
+    document.getElementById('workshop-pin').value = '';
+    document.getElementById('workshop-pin').focus();
+  }
+  
+  getRateLimitInfo() {
+    const stored = localStorage.getItem('workshop-attempts');
+    const attempts = stored ? JSON.parse(stored) : { count: 0, lastAttempt: 0, locked: false, lockUntil: 0 };
+    
+    // Reset if lock expired
+    if (attempts.locked && Date.now() > attempts.lockUntil) {
+      attempts.locked = false;
+      attempts.count = 0;
+    }
+    
+    // Reset count after 1 hour of no attempts
+    if (Date.now() - attempts.lastAttempt > 60 * 60 * 1000) {
+      attempts.count = 0;
+    }
+    
+    return attempts;
+  }
+  
+  showError(message, modal) {
+    const attemptsDiv = modal.querySelector('#workshop-attempts');
+    attemptsDiv.textContent = message;
+    attemptsDiv.style.color = 'var(--color-accent)';
+    
+    // Shake animation
+    const form = modal.querySelector('.workshop-modal');
+    form.style.animation = 'workshop-shake 0.5s ease-in-out';
+    setTimeout(() => {
+      form.style.animation = '';
+    }, 500);
+  }
+  
+  closeModal(modal) {
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      document.body.removeChild(modal);
+    }, 300);
+  }
+  
+  checkExistingSession() {
+    const stored = localStorage.getItem('workshop-session');
+    if (stored) {
+      const session = JSON.parse(stored);
+      
+      // Check if session is still valid
+      if (session.authenticated && Date.now() < session.expires) {
+        this.session = session;
+        this.activateWorkshopMode();
+      } else {
+        // Clear expired session
+        localStorage.removeItem('workshop-session');
+      }
+    }
+  }
+  
+  activateWorkshopMode() {
+    console.log('🔧 Workshop Mode activated');
+    this.isWorkshopMode = true;
+    
+    // Add workshop mode class to body
+    document.body.classList.add('workshop-mode');
+    
+    // Show workshop indicator
+    this.showWorkshopIndicator();
+    
+    // TODO: Phase II - Enable inline editing
+    // TODO: Phase III - Setup GitHub integration  
+    // TODO: Phase IV - Full UI transformation
+  }
+  
+  showWorkshopIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'workshop-indicator';
+    indicator.innerHTML = `
+      <div class="workshop-status">
+        <span class="workshop-icon">🔧</span>
+        <span class="workshop-text">Workshop Mode</span>
+        <button class="workshop-exit" id="workshop-exit">Exit</button>
+      </div>
+    `;
+    
+    document.body.appendChild(indicator);
+    
+    // Exit functionality
+    document.getElementById('workshop-exit').addEventListener('click', () => {
+      this.deactivateWorkshopMode();
+    });
+  }
+  
+  deactivateWorkshopMode() {
+    console.log('🔧 Workshop Mode deactivated');
+    this.isWorkshopMode = false;
+    
+    // Remove workshop mode class
+    document.body.classList.remove('workshop-mode');
+    
+    // Remove indicator
+    const indicator = document.querySelector('.workshop-indicator');
+    if (indicator) {
+      document.body.removeChild(indicator);
+    }
+    
+    // Clear session
+    localStorage.removeItem('workshop-session');
+    this.session = null;
   }
 }
 
