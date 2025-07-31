@@ -179,12 +179,13 @@ class SiteManager {
       if (container.classList.contains('projects-table') || container.parentElement.classList.contains('projects-layout')) {
         container.innerHTML = data.projects.map(project => `
           <div class="project-table-item">
-            ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-table-image">` : '<div class="project-table-image-placeholder"></div>'}
+            ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-table-image">` : '<div class="project-table-image-placeholder">NO IMAGE</div>'}
           </div>
           <div class="project-table-item">
             <div class="project-table-title">${project.title}</div>
             <div class="project-table-location">${project.location || 'Personal Studio, Toronto'}</div>
             <div class="project-table-date">${project.date || new Date().getFullYear()}</div>
+            <div class="project-table-category">${project.category || ''}</div>
           </div>
           <div class="project-table-item">
             <div class="project-table-description">${project.description}</div>

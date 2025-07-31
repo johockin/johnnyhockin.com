@@ -1,6 +1,6 @@
-// Auto-generated from data.json - DO NOT EDIT MANUALLY
-// Generated at: 2025-07-30T17:08:10.260Z
-// Run 'node sync-data.js' to regenerate when data.json changes
+// Embedded Data Fallback - Auto-generated from data.json
+// Last updated: 2025-07-31
+// This file provides complete fallback data when external data.json cannot be loaded
 
 window.EMBEDDED_SITE_DATA = {
   "site": {
@@ -11,8 +11,8 @@ window.EMBEDDED_SITE_DATA = {
   "explorerLog": [
     {
       "id": "log-001",
-      "date": "2024.01.28",
-      "content": "Keyboard project update: The PCB arrived from JLCPCB today. Quality looks excellent—the silkscreen is crisp and all the vias are properly filled. Time to start assembly. Found a potential issue with the USB-C footprint that might cause problems with some cables. Will test extensively before finalizing the design."
+      "date": "2025.07.31",
+      "content": "Building this new website, based on a personal site design I created in 1999, although at that time there was no need to make a site responsive."
     },
     {
       "id": "log-002",
@@ -422,4 +422,13 @@ window.EMBEDDED_SITE_DATA = {
   ]
 };
 
-console.log('📦 Embedded site data loaded (4 sections)');
+// Data integrity check
+if (window.EMBEDDED_SITE_DATA) {
+  console.log('📦 Embedded data loaded successfully:', {
+    explorerLogEntries: window.EMBEDDED_SITE_DATA.explorerLog?.length || 0,
+    projects: window.EMBEDDED_SITE_DATA.projects?.length || 0,
+    otherProjects: window.EMBEDDED_SITE_DATA.otherProjects?.length || 0
+  });
+} else {
+  console.error('❌ Failed to load embedded data');
+}

@@ -1,7 +1,7 @@
 /* Fully Responsive Grid System - Tom Sachs Inspired */
 :root {
   --font-primary: 'Courier Prime', monospace;
-  --font-secondary: 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --color-bg: #ffffff;
   --color-text: #000000;
   --color-link: #000000;
@@ -524,6 +524,17 @@ a:hover {
   object-fit: cover;
 }
 
+.project-table-image-placeholder {
+  width: 100%;
+  height: 120px;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--type-uniform);
+  color: var(--color-bg);
+}
+
 .project-table-meta {
   font-size: var(--type-uniform);
   line-height: 1.4;
@@ -551,6 +562,14 @@ a:hover {
   font-size: var(--type-uniform);
   line-height: 1.4;
   color: var(--color-text);
+}
+
+.project-table-category {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
 .project-table-description {
