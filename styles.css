@@ -488,7 +488,97 @@ a:hover {
   line-height: 1.4;
 }
 
-/* Fully Responsive Projects Grid */
+/* Tom Sachs-inspired Projects Table Layout */
+.projects-main {
+  padding: var(--space-sm) var(--page-margin);
+  display: block !important;
+  flex-direction: initial !important;
+  grid-template-columns: initial !important;
+}
+
+.projects-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: var(--space-lg);
+  color: var(--color-text);
+}
+
+.projects-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  row-gap: var(--space-lg);
+  column-gap: var(--space-md);
+  width: 100%;
+}
+
+.project-table-item {
+  display: contents;
+}
+
+.project-table-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.project-table-meta {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.project-table-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.project-table-location {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.project-table-date {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.project-table-description {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* Responsive projects table */
+@media (max-width: 900px) {
+  .projects-table {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .project-table-item {
+    display: block;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-accent);
+  }
+  
+  .project-table-item:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Legacy project grid styles for backwards compatibility */
 .project-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
@@ -518,21 +608,144 @@ a:hover {
   line-height: 1.4;
 }
 
-/* Responsive Biography Content */
-.bio-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: var(--space-lg);
-  max-width: var(--content-width);
+/* Tom Sachs-inspired Biography Layout */
+.bio-main {
+  padding: var(--space-sm) var(--page-margin);
+  display: block !important;
+  flex-direction: initial !important;
+  grid-template-columns: initial !important;
+}
+
+.bio-layout {
+  columns: 4;
+  column-gap: var(--space-md);
   width: 100%;
 }
 
-.bio-content p {
-  font-size: var(--type-body);
+.bio-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   line-height: 1.4;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+  break-inside: avoid;
 }
 
-/* Responsive Contact Layout */
+.bio-description {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-align: left;
+  margin-bottom: var(--space-lg);
+}
+
+.bio-section {
+  break-inside: avoid;
+  margin-bottom: var(--space-lg);
+}
+
+.bio-section-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+.bio-list {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* Responsive biography columns */
+@media (max-width: 900px) {
+  .bio-layout {
+    columns: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .bio-layout {
+    columns: 1;
+  }
+}
+
+/* Tom Sachs-inspired Contact Layout */
+.contact-main {
+  padding: var(--space-sm) var(--page-margin);
+  display: block !important;
+  flex-direction: initial !important;
+  grid-template-columns: initial !important;
+}
+
+.contact-layout {
+  columns: 3;
+  column-gap: var(--space-md);
+  width: 100%;
+}
+
+.contact-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+  break-inside: avoid;
+}
+
+.contact-section {
+  break-inside: avoid;
+  margin-bottom: var(--space-lg);
+}
+
+.contact-section-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+.contact-list {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.contact-principles {
+  margin-top: var(--space-lg);
+}
+
+.principles-text {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-align: left;
+}
+
+/* Responsive contact columns */
+@media (max-width: 900px) {
+  .contact-layout {
+    columns: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-layout {
+    columns: 1;
+  }
+}
+
+/* Legacy contact styles for backwards compatibility */
 .contact-info {
   display: grid;
   grid-template-columns: 1fr;

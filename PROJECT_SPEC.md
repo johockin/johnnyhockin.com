@@ -29,6 +29,7 @@
   - [x] **COMPREHENSIVE RESPONSIVE SYSTEM** (see detailed journey below)
   - [x] **HYBRID DATA LOADING SYSTEM** (external JSON + embedded fallback)
   - [x] **FOUR-TIER RESPONSIVE LAYOUT** (mobile → side-by-side → three-column → grid)
+  - [x] **TOM SACHS PAGE LAYOUTS** (Biography: CSS columns, Contact: 3-column blocks, Projects: Exhibition table)
 - **Tech constraints / requests from user**:
   - [x] Vanilla HTML/CSS/JS only (no frameworks, no build process)
   - [x] Static front-end for Netlify
@@ -213,6 +214,226 @@ This responsive system represents a comprehensive solution that balances aesthet
 
 ---
 
+## 🎨 TOM SACHS AESTHETIC IMPLEMENTATION JOURNEY
+
+### The Inspiration
+After completing the responsive system, the user provided screenshots from Tom Sachs websites showing systematic, dense information layouts with text blocks flowing naturally in columns. The challenge was translating this exhibition-style aesthetic into web layouts while maintaining responsive functionality.
+
+### Biography Page Transformation
+
+**Original Challenge**: Biography page was "very one-column focused" when user wanted "rightward flow" with "skinnier columns" for a more "modular" feel.
+
+**Technical Solution**: CSS Columns Implementation
+```css
+.bio-layout {
+  columns: 4;
+  column-gap: var(--space-md);
+  width: 100%;
+}
+```
+
+**Responsive Breakpoints**:
+- Large screens (900px+): 4 columns for maximum density
+- Medium screens (600-900px): 2 columns for readability  
+- Mobile (<600px): 1 column for optimal mobile experience
+
+**Key CSS Properties**:
+- `break-inside: avoid` on sections to prevent awkward column breaks
+- Natural content flow instead of rigid grid positioning
+- Systematic typography with uniform sizing throughout
+
+### Contact Page Architecture
+
+**User Requirement**: Contact page should be "3 column on medium, instead of one column left is small and 1 column right is larger"
+
+**Implementation Strategy**: 
+- Direct Communication | Collaboration Interests | Technical Consulting | Speaking & Workshops
+- Principle text at bottom spanning multiple columns
+- Natural column flow for readability
+
+**Technical Challenge Solved**: "Inexplicable huge white space on the right" 
+- **Root Cause**: CSS grid inheritance from parent containers
+- **Solution**: Explicit override with `!important` declarations to prevent grid inheritance
+
+### Projects Page: Exhibition Table Layout
+
+**Inspiration**: Tom Sachs exhibition screenshot showing systematic table with "photo then title/metadata, then writeup, in successive blocks"
+
+**User Vision**: "Height of it all can just be whatever fits, in terms of any section, and also the photo should just be resized to fit the width of the left column"
+
+**Technical Implementation**:
+```css
+.projects-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  row-gap: var(--space-lg);
+  column-gap: var(--space-md);
+  width: 100%;
+}
+
+.project-table-item {
+  display: contents;
+}
+```
+
+**JavaScript Architecture**:
+- Updated `loadProjectsPage()` to detect table layout vs legacy grid
+- `display: contents` pattern for semantic table structure  
+- Conditional rendering based on container class detection
+
+**Image Sizing Strategy**:
+- `width: 100%` and `object-fit: cover` for automatic left column width fitting
+- Responsive scaling maintains aspect ratios
+- No fixed dimensions - images adapt to grid column naturally
+
+**Mobile Responsive Strategy**:
+```css
+@media (max-width: 900px) {
+  .projects-table {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .project-table-item {
+    display: block;
+    margin-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-accent);
+  }
+}
+```
+
+### CSS Columns vs CSS Grid Decision Matrix
+
+**CSS Columns Chosen For**:
+- Biography content (natural text flow)
+- Contact information (content-driven column breaks)
+- Better for content that should flow naturally
+
+**CSS Grid Chosen For**:  
+- Projects table (structured data presentation)
+- Homepage layout (precise column control)
+- Better for structured layouts with defined relationships
+
+### Typography Consistency Breakthrough
+
+**Challenge**: Maintaining Tom Sachs uniform typography across all new layouts
+
+**Solution**: Systematic application of existing type system
+```css
+.bio-section-title,
+.contact-section-title,
+.project-table-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+```
+
+**Key Insight**: All text elements use `var(--type-uniform)` for true systematic typography
+
+### Development Process Evolution
+
+**1. Visual Reference Analysis**
+- Screenshots provided by user analyzed for layout patterns
+- Key elements identified: columns, spacing, systematic typography
+- Responsive considerations planned from start
+
+**2. Iterative Implementation**
+- Start with one page type (biography)  
+- Implement basic structure
+- Refine based on user feedback ("I want more text to appear")
+- Apply learnings to subsequent pages
+
+**3. Cross-Page Consistency**
+- Shared CSS patterns for section titles
+- Consistent spacing using existing custom properties
+- Unified responsive breakpoint strategy
+
+### User Experience Insights
+
+**1. Information Density Preference**
+- User consistently wanted "more text to appear"
+- Preference for dense, systematic layouts over spacious designs
+- "Skinnier columns" create more modular, scannable content
+
+**2. Responsive Flow Expectations**
+- Content should break into columns "more often"
+- Natural column flow preferred over rigid grid positioning
+- Mobile collapse should be clean and linear
+
+**3. Visual Hierarchy Through Layout**
+- Systematic typography creates hierarchy through positioning, not size variation
+- Column layouts create natural reading flow
+- Consistent spacing maintains rhythm across breakpoints
+
+### Final Tom Sachs Aesthetic Achievements
+
+**Biography Page**:
+```
+Large (4 col):     Medium (2 col):     Mobile (1 col):
+┌──┬──┬──┬──┐     ┌─────┬─────┐       ┌─────────────┐
+│Ed│Pr│Te│To│     │ Edu │Tech │       │  Education  │
+│uc│oj│ch│ol│     │ Proj│Tool │       │  Projects   │
+│at│ec│ni│s │     │     │     │       │  Technical  │
+│io│ts│ca│  │     │     │     │       │  Tools      │
+│n │  │l │  │     │     │     │       │             │
+└──┴──┴──┴──┘     └─────┴─────┘       └─────────────┘
+```
+
+**Contact Page**:
+```
+Large (3 col):           Medium (2 col):         Mobile (1 col):
+┌────┬────┬────┐        ┌──────┬──────┐        ┌────────────┐
+│Dir │Col │Tec │        │Direct│Collab│        │   Direct   │
+│ect │lab │hni │        │Tech  │Speak │        │   Collab   │
+│    │    │cal │        │      │      │        │  Technical │
+│    │    │    │        │      │      │        │  Speaking  │
+└────┴────┴────┘        └──────┴──────┘        └────────────┘
+│ Principles spanning │   │ Principles span │    │Principles  │
+└────────────────────┘   └────────────────┘     └────────────┘
+```
+
+**Projects Page**:
+```
+Large (3-col table):              Mobile (stacked):
+┌─────┬─────────┬─────────────┐    ┌─────────────────┐
+│Image│Title    │Description  │    │     Image       │
+│     │Location │Lorem ipsum  │    │     Title       │
+│     │Date     │dolor sit... │    │     Location    │
+│     │         │             │    │     Date        │
+├─────┼─────────┼─────────────┤    │   Description   │
+│Image│Title    │Description  │    │   Lorem ipsum   │
+│     │Metadata │Text content │    ├─────────────────┤
+└─────┴─────────┴─────────────┘    │   Next Project  │
+```
+
+### Success Metrics
+
+**User Validation**:
+- Biography: Achieved desired "rightward flow" with modular columns
+- Contact: Fixed white space issue and achieved proper 3-column layout
+- Projects: Successfully implemented Tom Sachs exhibition table aesthetic
+
+**Technical Achievements**:
+- ✅ Seamless responsive behavior across all three page types
+- ✅ Maintained existing design system and typography
+- ✅ Natural content flow using CSS columns where appropriate
+- ✅ Structured data presentation using CSS grid where appropriate
+- ✅ Image sizing automatically adapts to column widths
+- ✅ Mobile-first responsive strategy maintained
+
+**Aesthetic Alignment**:
+- ✅ Systematic, dense information presentation
+- ✅ Left-aligned, never centered approach maintained
+- ✅ Modular, block-based layouts achieved
+- ✅ Tom Sachs exhibition-style organization implemented
+
+This Tom Sachs aesthetic implementation demonstrates how traditional exhibition and print design principles can be successfully translated to responsive web layouts while maintaining technical excellence and user experience standards.
+
+---
+
 ## 🏗️ TECH ARCHITECTURE
 
 - **Framework / language**: Vanilla HTML/CSS/JavaScript - Chosen for maximum simplicity, performance, and maintainability without build complexity
@@ -226,6 +447,32 @@ This responsive system represents a comprehensive solution that balances aesthet
 ---
 
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
+
+### 2024-07-31 - Tom Sachs Projects Table Layout Implementation
+- **Redesigned**: Projects page with Tom Sachs exhibition-style table layout (image | title/metadata | description)
+- **Updated**: `projects.html` structure from `.project-items` to `.projects-table` container
+- **Added**: CSS grid system with 3-column layout (1fr 1fr 2fr) for table structure
+- **Implemented**: `display: contents` pattern in JavaScript for semantic table structure
+- **Added**: Responsive table layout that collapses to single column on mobile (< 900px)
+- **Styled**: Project table components (title, location, date, description) with uniform typography
+- **Technical**: Updated `loadProjectsPage()` function to generate new table HTML structure
+- **CSS**: Added comprehensive `.projects-table` styles with proper image sizing and spacing
+- **Decision**: Images sized to fit left column width automatically via `width: 100%` and `object-fit: cover`
+
+### 2024-07-31 - Tom Sachs Biography & Contact Layouts
+- **Redesigned**: Biography page with Tom Sachs systematic layout using CSS columns (4 → 2 → 1 responsive)
+- **Redesigned**: Contact page with Tom Sachs block-based approach using CSS columns (3 → 2 → 1 responsive) 
+- **Fixed**: Contact page white space issue on medium screens with proper column override
+- **Updated**: Both pages to use `break-inside: avoid` for better column flow
+- **Refined**: Column layouts to break into multi-column earlier with proper responsive breakpoints
+- **CSS**: Added `.bio-layout` and `.contact-layout` with natural column flow instead of rigid grids
+- **Decision**: Moved from grid-based to column-based layouts for better content flow and readability
+
+### 2024-07-31 - Post-Responsive Layout Polish
+- **Fixed**: Removed nav bar white background to allow content scrolling underneath
+- **Fixed**: Excessive vertical spacing between project items on homepage by removing `margin-bottom: var(--space-lg)` from `.project-description`
+- **Refined**: Project grid spacing to match log entries exactly (1.5rem gap)
+- **Commit**: "Fix responsive layout issues" - consolidated navigation and spacing improvements
 
 ### 2024-01-30 - Navigation & Link Styling Refinement
 - **Changed**: Navigation from centered to left-aligned (NEVER center principle established)
@@ -276,8 +523,9 @@ This responsive system represents a comprehensive solution that balances aesthet
 - All core features implemented and working
 
 ### NEXT  
+- Test and refine Tom Sachs projects table layout with real project data
+- Optimize image sizing and loading for projects table layout
 - Content population with real projects and log entries
-- Image optimization and integration
 - Cross-browser testing and refinement
 
 ### LATER
@@ -303,6 +551,8 @@ This responsive system represents a comprehensive solution that balances aesthet
 - **M2**: Navigation refinement and link styling system
 - **M3**: Grid system optimization and Tom Sachs influence integration
 - **M4**: Content structure and CMS implementation
+- **M5**: Comprehensive responsive system implementation (4-tier layout)
+- **M6**: Tom Sachs aesthetic layouts (Biography CSS columns, Contact 3-column, Projects exhibition table)
 
 ---
 

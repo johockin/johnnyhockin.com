@@ -175,15 +175,33 @@ class SiteManager {
   loadProjectsPage(data) {
     const container = document.getElementById('allProjects');
     if (container && data.projects) {
-      container.innerHTML = data.projects.map(project => `
-        <div class="project-item">
-          ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
-          <div class="project-title">
-            <a href="project.html?id=${project.id}">${project.title}</a>
+      // Check if we're using the new table layout
+      if (container.classList.contains('projects-table') || container.parentElement.classList.contains('projects-layout')) {
+        container.innerHTML = data.projects.map(project => `
+          <div class="project-table-item">
+            ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-table-image">` : '<div class="project-table-image-placeholder"></div>'}
           </div>
-          <div class="project-description">${project.description}</div>
-        </div>
-      `).join('');
+          <div class="project-table-item">
+            <div class="project-table-title">${project.title}</div>
+            <div class="project-table-location">${project.location || 'Personal Studio, Toronto'}</div>
+            <div class="project-table-date">${project.date || new Date().getFullYear()}</div>
+          </div>
+          <div class="project-table-item">
+            <div class="project-table-description">${project.description}</div>
+          </div>
+        `).join('');
+      } else {
+        // Legacy grid layout
+        container.innerHTML = data.projects.map(project => `
+          <div class="project-item">
+            ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
+            <div class="project-title">
+              <a href="project.html?id=${project.id}">${project.title}</a>
+            </div>
+            <div class="project-description">${project.description}</div>
+          </div>
+        `).join('');
+      }
     } else {
       console.log('Container or data.projects not found', container, data.projects);
     }
