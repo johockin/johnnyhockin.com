@@ -618,9 +618,382 @@ class WorkshopManager {
     // Show workshop indicator
     this.showWorkshopIndicator();
     
-    // TODO: Phase II - Enable inline editing
+    // Enable inline editing
+    this.enableInlineEditing();
+    
     // TODO: Phase III - Setup GitHub integration  
     // TODO: Phase IV - Full UI transformation
+  }
+  
+  enableInlineEditing() {
+    console.log('✏️ Enabling inline editing capabilities');
+    
+    // Make content elements editable
+    this.makeContentEditable();
+    
+    // Setup edit event handlers
+    this.setupEditHandlers();
+    
+    // Add visual edit indicators
+    this.addEditIndicators();
+  }
+  
+  makeContentEditable() {
+    // Define editable content selectors
+    const editableSelectors = [
+      '.log-content',     // Explorer log entries
+      '.log-date',        // Log dates
+      '.project-title a', // Project titles
+      '.project-description', // Project descriptions
+      '.project-table-title', // Tom Sachs table titles
+      '.project-table-description', // Tom Sachs table descriptions
+      '.section-title',   // Section headings
+    ];
+    
+    editableSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        element.classList.add('workshop-editable');
+        element.setAttribute('data-workshop-type', this.getContentType(selector));
+        element.setAttribute('data-workshop-original', element.textContent);
+      });
+    });
+  }
+  
+  getContentType(selector) {
+    const typeMap = {
+      '.log-content': 'log-content',
+      '.log-date': 'log-date', 
+      '.project-title a': 'project-title',
+      '.project-description': 'project-description',
+      '.project-table-title': 'project-title',
+      '.project-table-description': 'project-description',
+      '.section-title': 'section-title'
+    };
+    return typeMap[selector] || 'text';
+  }
+  
+  setupEditHandlers() {
+    // Click to edit
+    document.addEventListener('click', (e) => {
+      if (!this.isWorkshopMode) return;
+      
+      const editableElement = e.target.closest('.workshop-editable');
+      if (editableElement) {
+        e.preventDefault();
+        this.startEditing(editableElement);
+      }
+    });
+    
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (!this.isWorkshopMode) return;
+      
+      // Escape cancels editing
+      if (e.key === 'Escape' && this.currentEdit) {
+        this.cancelEdit();
+      }
+      
+      // Ctrl+S saves all changes
+      if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.saveAllChanges();
+      }
+    });
+  }
+  
+  addEditIndicators() {
+    const editableElements = document.querySelectorAll('.workshop-editable');
+    editableElements.forEach(element => {
+      element.style.position = 'relative';
+      element.style.cursor = 'text';
+      
+      // Add subtle hover effect
+      element.addEventListener('mouseenter', () => {
+        if (!this.isWorkshopMode || element.classList.contains('workshop-editing')) return;
+        element.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+      });
+      
+      element.addEventListener('mouseleave', () => {
+        if (!element.classList.contains('workshop-editing')) {
+          element.style.backgroundColor = '';
+        }
+      });
+    });
+  }
+  
+  startEditing(element) {
+    // Prevent multiple simultaneous edits
+    if (this.currentEdit && this.currentEdit !== element) {
+      this.finishEditing(this.currentEdit);
+    }
+    
+    console.log('✏️ Starting edit for:', element.getAttribute('data-workshop-type'));
+    
+    this.currentEdit = element;
+    element.classList.add('workshop-editing');
+    
+    // Store original content
+    const originalText = element.textContent;
+    element.setAttribute('data-workshop-original', originalText);
+    
+    // Create inline editor
+    const editor = this.createInlineEditor(element, originalText);
+    
+    // Replace content with editor
+    element.innerHTML = '';
+    element.appendChild(editor);
+    
+    // Focus and select
+    editor.focus();
+    editor.select();
+    
+    // Show editing indicators
+    this.showEditingState(element);
+  }
+  
+  createInlineEditor(element, originalText) {
+    const contentType = element.getAttribute('data-workshop-type');
+    
+    let editor;
+    
+    if (contentType === 'log-content' || contentType === 'project-description') {
+      // Multi-line textarea for longer content
+      editor = document.createElement('textarea');
+      editor.rows = Math.max(3, Math.ceil(originalText.length / 60));
+    } else {
+      // Single-line input for titles and short content
+      editor = document.createElement('input');
+      editor.type = 'text';
+    }
+    
+    editor.className = 'workshop-inline-editor';
+    editor.value = originalText;
+    
+    // Handle save on Enter (single-line) or Ctrl+Enter (multi-line)
+    editor.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (editor.tagName === 'INPUT' || (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          this.finishEditing(element, editor.value);
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        this.cancelEdit();
+      }
+    });
+    
+    // Handle blur (click outside)
+    editor.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (this.currentEdit === element) {
+          this.finishEditing(element, editor.value);
+        }
+      }, 100);
+    });
+    
+    return editor;
+  }
+  
+  showEditingState(element) {
+    // Update workshop indicator
+    const indicator = document.querySelector('.workshop-text');
+    if (indicator) {
+      indicator.textContent = 'Editing...';
+    }
+    
+    // Add visual editing state
+    element.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    element.style.border = '1px dashed var(--color-accent)';
+    element.style.padding = '2px';
+  }
+  
+  async finishEditing(element, newContent = null) {
+    if (!element || !element.classList.contains('workshop-editing')) return;
+    
+    const editor = element.querySelector('.workshop-inline-editor');
+    const finalContent = newContent || (editor ? editor.value : element.textContent);
+    const originalContent = element.getAttribute('data-workshop-original');
+    
+    console.log('💾 Finishing edit:', { originalContent, finalContent });
+    
+    // Check if content actually changed
+    if (finalContent === originalContent) {
+      this.cancelEdit();
+      return;
+    }
+    
+    // Show optimistic update immediately
+    this.applyOptimisticUpdate(element, finalContent);
+    
+    // Save to backend
+    try {
+      await this.saveContentChange(element, finalContent, originalContent);
+      this.showWorkshopMessage('Changes forged successfully', 'success');
+    } catch (error) {
+      console.error('Failed to save changes:', error);
+      this.showWorkshopMessage('Failed to forge changes', 'error');
+      // Revert on failure
+      this.applyOptimisticUpdate(element, originalContent);
+    }
+    
+    this.cleanupEditor(element);
+  }
+  
+  applyOptimisticUpdate(element, content) {
+    // Clear editor and restore content
+    element.innerHTML = '';
+    element.textContent = content;
+    
+    // Update data attribute
+    element.setAttribute('data-workshop-original', content);
+    
+    // Visual feedback for successful update
+    element.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
+    setTimeout(() => {
+      element.style.backgroundColor = '';
+    }, 1000);
+  }
+  
+  async saveContentChange(element, newContent, originalContent) {
+    const contentType = element.getAttribute('data-workshop-type');
+    const changeData = {
+      type: contentType,
+      content: newContent,
+      original: originalContent,
+      timestamp: Date.now(),
+      element: this.getElementIdentifier(element)
+    };
+    
+    // For now, simulate backend call
+    // TODO: Implement actual Netlify Function call
+    console.log('🚀 Saving to backend:', changeData);
+    
+    await new Promise(resolve => {
+      setTimeout(() => {
+        // Simulate network delay
+        resolve();
+      }, Math.random() * 1000 + 500);
+    });
+    
+    // Store change locally for now
+    this.storeLocalChange(changeData);
+    
+    return { success: true };
+  }
+  
+  storeLocalChange(changeData) {
+    const stored = localStorage.getItem('workshop-changes') || '[]';
+    const changes = JSON.parse(stored);
+    changes.push(changeData);
+    
+    // Keep only last 50 changes
+    if (changes.length > 50) {
+      changes.splice(0, changes.length - 50);
+    }
+    
+    localStorage.setItem('workshop-changes', JSON.stringify(changes));
+  }
+  
+  getElementIdentifier(element) {
+    // Create a unique identifier for the element
+    const parent = element.closest('[id]') || element.closest('[class*="main"]');
+    const parentId = parent ? parent.id || parent.className : 'unknown';
+    const elementClass = element.className;
+    const textPreview = element.textContent.substring(0, 20);
+    
+    return {
+      parentId,
+      elementClass,
+      textPreview,
+      selector: this.generateSelector(element)
+    };
+  }
+  
+  generateSelector(element) {
+    // Generate a CSS selector for the element
+    let selector = element.tagName.toLowerCase();
+    
+    if (element.id) {
+      selector += `#${element.id}`;
+    }
+    
+    if (element.className) {
+      const classes = element.className.split(' ').filter(c => c && !c.startsWith('workshop-'));
+      if (classes.length > 0) {
+        selector += `.${classes.join('.')}`;
+      }
+    }
+    
+    return selector;
+  }
+  
+  cancelEdit() {
+    if (!this.currentEdit) return;
+    
+    console.log('❌ Cancelling edit');
+    
+    const element = this.currentEdit;
+    const originalContent = element.getAttribute('data-workshop-original');
+    
+    // Restore original content
+    element.innerHTML = '';
+    element.textContent = originalContent;
+    
+    this.cleanupEditor(element);
+  }
+  
+  cleanupEditor(element) {
+    // Remove editing state
+    element.classList.remove('workshop-editing');
+    element.style.backgroundColor = '';
+    element.style.border = '';
+    element.style.padding = '';
+    
+    // Reset workshop indicator
+    const indicator = document.querySelector('.workshop-text');
+    if (indicator) {
+      indicator.textContent = 'Workshop Mode';
+    }
+    
+    this.currentEdit = null;
+  }
+  
+  showWorkshopMessage(message, type = 'info') {
+    // Create temporary message overlay
+    const messageEl = document.createElement('div');
+    messageEl.className = `workshop-message workshop-message-${type}`;
+    messageEl.innerHTML = `
+      <div class="workshop-message-content">
+        <span class="workshop-message-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+        <span class="workshop-message-text">${message}</span>
+      </div>
+    `;
+    
+    document.body.appendChild(messageEl);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+      if (document.body.contains(messageEl)) {
+        messageEl.style.opacity = '0';
+        setTimeout(() => {
+          if (document.body.contains(messageEl)) {
+            document.body.removeChild(messageEl);
+          }
+        }, 300);
+      }
+    }, 3000);
+  }
+  
+  async saveAllChanges() {
+    console.log('💾 Saving all pending changes...');
+    
+    const editingElements = document.querySelectorAll('.workshop-editing');
+    for (const element of editingElements) {
+      await this.finishEditing(element);
+    }
+    
+    this.showWorkshopMessage('All changes forged successfully', 'success');
   }
   
   showWorkshopIndicator() {
@@ -646,6 +1019,14 @@ class WorkshopManager {
     console.log('🔧 Workshop Mode deactivated');
     this.isWorkshopMode = false;
     
+    // Cancel any active editing
+    if (this.currentEdit) {
+      this.cancelEdit();
+    }
+    
+    // Clean up editable elements
+    this.cleanupEditableElements();
+    
     // Remove workshop mode class
     document.body.classList.remove('workshop-mode');
     
@@ -658,6 +1039,20 @@ class WorkshopManager {
     // Clear session
     localStorage.removeItem('workshop-session');
     this.session = null;
+  }
+  
+  cleanupEditableElements() {
+    const editableElements = document.querySelectorAll('.workshop-editable');
+    editableElements.forEach(element => {
+      element.classList.remove('workshop-editable', 'workshop-editing');
+      element.removeAttribute('data-workshop-type');
+      element.removeAttribute('data-workshop-original');
+      element.style.position = '';
+      element.style.cursor = '';
+      element.style.backgroundColor = '';
+      element.style.border = '';
+      element.style.padding = '';
+    });
   }
 }
 

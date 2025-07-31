@@ -1367,3 +1367,109 @@ body.chaos-mode .workshop-indicator {
   color: var(--color-bg);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
+
+/* Workshop Inline Editing Styles */
+.workshop-editable {
+  transition: background-color 0.2s ease;
+}
+
+.workshop-editable:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.workshop-editing {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  border: 1px dashed var(--color-accent) !important;
+  padding: 2px !important;
+}
+
+.workshop-inline-editor {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  padding: var(--space-xs);
+  resize: vertical;
+  outline: none;
+}
+
+.workshop-inline-editor:focus {
+  border-color: var(--color-text);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Workshop Messages */
+.workshop-message {
+  position: fixed;
+  top: calc(var(--space-lg) + var(--space-sm));
+  right: var(--space-sm);
+  z-index: 10001;
+  background: var(--color-bg);
+  border: 1px solid var(--color-text);
+  padding: var(--space-sm);
+  font-family: var(--font-primary);
+  font-size: var(--type-uniform);
+  max-width: 300px;
+  transition: opacity 0.3s ease;
+}
+
+.workshop-message-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.workshop-message-icon {
+  font-size: var(--type-uniform);
+}
+
+.workshop-message-text {
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.workshop-message-success {
+  border-color: #00aa00;
+}
+
+.workshop-message-success .workshop-message-text {
+  color: #00aa00;
+}
+
+.workshop-message-error {
+  border-color: #aa0000;
+}
+
+.workshop-message-error .workshop-message-text {
+  color: #aa0000;
+}
+
+/* Chaos mode compatibility for editing */
+body.chaos-mode .workshop-inline-editor {
+  border-color: var(--color-link);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.chaos-mode .workshop-inline-editor:focus {
+  border-color: var(--color-link);
+  box-shadow: 0 0 5px var(--color-link);
+}
+
+body.chaos-mode .workshop-message {
+  border-color: var(--color-link);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+body.chaos-mode .workshop-editable:hover {
+  background-color: rgba(0, 255, 255, 0.1) !important;
+}
+
+body.chaos-mode .workshop-editing {
+  background-color: rgba(0, 255, 255, 0.15) !important;
+  border-color: var(--color-link) !important;
+}
