@@ -7,8 +7,8 @@
   "explorerLog": [
     {
       "id": "log-001",
-      "date": "2024.01.28",
-      "content": "Keyboard project update: The PCB arrived from JLCPCB today. Quality looks excellent—the silkscreen is crisp and all the vias are properly filled. Time to start assembly. Found a potential issue with the USB-C footprint that might cause problems with some cables. Will test extensively before finalizing the design."
+      "date": "2025.07.31",
+      "content": "Building my new website, wrestling with responsive design."
     },
     {
       "id": "log-002",

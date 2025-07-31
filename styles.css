@@ -270,9 +270,28 @@ a:hover {
   width: 100%; /* Full width on mobile */
 }
 
-/* Inline sidebar hidden by default (mobile-first) */
+/* Sidebar-inline hidden by default on mobile */
 .sidebar-inline {
   display: none;
+}
+
+/* Mobile footer shown by default */
+.mobile-footer {
+  display: block;
+  width: 100%;
+  padding: var(--space-lg) var(--page-margin);
+  margin-top: var(--space-lg);
+}
+
+.mobile-footer-quote {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
+}
+
+.mobile-footer-controls {
+  display: flex;
+  gap: var(--space-sm);
 }
 
 /* Section titles: uniform typography, hierarchy through position */
@@ -284,6 +303,13 @@ a:hover {
   margin-bottom: var(--content-block-gap);
   color: var(--color-text);
   line-height: 1.4;
+}
+
+/* Ensure consistent section alignment at medium breakpoint */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .section-title {
+    margin-bottom: calc(var(--content-block-gap) * 0.75); /* Tighter for 2-column */
+  }
 }
 
 /* Log Entries - Tom Sachs block system for horizontal reading */
@@ -663,46 +689,75 @@ a:hover {
 
 /* COMPREHENSIVE RESPONSIVE SYSTEM */
 
-/* Step 1: Medium screens - Explorer log and projects side by side */
-@media (min-width: 600px) {
-  .main {
-    flex-direction: row; /* Side by side layout */
-    gap: var(--space-md);
-    padding-right: var(--page-margin); /* Keep sidebar in footer */
+/* Step 1: Medium screens - Precise 2-column Swiss grid */
+@media (min-width: 600px) and (max-width: 1023px) {
+  /* Refined spacing for medium screens */
+  :root {
+    --page-margin: clamp(2rem, 6vw, 4rem);
+    --space-md: clamp(0.75rem, 2.5vw, 2rem);
+    --type-uniform: 13px; /* Fixed for optimal readability */
   }
   
-  .explorer-log,
-  .project-highlights {
-    width: 50%; /* Half width each */
-    flex: 1;
-    min-width: 0;
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    column-gap: var(--space-md);
+    row-gap: 0;
+    padding-right: var(--page-margin);
+    align-items: start;
   }
   
   .mobile-tagline {
-    display: none; /* Hide mobile tagline */
+    display: block;
+    grid-column: 1 / -1; /* Span both columns */
+    margin-bottom: var(--space-lg); /* Strong separation */
+    max-width: 65ch; /* Optimal reading length */
   }
   
-  /* Keep sidebar and controls hidden until large screens */
+  .explorer-log {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 0;
+  }
+  
+  .project-highlights {
+    grid-column: 2;
+    grid-row: 2;
+    padding-top: 0;
+  }
+  
+  /* Hide desktop elements */
+  .sidebar-inline,
   .sidebar,
   .view-controls {
     display: none;
   }
   
-  /* Keep mobile footer */
-  body::after {
-    content: "I am an inventor-storyteller working in film, code, narrative, and more. 'Honor thy error as a hidden intention.' – Eno";
+  /* Footer below content with proper margins */
+  .mobile-footer {
     display: block;
-    padding: var(--space-lg) var(--page-margin);
-    font-size: var(--type-uniform);
-    line-height: 1.4;
-    border-top: 1px solid var(--color-text);
+    grid-column: 1 / -1;
     margin-top: var(--space-xl);
+  }
+}
+
+/* Transition zone: Smooth progression to 3-column layout */
+@media (min-width: 900px) and (max-width: 1023px) {
+  .explorer-log {
+    max-width: 320px; /* Start constraining for upcoming 3-column */
+  }
+  
+  .project-highlights {
+    padding-right: calc(var(--space-md) * 2); /* Prepare visual space for sidebar */
   }
 }
 
 /* Step 2: Large screens - Add sidebar as third column */
 @media (min-width: 1024px) {
   .main {
+    display: flex; /* Back to flex for 3-column */
+    flex-direction: row;
     padding-right: var(--page-margin); /* No floating sidebar space */
     gap: var(--space-sm); /* Tighter gaps for 3-column */
   }
@@ -717,28 +772,52 @@ a:hover {
     max-width: none;
   }
   
+  /* Hide mobile elements on large screens */
+  .mobile-tagline,
+  .mobile-footer {
+    display: none;
+  }
+  
   /* Hide original floating sidebar */
   .sidebar {
     display: none;
   }
   
-  /* Show inline sidebar as third column */
+  /* Show sidebar-inline as third column */
   .sidebar-inline {
     display: block;
-    width: 250px; /* Fixed width */
-    flex: 0 0 250px; /* Don't grow/shrink */
+    width: 250px;
+    flex: 0 0 250px;
     padding: var(--space-sm);
-    order: 3; /* Come after explorer log and projects */
+    order: 3; /* After explorer-log and project-highlights */
+  }
+  
+  .sidebar-tagline {
+    font-size: var(--type-uniform);
+    line-height: 1.4;
+    margin-bottom: var(--space-md);
+  }
+  
+  .sidebar-quote {
+    font-size: var(--type-uniform);
+    line-height: 1.4;
+    margin-bottom: var(--space-md);
+  }
+  
+  .sidebar-controls {
+    display: block;
+  }
+  
+  .sidebar-controls button {
+    display: block;
+    margin-bottom: var(--space-xs);
   }
   
   .view-controls {
     display: none; /* Hide duplicate controls */
   }
   
-  /* Hide mobile footer when sidebar appears */
-  body::after {
-    display: none;
-  }
+  /* No body::after needed - using proper footer elements */
 }
 
 /* Step 3: Extra large screens - Featured projects become 2 columns */
@@ -765,16 +844,7 @@ a:hover {
     margin-top: 0;
   }
   
-  /* Add mobile footer with quote and controls */
-  body::after {
-    content: "I am an inventor-storyteller working in film, code, narrative, and more. 'Honor thy error as a hidden intention.' – Eno";
-    display: block;
-    padding: var(--space-lg) var(--page-margin);
-    font-size: var(--type-label);
-    line-height: 1.4;
-    border-top: 1px solid var(--color-text);
-    margin-top: var(--space-xl);
-  }
+  /* Mobile footer is handled by .mobile-footer element */
   
   .nav-links {
     gap: var(--space-sm);

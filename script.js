@@ -20,18 +20,16 @@ class SiteManager {
   setupFontToggle() {
     const fontToggle = document.getElementById('fontToggle');
     const fontToggleSidebar = document.getElementById('fontToggleSidebar');
+    const fontToggleInline = document.getElementById('fontToggleInline');
+    const fontToggleMobile = document.getElementById('fontToggleMobile');
     
-    if (fontToggle) {
-      fontToggle.addEventListener('click', () => {
-        this.toggleFont();
-      });
-    }
-    
-    if (fontToggleSidebar) {
-      fontToggleSidebar.addEventListener('click', () => {
-        this.toggleFont();
-      });
-    }
+    [fontToggle, fontToggleSidebar, fontToggleInline, fontToggleMobile].forEach(toggle => {
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          this.toggleFont();
+        });
+      }
+    });
     
     this.updateFontToggleText();
   }
@@ -54,8 +52,10 @@ class SiteManager {
   updateFontToggleText() {
     const fontToggle = document.getElementById('fontToggle');
     const fontToggleSidebar = document.getElementById('fontToggleSidebar');
+    const fontToggleInline = document.getElementById('fontToggleInline');
+    const fontToggleMobile = document.getElementById('fontToggleMobile');
     
-    [fontToggle, fontToggleSidebar].forEach(toggle => {
+    [fontToggle, fontToggleSidebar, fontToggleInline, fontToggleMobile].forEach(toggle => {
       if (toggle) {
         if (this.currentFont === 'courier') {
           toggle.textContent = 'Helvetica';
@@ -72,18 +72,16 @@ class SiteManager {
   setupChaosToggle() {
     const chaosToggle = document.getElementById('chaosToggle');
     const chaosToggleSidebar = document.getElementById('chaosToggleSidebar');
+    const chaosToggleInline = document.getElementById('chaosToggleInline');
+    const chaosToggleMobile = document.getElementById('chaosToggleMobile');
     
-    if (chaosToggle) {
-      chaosToggle.addEventListener('click', () => {
-        this.toggleChaos();
-      });
-    }
-    
-    if (chaosToggleSidebar) {
-      chaosToggleSidebar.addEventListener('click', () => {
-        this.toggleChaos();
-      });
-    }
+    [chaosToggle, chaosToggleSidebar, chaosToggleInline, chaosToggleMobile].forEach(toggle => {
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          this.toggleChaos();
+        });
+      }
+    });
   }
 
   toggleChaos() {
