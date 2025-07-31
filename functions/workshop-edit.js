@@ -47,15 +47,33 @@ exports.handler = async (event, context) => {
     }
 
     const sessionToken = authHeader.replace('Bearer ', '');
-    console.log('Session token received:', sessionToken.substring(0, 20) + '...');
+    console.log('Session token received:', {
+      tokenLength: sessionToken.length,
+      tokenStart: sessionToken.substring(0, 20),
+      tokenEnd: sessionToken.substring(sessionToken.length - 20),
+      isBase64: /^[A-Za-z0-9+/]*={0,2}$/.test(sessionToken)
+    });
 
     // Parse session token with error handling
     let sessionData;
     try {
-      sessionData = JSON.parse(Buffer.from(sessionToken, 'base64').toString());
-      console.log('Session data parsed:', { workshopMode: sessionData.workshopMode, expires: sessionData.expires });
+      const decodedString = Buffer.from(sessionToken, 'base64').toString();
+      console.log('Decoded token string:', decodedString);
+      
+      sessionData = JSON.parse(decodedString);
+      console.log('Session data parsed:', {
+        workshopMode: sessionData.workshopMode,
+        timestamp: sessionData.timestamp,
+        expires: sessionData.expires,
+        expiresDate: new Date(sessionData.expires),
+        currentTime: Date.now(),
+        currentDate: new Date(),
+        isExpired: Date.now() > sessionData.expires,
+        timeRemaining: sessionData.expires - Date.now()
+      });
     } catch (tokenError) {
       console.error('Session token parsing error:', tokenError);
+      console.error('Raw token:', sessionToken);
       return {
         statusCode: 401,
         headers,

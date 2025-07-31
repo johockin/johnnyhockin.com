@@ -629,8 +629,29 @@ class WorkshopManager {
       
       if (result.success && result.sessionToken) {
         // Store session token for authenticated requests
+        console.log('🔐 Authentication successful, storing session:', {
+          tokenReceived: !!result.sessionToken,
+          tokenLength: result.sessionToken ? result.sessionToken.length : 0,
+          expires: result.expires,
+          expiresDate: new Date(result.expires),
+          currentTime: Date.now(),
+          currentDate: new Date(),
+          timeUntilExpiry: result.expires - Date.now()
+        });
+        
         localStorage.setItem('workshop-session', result.sessionToken);
         localStorage.setItem('workshop-expires', result.expires);
+        
+        // Immediately verify what we stored
+        const storedToken = localStorage.getItem('workshop-session');
+        const storedExpiry = localStorage.getItem('workshop-expires');
+        console.log('🔐 Verification - stored session:', {
+          storedTokenMatches: storedToken === result.sessionToken,
+          storedExpiryMatches: storedExpiry == result.expires,
+          storedToken: storedToken ? storedToken.substring(0, 20) + '...' : null,
+          storedExpiry: storedExpiry
+        });
+        
         return true;
       }
       
