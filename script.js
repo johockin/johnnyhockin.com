@@ -158,6 +158,7 @@ class SiteManager {
       } else {
         console.log('⚠️ No embedded data available - using minimal placeholder');
         this.loadPlaceholderContent();
+        this.notifyContentReady(); // Notify even for placeholder content
         return;
       }
     }
@@ -175,6 +176,20 @@ class SiteManager {
     } else if (path === '/project.html' || path.endsWith('/project.html')) {
       this.loadProjectPage(data);
     }
+    
+    // Notify that site content is ready for Workshop Mode
+    this.notifyContentReady();
+  }
+
+  // Notify WorkshopManager that dynamic content has loaded
+  notifyContentReady() {
+    console.log('📢 Notifying that content is ready for Workshop Mode');
+    
+    // Dispatch custom event that WorkshopManager can listen for
+    const contentReadyEvent = new CustomEvent('siteContentReady', {
+      detail: { timestamp: Date.now() }
+    });
+    document.dispatchEvent(contentReadyEvent);
   }
 
   loadHomepage(data) {
@@ -338,6 +353,14 @@ class SiteManager {
     }
   }
 
+  // Notify Workshop Mode that content is ready
+  notifyContentReady() {
+    console.log('📢 Notifying Workshop Mode that content is ready');
+    document.dispatchEvent(new CustomEvent('siteContentReady', {
+      detail: { timestamp: Date.now() }
+    }));
+  }
+  
   // Fallback placeholder content
   loadPlaceholderContent() {
     const path = window.location.pathname;
@@ -380,7 +403,73 @@ class WorkshopManager {
   
   init() {
     this.setupKonamiDetection();
+    this.setupContentListener();
     this.checkExistingSession();
+  }
+  
+  setupContentListener() {
+    // Listen for content ready events to refresh Workshop Mode elements
+    document.addEventListener('siteContentReady', (event) => {
+      console.log('🔧 Workshop received content ready notification:', event.detail);
+      
+      // If Workshop Mode is active, refresh editable elements
+      if (this.isWorkshopMode) {
+        console.log('♻️ Refreshing Workshop Mode for new content');
+        this.refreshWorkshopMode();
+      }
+    });
+    
+    // Also listen for page visibility changes (handles navigation edge cases)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && this.isWorkshopMode) {
+        // Small delay to ensure content has loaded after navigation
+        setTimeout(() => {
+          const currentEditableCount = document.querySelectorAll('.workshop-editable').length;
+          if (currentEditableCount === 0) {
+            console.log('🔄 Page became visible with no editable elements - refreshing Workshop Mode');
+            this.refreshWorkshopMode();
+          }
+        }, 100);
+      }
+    });
+  }
+  
+  refreshWorkshopMode() {
+    // Update indicator to show we're refreshing
+    const indicator = document.querySelector('.workshop-text');
+    if (indicator) {
+      indicator.textContent = 'Refreshing...';
+    }
+    
+    // Clean up existing editable elements first
+    this.cleanupEditableElements();
+    
+    // Re-enable editing with new content
+    this.enableInlineEditing();
+    
+    // Reset indicator
+    if (indicator) {
+      indicator.textContent = 'Workshop Mode';
+    }
+    
+    console.log('✅ Workshop Mode refreshed for new content');
+  }
+  
+  setupContentListener() {
+    // Listen for when site content is ready
+    document.addEventListener('siteContentReady', () => {
+      console.log('🔧 WorkshopManager received content ready notification');
+      if (this.isWorkshopMode) {
+        this.refreshWorkshopMode();
+      }
+    });
+    
+    // Backup: Also check when page visibility changes (handles navigation edge cases)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && this.isWorkshopMode) {
+        setTimeout(() => this.refreshWorkshopMode(), 100);
+      }
+    });
   }
   
   setupKonamiDetection() {
@@ -633,7 +722,8 @@ class WorkshopManager {
     // Show workshop indicator
     this.showWorkshopIndicator();
     
-    // Enable inline editing
+    // Enable inline editing - this will work even if content hasn't loaded yet
+    // The content listener will refresh it when content is ready
     this.enableInlineEditing();
     
     // TODO: Phase III - Setup GitHub integration  
@@ -646,8 +736,11 @@ class WorkshopManager {
     // Make content elements editable
     this.makeContentEditable();
     
-    // Setup edit event handlers
-    this.setupEditHandlers();
+    // Setup edit event handlers (only once)
+    if (!this.editHandlersSetup) {
+      this.setupEditHandlers();
+      this.editHandlersSetup = true;
+    }
     
     // Add visual edit indicators
     this.addEditIndicators();
@@ -665,14 +758,28 @@ class WorkshopManager {
       '.section-title',   // Section headings
     ];
     
+    let elementsFound = 0;
+    
     editableSelectors.forEach(selector => {
       const elements = document.querySelectorAll(selector);
+      elementsFound += elements.length;
+      
       elements.forEach(element => {
-        element.classList.add('workshop-editable');
-        element.setAttribute('data-workshop-type', this.getContentType(selector));
-        element.setAttribute('data-workshop-original', element.textContent);
+        // Skip if already marked as editable
+        if (!element.classList.contains('workshop-editable')) {
+          element.classList.add('workshop-editable');
+          element.setAttribute('data-workshop-type', this.getContentType(selector));
+          element.setAttribute('data-workshop-original', element.textContent);
+        }
       });
     });
+    
+    console.log(`🎯 Made ${elementsFound} elements editable`);
+    
+    // If no elements found, content likely hasn't loaded yet
+    if (elementsFound === 0) {
+      console.log('⏳ No editable elements found - content may still be loading');
+    }
   }
   
   getContentType(selector) {

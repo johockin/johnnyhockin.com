@@ -12,8 +12,8 @@
     },
     {
       "id": "log-002",
-      "date": "2024.01.25",
-      "content": "Deep dive into WebGL shaders for a new visualization project. The math is brutal but the results are worth it. Managed to get real-time particle systems running at 60fps with 10,000 particles. The key was batching draw calls and using instanced rendering. GPU programming feels like magic when it works."
+      "date": "2025.07.25",
+      "content": "Creating a new markdown word processor for the web based on my own minimalist writing preferences. Originally based on the ideas behind iA Writer, eventually destined to become personal journaling software."
     },
     {
       "id": "log-003",

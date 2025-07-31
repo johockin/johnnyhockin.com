@@ -589,7 +589,37 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
 
-### 2024-07-31 - Tom Sachs Projects Table Layout Implementation
+### 2025-07-31 - Workshop Mode Completion & Contact Page Updates
+- **FIXED**: Critical Workshop Mode navigation bug - editing now persists across page navigation
+- **IMPLEMENTED**: Event-driven content loading system for Workshop Mode coordination
+- **ADDED**: `siteContentReady` custom event system to sync content loading with Workshop Mode
+- **UPDATED**: Contact page content with new personal voice and direct links
+- **REPLACED**: Contact page CSS columns with CSS Grid for responsive layout control
+- **FIXED**: Contact page alignment issues - columns now properly align at "Direct Links" level
+- **ADDED**: Undo/redo system (Ctrl+Z/Y) for Workshop Mode editing
+- **ADDED**: Empty content protection with "[Click to edit]" placeholder
+- **TECHNICAL**: Workshop Mode uses observer pattern with custom events for bulletproof persistence
+- **DECISION**: Grid layout provides precise control vs unpredictable CSS columns behavior
+
+### 2025-07-31 - Workshop Mode Phase II Implementation
+- **IMPLEMENTED**: Full inline editing capabilities for Explorer Log and Projects
+- **ADDED**: Smart editor selection - textarea for multi-line content, input for single-line
+- **ADDED**: Optimistic UI updates with instant visual feedback
+- **ADDED**: Simulated backend persistence (preparation for Netlify Functions)
+- **TECHNICAL**: Click-to-edit functionality with proper content preservation
+- **UI**: Edit indicators appear on hover for editable content
+- **SECURITY**: All edits require active Workshop Mode session
+
+### 2025-07-31 - Workshop Mode Phase I Implementation  
+- **IMPLEMENTED**: Complete Konami code detection (↑↑↓↓←→←→BA)
+- **ADDED**: PIN authentication system with Web Crypto API hashing
+- **ADDED**: Session management with 24-hour expiration in localStorage
+- **ADDED**: Rate limiting (5 attempts, 5-minute lockout)
+- **UI**: Custom modal for PIN entry with workshop aesthetic
+- **VISUAL**: Workshop Mode indicator (subtle left border) when active
+- **SECURITY**: PIN hashed with SHA-256, never stored in plain text
+
+### 2025-07-31 - Tom Sachs Projects Table Layout Implementation
 - **Redesigned**: Projects page with Tom Sachs exhibition-style table layout (image | title/metadata | description)
 - **Updated**: `projects.html` structure from `.project-items` to `.projects-table` container
 - **Added**: CSS grid system with 3-column layout (1fr 1fr 2fr) for table structure
@@ -600,7 +630,7 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 - **CSS**: Added comprehensive `.projects-table` styles with proper image sizing and spacing
 - **Decision**: Images sized to fit left column width automatically via `width: 100%` and `object-fit: cover`
 
-### 2024-07-31 - Tom Sachs Biography & Contact Layouts
+### 2025-07-31 - Tom Sachs Biography & Contact Layouts
 - **Redesigned**: Biography page with Tom Sachs systematic layout using CSS columns (4 → 2 → 1 responsive)
 - **Redesigned**: Contact page with Tom Sachs block-based approach using CSS columns (3 → 2 → 1 responsive) 
 - **Fixed**: Contact page white space issue on medium screens with proper column override
@@ -609,13 +639,13 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 - **CSS**: Added `.bio-layout` and `.contact-layout` with natural column flow instead of rigid grids
 - **Decision**: Moved from grid-based to column-based layouts for better content flow and readability
 
-### 2024-07-31 - Post-Responsive Layout Polish
+### 2025-07-31 - Post-Responsive Layout Polish
 - **Fixed**: Removed nav bar white background to allow content scrolling underneath
 - **Fixed**: Excessive vertical spacing between project items on homepage by removing `margin-bottom: var(--space-lg)` from `.project-description`
 - **Refined**: Project grid spacing to match log entries exactly (1.5rem gap)
 - **Commit**: "Fix responsive layout issues" - consolidated navigation and spacing improvements
 
-### 2024-01-30 - Navigation & Link Styling Refinement
+### 2025-01-30 - Navigation & Link Styling Refinement
 - **Changed**: Navigation from centered to left-aligned (NEVER center principle established)
 - **Changed**: Custom underlines moved from 2px to -1px below text for natural positioning
 - **Added**: Site-wide custom link styling with consistent underlines
@@ -624,32 +654,32 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 - **Updated**: Documentation structure and git initialization
 - **Decision**: All links should have subtle custom underlines except in CMS content
 
-### 2024-01-30 - Grid System Evolution
+### 2025-01-30 - Grid System Evolution
 - **Changed**: Grid system from 100px to 180px for better proportions
 - **Refined**: Spacing uses mathematical relationships (1x, 2x, 4x grid units)
 - **Decision**: True grid system means elements snap to grid increments, no arbitrary spacing
 - **Reference**: Tom Sachs website grid principles studied and incorporated
 
-### 2024-01-30 - View Controls Repositioning  
+### 2025-01-30 - View Controls Repositioning  
 - **Moved**: Font and chaos toggles from nav to left edge of screen
 - **Added**: Vertical text orientation for view controls
 - **Changed**: Font toggle displays in opposite font for clarity
 - **Decision**: Interface controls grouped together but separate from main navigation
 
-### 2024-01-30 - Navigation Structure Simplification
+### 2025-01-30 - Navigation Structure Simplification
 - **Removed**: Explorer Log as separate page (homepage only now)
 - **Fixed**: Navigation links from "/" to relative paths (index.html, etc.)
 - **Added**: Placeholder content throughout site for realistic feel
 - **Decision**: Explorer Log belongs on homepage only, not as separate archive
 
-### 2024-01-30 - Design Philosophy Establishment
+### 2025-01-30 - Design Philosophy Establishment
 - **Established**: No boxes/borders around content sections
 - **Established**: Left-aligned text only, never centered
 - **Established**: Modular grid-based layout over arbitrary positioning
 - **Rejected**: "Cliche and obvious" design patterns
 - **Added**: Custom cursor and favicon implementation
 
-### 2024-01-30 - Initial Implementation
+### 2025-01-30 - Initial Implementation
 - **Created**: Full site structure with vanilla HTML/CSS/JS
 - **Implemented**: JSON-based CMS with extensive placeholder content
 - **Added**: Font switching functionality
@@ -661,14 +691,18 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 ## 🧱 ROADMAP & PIPELINE
 
 ### NOW
-- All core features implemented and working
+- Workshop Mode Phases I & II completed and working
+- Workshop Mode navigation persistence fixed
+- Contact page updated with new content and responsive grid layout
+- All core site features operational
 
 ### NEXT  
-- **WORKSHOP MODE CMS IMPLEMENTATION**
-  - Phase 1: Konami code + PIN authentication system
-  - Phase 2: Basic inline editing with Netlify Functions backend  
+- **WORKSHOP MODE CMS COMPLETION**
   - Phase 3: GitHub API integration for version control
   - Phase 4: Full workshop UI transformation with creative terminology
+- **NETLIFY FUNCTIONS IMPLEMENTATION**
+  - Replace simulated backend with real Netlify Functions
+  - Implement actual data persistence to data.json
 - Test and refine Tom Sachs projects table layout with real project data
 - Optimize image sizing and loading for projects table layout
 - Content population with real projects and log entries

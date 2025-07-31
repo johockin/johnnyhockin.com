@@ -694,7 +694,7 @@ a:hover {
   }
 }
 
-/* Tom Sachs-inspired Contact Layout */
+/* Tom Sachs-inspired Contact Layout - Grid-based for precise control */
 .contact-main {
   padding: var(--space-sm) var(--page-margin);
   display: block !important;
@@ -703,9 +703,11 @@ a:hover {
 }
 
 .contact-layout {
-  columns: 3;
-  column-gap: var(--space-md);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
   width: 100%;
+  align-items: start; /* Ensures top alignment of all columns */
 }
 
 .contact-title {
@@ -714,14 +716,26 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   line-height: 1.4;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
   color: var(--color-text);
-  break-inside: avoid;
+  grid-column: 1 / -1; /* Span all columns */
 }
 
 .contact-section {
-  break-inside: avoid;
-  margin-bottom: var(--space-lg);
+  display: block;
+}
+
+/* Ensure first section (Direct Links) is in first column */
+.contact-first-section {
+  grid-column: 1;
+}
+
+.contact-section:nth-child(3) {
+  grid-column: 2;
+}
+
+.contact-section:nth-child(4) {
+  grid-column: 3;
 }
 
 .contact-section-title {
@@ -751,16 +765,40 @@ a:hover {
   text-align: left;
 }
 
-/* Responsive contact columns */
-@media (max-width: 900px) {
+/* Responsive contact grid - smooth transitions */
+@media (max-width: 1024px) {
   .contact-layout {
-    columns: 2;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Reflow sections for 2-column layout */
+  .contact-first-section,
+  .contact-section:nth-child(3) {
+    grid-column: auto;
+  }
+  
+  .contact-section:nth-child(4) {
+    grid-column: 1 / -1; /* Span both columns on bottom row */
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    gap: var(--space-md); /* Tighter gap on smaller screens */
   }
 }
 
 @media (max-width: 600px) {
   .contact-layout {
-    columns: 1;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  /* All sections stack vertically */
+  .contact-first-section,
+  .contact-section:nth-child(3),
+  .contact-section:nth-child(4) {
+    grid-column: 1 !important;
   }
 }
 
