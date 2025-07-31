@@ -11,4 +11,5 @@ Thumbs.db
 .idea/
 
 # Logs
-*.log
+*.log# Environment variables for local development
+.env
