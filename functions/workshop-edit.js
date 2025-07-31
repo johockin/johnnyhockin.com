@@ -21,10 +21,20 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // Add comprehensive error handling
   try {
+    console.log('Workshop Edit Function called:', {
+      method: event.httpMethod,
+      headers: event.headers,
+      bodyLength: event.body ? event.body.length : 0,
+    });
+
     // Verify session token
     const authHeader = event.headers.authorization;
+    console.log('Auth header:', authHeader);
+    
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log('No valid authorization header found');
       return {
         statusCode: 401,
         headers,
@@ -33,10 +43,25 @@ exports.handler = async (event, context) => {
     }
 
     const sessionToken = authHeader.replace('Bearer ', '');
-    const sessionData = JSON.parse(Buffer.from(sessionToken, 'base64').toString());
+    console.log('Session token received:', sessionToken.substring(0, 20) + '...');
+
+    // Parse session token with error handling
+    let sessionData;
+    try {
+      sessionData = JSON.parse(Buffer.from(sessionToken, 'base64').toString());
+      console.log('Session data parsed:', { workshopMode: sessionData.workshopMode, expires: sessionData.expires });
+    } catch (tokenError) {
+      console.error('Session token parsing error:', tokenError);
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ error: 'Invalid session token format' }),
+      };
+    }
 
     // Check if session is expired
     if (!sessionData.workshopMode || Date.now() > sessionData.expires) {
+      console.log('Session expired or invalid');
       return {
         statusCode: 401,
         headers,
@@ -57,7 +82,21 @@ exports.handler = async (event, context) => {
     }
 
     if (event.httpMethod === 'POST') {
-      const { contentType, elementId, newContent, originalContent } = JSON.parse(event.body);
+      // Parse JSON body with error handling
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+        console.log('Parsed request data:', requestData);
+      } catch (parseError) {
+        console.error('JSON parsing error:', parseError);
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Invalid JSON in request body' }),
+        };
+      }
+
+      const { contentType, elementId, newContent, originalContent } = requestData;
 
       if (!contentType || !elementId || newContent === undefined) {
         return {
