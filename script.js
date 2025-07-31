@@ -398,13 +398,33 @@ class WorkshopManager {
     
     console.log('🎮 Konami sequence ready:', this.KONAMI_SEQUENCE);
     
+    // Check for existing valid session
+    this.checkExistingSession();
+    
     this.init();
+  }
+
+  checkExistingSession() {
+    const sessionToken = localStorage.getItem('workshop-session');
+    const expiresStr = localStorage.getItem('workshop-expires');
+    
+    if (sessionToken && expiresStr) {
+      const expires = parseInt(expiresStr);
+      if (Date.now() < expires) {
+        console.log('🔧 Valid workshop session found - activating Workshop Mode');
+        this.isWorkshopMode = true;
+        this.activateWorkshopMode();
+      } else {
+        console.log('🔧 Workshop session expired - clearing storage');
+        localStorage.removeItem('workshop-session');
+        localStorage.removeItem('workshop-expires');
+      }
+    }
   }
   
   init() {
     this.setupKonamiDetection();
     this.setupContentListener();
-    this.checkExistingSession();
   }
   
   setupContentListener() {
@@ -596,13 +616,29 @@ class WorkshopManager {
   }
   
   async validatePin(pin) {
-    // For now, use a simple PIN. Later we'll implement proper hashing
-    const WORKSHOP_PIN = '12345'; // TODO: Replace with hashed PIN
-    
-    // Simulate async validation delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    return pin === WORKSHOP_PIN;
+    try {
+      const response = await fetch('/.netlify/functions/workshop-auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pin }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success && result.sessionToken) {
+        // Store session token for authenticated requests
+        localStorage.setItem('workshop-session', result.sessionToken);
+        localStorage.setItem('workshop-expires', result.expires);
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Workshop authentication failed:', error);
+      return false;
+    }
   }
   
   onAuthSuccess(modal) {
@@ -696,21 +732,6 @@ class WorkshopManager {
     }, 300);
   }
   
-  checkExistingSession() {
-    const stored = localStorage.getItem('workshop-session');
-    if (stored) {
-      const session = JSON.parse(stored);
-      
-      // Check if session is still valid
-      if (session.authenticated && Date.now() < session.expires) {
-        this.session = session;
-        this.activateWorkshopMode();
-      } else {
-        // Clear expired session
-        localStorage.removeItem('workshop-session');
-      }
-    }
-  }
   
   activateWorkshopMode() {
     console.log('🔧 Workshop Mode activated');
@@ -726,8 +747,8 @@ class WorkshopManager {
     // The content listener will refresh it when content is ready
     this.enableInlineEditing();
     
-    // TODO: Phase III - Setup GitHub integration  
-    // TODO: Phase IV - Full UI transformation
+    // Show success message
+    this.showWorkshopMessage('Workshop Mode activated - Edit content by clicking', 'success');
   }
   
   enableInlineEditing() {
@@ -770,6 +791,12 @@ class WorkshopManager {
           element.classList.add('workshop-editable');
           element.setAttribute('data-workshop-type', this.getContentType(selector));
           element.setAttribute('data-workshop-original', element.textContent);
+          
+          // Ensure element has a workshop ID for backend persistence
+          if (!element.getAttribute('data-workshop-id') && !element.id) {
+            const workshopId = this.generateElementId(element);
+            element.setAttribute('data-workshop-id', workshopId);
+          }
         }
       });
     });
@@ -1031,29 +1058,57 @@ class WorkshopManager {
   
   async saveContentChange(element, newContent, originalContent) {
     const contentType = element.getAttribute('data-workshop-type');
-    const changeData = {
-      type: contentType,
-      content: newContent,
-      original: originalContent,
-      timestamp: Date.now(),
-      element: this.getElementIdentifier(element)
-    };
+    const elementId = element.getAttribute('data-workshop-id') || 
+                      element.id || 
+                      this.generateElementId(element);
     
-    // For now, simulate backend call
-    // TODO: Implement actual Netlify Function call
-    console.log('🚀 Saving to backend:', changeData);
+    // Get session token
+    const sessionToken = localStorage.getItem('workshop-session');
+    if (!sessionToken) {
+      throw new Error('No valid workshop session');
+    }
     
-    await new Promise(resolve => {
-      setTimeout(() => {
-        // Simulate network delay
-        resolve();
-      }, Math.random() * 1000 + 500);
-    });
-    
-    // Store change locally for now
-    this.storeLocalChange(changeData);
-    
-    return { success: true };
+    try {
+      const response = await fetch('/.netlify/functions/workshop-edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({
+          contentType,
+          elementId,
+          newContent,
+          originalContent,
+          timestamp: Date.now(),
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          // Session expired, redirect to re-auth
+          this.exitWorkshopMode();
+          throw new Error('Workshop session expired. Please re-authenticate.');
+        }
+        throw new Error(result.error || 'Failed to save changes');
+      }
+      
+      // Store change locally for backup
+      this.storeLocalChange({
+        type: contentType,
+        elementId,
+        content: newContent,
+        original: originalContent,
+        timestamp: result.timestamp || Date.now(),
+      });
+      
+      return result;
+    } catch (error) {
+      console.error('Failed to save content change:', error);
+      throw error;
+    }
   }
   
   storeLocalChange(changeData) {
@@ -1100,6 +1155,24 @@ class WorkshopManager {
     }
     
     return selector;
+  }
+
+  generateElementId(element) {
+    // Generate a unique ID for elements that don't have one
+    const type = element.getAttribute('data-workshop-type') || 'content';
+    const textHash = this.simpleHash(element.textContent.substring(0, 50));
+    return `${type}-${textHash}`;
+  }
+
+  simpleHash(str) {
+    // Simple hash function for generating element IDs
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(36);
   }
   
   cancelEdit() {
@@ -1281,7 +1354,14 @@ class WorkshopManager {
     
     // Clear session
     localStorage.removeItem('workshop-session');
+    localStorage.removeItem('workshop-expires');
     this.session = null;
+  }
+
+  exitWorkshopMode() {
+    // Alias for deactivateWorkshopMode - used when session expires
+    this.deactivateWorkshopMode();
+    this.showWorkshopMessage('Workshop session expired - please re-authenticate', 'error');
   }
   
   cleanupEditableElements() {
