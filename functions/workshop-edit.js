@@ -9,6 +9,8 @@ exports.handler = async (event, context) => {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Content-Type': 'application/json',
   };
 
@@ -53,6 +55,16 @@ exports.handler = async (event, context) => {
       tokenEnd: sessionToken.substring(sessionToken.length - 20),
       isBase64: /^[A-Za-z0-9+/]*={0,2}$/.test(sessionToken)
     });
+
+    // Validate token format before decoding
+    if (!sessionToken || sessionToken.length < 20) {
+      console.log('Token too short or missing');
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ error: 'Invalid token format' }),
+      };
+    }
 
     // Parse session token with error handling
     let sessionData;
