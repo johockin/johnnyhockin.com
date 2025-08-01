@@ -508,7 +508,7 @@ a:hover {
 
 .projects-table {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1.5fr;
   row-gap: var(--space-lg);
   column-gap: var(--space-sm);
   width: 100%;
@@ -578,6 +578,7 @@ a:hover {
   font-size: var(--type-uniform);
   line-height: 1.4;
   color: var(--color-text);
+  max-width: 90%;
 }
 
 /* New metadata fields styling */
