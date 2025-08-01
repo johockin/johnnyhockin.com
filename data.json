@@ -110,8 +110,8 @@
       "metadata": {}
     },
     {
-      "id": "gesture-recognition",
-      "title": "Hand Gesture Recognition",
+      "id": "to-dont-minimalist-task-app",
+      "title": "To Don't - a MacOS app for tracking my personal To Do lists",
       "description": "Computer vision experiment for controlling devices through hand movements.",
       "fullDescription": "A real-time hand gesture recognition system using computer vision to control devices and applications without physical contact. The system can recognize complex hand gestures and translate them into MIDI commands, mouse movements, or custom application controls. Built with Python and optimized for performance on edge devices like Raspberry Pi. The recognition engine uses a combination of MediaPipe for hand tracking and a custom neural network for gesture classification. Supports training custom gestures through a simple interface.",
       "image": "images/project-1754076867363.png",
