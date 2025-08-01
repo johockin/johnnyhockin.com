@@ -438,6 +438,9 @@ class AdminPanel {
             // Update project image path
             this.updateProject(projectId, 'image', githubPath);
 
+            // Save the updated data to GitHub immediately
+            await this.saveData();
+
             // Don't immediately re-render - wait for deployment
             this.showStatus(`Image uploaded! Waiting for deployment... This may take 1-2 minutes.`, 'info');
             
