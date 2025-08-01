@@ -125,6 +125,7 @@ class AdminPanel {
     setupEventListeners() {
         // Save button
         document.getElementById('save-all').addEventListener('click', () => {
+            console.log('💾 Save button clicked');
             this.saveData();
         });
 
@@ -139,6 +140,16 @@ class AdminPanel {
 
         // Category tooltip functionality
         this.setupCategoryTooltips();
+        
+        // Global event listener to track all form changes
+        document.addEventListener('change', (e) => {
+            console.log('📝 Form change detected:', {
+                element: e.target.tagName,
+                type: e.target.type,
+                value: e.target.value,
+                onchange: e.target.getAttribute('onchange')
+            });
+        });
     }
 
     setupCategoryTooltips() {
@@ -375,6 +386,7 @@ class AdminPanel {
 
     // Update methods
     updateLogEntry(id, field, value) {
+        console.log('📝 updateLogEntry called:', { id, field, value });
         const entry = this.data.explorerLog.find(e => e.id === id);
         if (entry) {
             if (field === 'id') {
@@ -383,7 +395,10 @@ class AdminPanel {
             } else {
                 entry[field] = value;
             }
+            console.log('✅ Log entry updated:', entry);
             this.markChanged();
+        } else {
+            console.error('❌ Log entry not found:', id);
         }
     }
 
@@ -405,17 +420,23 @@ class AdminPanel {
     }
 
     updateProjectMetadata(id, field, value) {
+        console.log('🏷️ updateProjectMetadata called:', { id, field, value });
         if (!this.data.projects) this.data.projects = [];
         const project = this.data.projects.find(p => p.id === id);
         if (project) {
             if (!project.metadata) project.metadata = {};
             project.metadata[field] = value;
+            console.log('✅ Project metadata updated:', project.metadata);
             this.markChanged();
+        } else {
+            console.error('❌ Project not found for metadata update:', id);
         }
     }
 
     updateSiteConfig(field, value) {
+        console.log('🌐 updateSiteConfig called:', { field, value });
         this.data.site[field] = value;
+        console.log('✅ Site config updated:', this.data.site);
         this.markChanged();
     }
 
@@ -614,6 +635,7 @@ class AdminPanel {
 
     // Utility methods
     markChanged() {
+        console.log('🔄 markChanged called - setting hasChanges to true');
         this.hasChanges = true;
         this.updateSaveButton();
     }

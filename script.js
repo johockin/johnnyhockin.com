@@ -201,10 +201,26 @@ class SiteManager {
     console.log('🔍 loadProjectsPage called with:', data.projects?.length, 'projects');
     const container = document.getElementById('allProjects');
     console.log('📦 Container found:', !!container, 'with classes:', container?.className);
-    if (container && data.projects) {
+    
+    if (!container) {
+      console.error('❌ Container #allProjects not found!');
+      return;
+    }
+    
+    if (!data.projects) {
+      console.error('❌ No projects data found!', data);
+      return;
+    }
+    
+    console.log('✅ About to render', data.projects.length, 'projects');
+    
+    try {
       // Check if we're using the new table layout
       if (container.classList.contains('projects-table') || container.parentElement.classList.contains('projects-layout')) {
-        container.innerHTML = data.projects.map(project => {
+        console.log('📊 Using table layout');
+        const projectsHTML = data.projects.map((project, index) => {
+          console.log(`🏗️ Rendering project ${index + 1}:`, project.title);
+          
           // Parse metadata specs for location and other details
           const specs = project.metadata?.specs || '';
           const specLines = specs.split('\n').map(line => line.trim()).filter(line => line);
@@ -223,7 +239,13 @@ class SiteManager {
             </div>
           `;
         }).join('');
+        
+        console.log('📝 Generated HTML length:', projectsHTML.length);
+        container.innerHTML = projectsHTML;
+        console.log('✅ HTML inserted into container');
+        
       } else {
+        console.log('📋 Using legacy grid layout');
         // Legacy grid layout
         container.innerHTML = data.projects.map(project => `
           <div class="project-item">
@@ -235,8 +257,14 @@ class SiteManager {
           </div>
         `).join('');
       }
-    } else {
-      console.log('Container or data.projects not found', container, data.projects);
+      
+      // Verify content was inserted
+      const finalContent = container.innerHTML;
+      console.log('🔍 Final container content length:', finalContent.length);
+      console.log('🔍 Container children count:', container.children.length);
+      
+    } catch (error) {
+      console.error('❌ Error rendering projects:', error);
     }
   }
 
