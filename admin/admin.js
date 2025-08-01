@@ -427,7 +427,7 @@ class AdminPanel {
 
             // Generate filename
             const filename = this.generateImageFilename(file);
-            const githubPath = `Photos that can be used/${filename}`;
+            const githubPath = `images/${filename}`;
 
             // Convert file to base64
             const base64Content = await this.fileToBase64(file);
@@ -441,7 +441,7 @@ class AdminPanel {
             // Re-render projects to show new image
             this.renderProjects();
 
-            this.showStatus(`Image uploaded successfully! Path: ${githubPath}`, 'success');
+            this.showStatus(`Image uploaded to GitHub! Path: ${githubPath}. Note: Image may take 1-2 minutes to appear on live site (Netlify deployment).`, 'success');
             console.log('🖼️ Image uploaded to:', githubPath);
 
         } catch (error) {
