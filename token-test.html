@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Token Debug Test</title>
+</head>
+<body>
+    <h1>Workshop Token Debug</h1>
+    <button onclick="testToken()">Test Current Token</button>
+    <button onclick="generateNewToken()">Generate New Token</button>
+    <pre id="output"></pre>
+
+    <script>
+    function log(message) {
+        document.getElementById('output').textContent += message + '\n';
+        console.log(message);
+    }
+
+    async function testToken() {
+        document.getElementById('output').textContent = '';
+        
+        const token = localStorage.getItem('workshop-session');
+        const expires = localStorage.getItem('workshop-expires');
+        
+        log('=== TOKEN TEST ===');
+        log('Token exists: ' + !!token);
+        log('Token length: ' + (token ? token.length : 0));
+        log('Token preview: ' + (token ? token.substring(0, 50) : 'none'));
+        log('Expires: ' + expires);
+        log('Is expired: ' + (expires ? Date.now() > parseInt(expires) : 'no expiry'));
+        
+        if (!token) {
+            log('ERROR: No token found. Generate one first.');
+            return;
+        }
+        
+        try {
+            log('\n=== CALLING DEBUG FUNCTION ===');
+            const response = await fetch('/.netlify/functions/debug-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ test: true })
+            });
+            
+            log('Response status: ' + response.status);
+            const result = await response.json();
+            log('Response: ' + JSON.stringify(result, null, 2));
+            
+        } catch (error) {
+            log('ERROR: ' + error.message);
+        }
+    }
+
+    async function generateNewToken() {
+        document.getElementById('output').textContent = '';
+        
+        try {
+            log('=== GENERATING NEW TOKEN ===');
+            const response = await fetch('/.netlify/functions/workshop-auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pin: '12345' })
+            });
+            
+            log('Auth response status: ' + response.status);
+            const result = await response.json();
+            log('Auth response: ' + JSON.stringify(result, null, 2));
+            
+            if (result.success && result.sessionToken) {
+                localStorage.setItem('workshop-session', result.sessionToken);
+                localStorage.setItem('workshop-expires', result.expires);
+                log('\nToken stored successfully!');
+                log('Now click "Test Current Token" to debug it.');
+            } else {
+                log('ERROR: Failed to generate token');
+            }
+            
+        } catch (error) {
+            log('ERROR: ' + error.message);
+        }
+    }
+    </script>
+</body>
+</html>
