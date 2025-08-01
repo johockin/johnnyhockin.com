@@ -31,6 +31,19 @@ exports.handler = async (event, context) => {
       bodyLength: event.body ? event.body.length : 0,
     });
 
+    // Handle GET requests without authentication
+    if (event.httpMethod === 'GET') {
+      // For now, return success - data reading handled by frontend
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          message: 'Workshop Mode data access available',
+        }),
+      };
+    }
+
     // Verify session token - check multiple header case variations
     const authHeader = event.headers.authorization || 
                       event.headers.Authorization || 
@@ -53,7 +66,7 @@ exports.handler = async (event, context) => {
       tokenLength: sessionToken.length,
       tokenStart: sessionToken.substring(0, 20),
       tokenEnd: sessionToken.substring(sessionToken.length - 20),
-      isBase64: /^[A-Za-z0-9+/]*={0,2}$/.test(sessionToken)
+      isBase64: /^[A-Za-z0-9+/]+=*$/.test(sessionToken)
     });
 
     // Validate token format before decoding
@@ -100,18 +113,6 @@ exports.handler = async (event, context) => {
         statusCode: 401,
         headers,
         body: JSON.stringify({ error: 'Session expired' }),
-      };
-    }
-
-    if (event.httpMethod === 'GET') {
-      // For now, return success - data reading handled by frontend
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Workshop Mode data access available',
-        }),
       };
     }
 
