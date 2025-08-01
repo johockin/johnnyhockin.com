@@ -438,10 +438,11 @@ class AdminPanel {
             // Update project image path
             this.updateProject(projectId, 'image', githubPath);
 
-            // Re-render projects to show new image
-            this.renderProjects();
-
-            this.showStatus(`Image uploaded to GitHub! Path: ${githubPath}. Note: Image may take 1-2 minutes to appear on live site (Netlify deployment).`, 'success');
+            // Don't immediately re-render - wait for deployment
+            this.showStatus(`Image uploaded! Waiting for deployment... This may take 1-2 minutes.`, 'info');
+            
+            // Check if image is available and then re-render
+            this.waitForImageDeployment(githubPath, projectId);
             console.log('🖼️ Image uploaded to:', githubPath);
 
         } catch (error) {
@@ -517,6 +518,41 @@ class AdminPanel {
         const result = await response.json();
         console.log('✅ GitHub upload successful:', result.content?.path);
         return result;
+    }
+
+    async waitForImageDeployment(imagePath, projectId) {
+        const maxAttempts = 20; // 20 attempts = ~2 minutes
+        const intervalMs = 6000; // Check every 6 seconds
+        let attempts = 0;
+
+        const checkImage = async () => {
+            attempts++;
+            const imageUrl = `../${imagePath}`;
+            
+            try {
+                const response = await fetch(imageUrl, { method: 'HEAD' });
+                if (response.ok) {
+                    // Image is now available!
+                    this.showStatus('Image deployed successfully!', 'success');
+                    this.renderProjects(); // Now re-render to show the image
+                    return true;
+                }
+            } catch (error) {
+                // Still not available
+            }
+
+            if (attempts >= maxAttempts) {
+                this.showStatus('Image uploaded but deployment is taking longer than expected. Try refreshing in a few minutes.', 'error');
+                return false;
+            }
+
+            // Try again
+            this.showStatus(`Image uploaded! Checking deployment... (${attempts}/${maxAttempts})`, 'info');
+            setTimeout(checkImage, intervalMs);
+        };
+
+        // Start checking
+        setTimeout(checkImage, intervalMs);
     }
 
     // Add methods
