@@ -280,9 +280,21 @@ class AdminPanel {
             <div class="form-row">
                 <div class="form-group">
                     <label>Image Path</label>
-                    <input type="text" value="${project.image || ''}" 
-                           onchange="adminPanel.updateProject('${project.id}', 'image', this.value)" 
-                           placeholder="Photos that can be used/image.png" />
+                    <div class="image-field-container">
+                        <input type="text" value="${project.image || ''}" 
+                               onchange="adminPanel.updateProject('${project.id}', 'image', this.value)" 
+                               placeholder="Photos that can be used/image.png"
+                               id="image-path-${project.id}" />
+                        <input type="file" 
+                               accept="image/jpeg,image/png,image/webp" 
+                               onchange="adminPanel.uploadImage('${project.id}', this)"
+                               class="image-upload-input"
+                               id="image-upload-${project.id}" />
+                        <button type="button" 
+                                onclick="document.getElementById('image-upload-${project.id}').click()"
+                                class="upload-btn">Browse</button>
+                    </div>
+                    ${project.image ? `<div class="current-image"><img src="../${project.image}" alt="Current image" class="image-preview" /></div>` : ''}
                 </div>
                 <div class="form-group small">
                     <label>Category</label>
@@ -399,6 +411,105 @@ class AdminPanel {
     updateSiteConfig(field, value) {
         this.data.site[field] = value;
         this.markChanged();
+    }
+
+    async uploadImage(projectId, fileInput) {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        try {
+            this.showStatus('Uploading image...', 'info');
+            
+            // Validate file
+            if (!this.validateImageFile(file)) {
+                return;
+            }
+
+            // Generate filename
+            const filename = this.generateImageFilename(file);
+            const githubPath = `Photos that can be used/${filename}`;
+
+            // Convert file to base64
+            const base64Content = await this.fileToBase64(file);
+
+            // Upload to GitHub
+            await this.uploadFileToGitHub(githubPath, base64Content);
+
+            // Update project image path
+            this.updateProject(projectId, 'image', githubPath);
+
+            // Re-render projects to show new image
+            this.renderProjects();
+
+            this.showStatus('Image uploaded successfully!', 'success');
+
+        } catch (error) {
+            console.error('Upload failed:', error);
+            this.showStatus(`Upload failed: ${error.message}`, 'error');
+        }
+
+        // Clear file input
+        fileInput.value = '';
+    }
+
+    validateImageFile(file) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (file.size > maxSize) {
+            this.showStatus('File too large. Maximum size is 5MB.', 'error');
+            return false;
+        }
+
+        if (!allowedTypes.includes(file.type)) {
+            this.showStatus('Invalid file type. Please use JPEG, PNG, or WebP.', 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    generateImageFilename(file) {
+        const timestamp = Date.now();
+        const extension = file.name.split('.').pop().toLowerCase();
+        return `project-${timestamp}.${extension}`;
+    }
+
+    fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result.split(',')[1]; // Remove data:image/jpeg;base64, prefix
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    async uploadFileToGitHub(path, base64Content) {
+        const url = `https://api.github.com/repos/${this.repo}/contents/${path}`;
+        
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${this.githubToken}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Upload image: ${path}`,
+                content: base64Content,
+                branch: this.branch
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
+        }
+
+        return response.json();
     }
 
     // Add methods

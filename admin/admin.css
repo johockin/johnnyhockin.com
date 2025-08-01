@@ -316,6 +316,53 @@ body {
     color: var(--color-bg);
 }
 
+/* Image upload functionality */
+.image-field-container {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: stretch;
+}
+
+.image-field-container input[type="text"] {
+    flex: 1;
+}
+
+.image-upload-input {
+    display: none;
+}
+
+.upload-btn {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-text);
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-primary);
+    font-size: var(--type-uniform);
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.upload-btn:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+}
+
+.current-image {
+    margin-top: var(--space-xs);
+}
+
+.image-preview {
+    max-width: 200px;
+    max-height: 120px;
+    border: 1px solid var(--color-text);
+    object-fit: cover;
+}
+
 /* Authentication Form */
 .auth-form {
     max-width: 400px;
