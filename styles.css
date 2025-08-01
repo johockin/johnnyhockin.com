@@ -508,7 +508,7 @@ a:hover {
 
 .projects-table {
   display: grid;
-  grid-template-columns: 1.1fr 250px 1.5fr;
+  grid-template-columns: 1.3fr 250px 1.5fr;
   row-gap: var(--space-lg);
   column-gap: var(--space-sm);
   width: 80%;
