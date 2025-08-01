@@ -592,6 +592,106 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 
 ---
 
+## 🎛️ GITHUB-BASED ADMIN PANEL ARCHITECTURE
+
+### The Pivot: From Workshop Mode to Admin Panel
+
+After completing Workshop Mode implementation, user feedback revealed that while the inline editing system was "cute," it lacked true CMS functionality—no ability to add/delete entries or reorder content. User suggested pivoting to "option B" - a dedicated admin panel with GitHub API integration, which was actually their original vision.
+
+### Core Philosophy: "Direct GitHub Integration"
+
+**Design Principles:**
+- **GitHub as Single Source of Truth**: Direct JSON file manipulation via GitHub API
+- **Version History Built-in**: Every change creates a proper Git commit with timestamps
+- **Tom Sachs Aesthetic**: Admin panel styled to match site design language
+- **Two-Column Layout**: Explorer Log in skinny left column, Projects in right column
+- **Complete CRUD Operations**: Add, edit, delete, and reorder all content types
+
+### Technical Architecture
+
+**Authentication Flow:**
+```
+GitHub Personal Access Token → Local Storage → Direct GitHub API Calls
+```
+
+**Content Management Flow:**
+```
+Admin Panel Edit → Local State Update → GitHub API PUT → JSON File Update → Site Refresh (Netlify auto-deploy)
+```
+
+**Data Architecture:**
+- **Primary**: GitHub API direct manipulation of `data.json`
+- **Auth**: GitHub Personal Access Token with 'repo' scope
+- **Persistence**: Real Git commits with automated deployment
+- **UI**: Optimistic updates with save state management
+
+### Implementation Details
+
+**Core Components:**
+- `AdminPanel` class with GitHub API integration
+- Two-column responsive grid layout for wide screens
+- Complete project form with metadata section
+- Real-time save state management with "No Changes" / "Save All Changes" button states
+
+**Project Data Structure Enhancement:**
+```javascript
+{
+  id: "project-slug",           // Used in URL: project.html?id=this-value
+  title: "Project Name",
+  description: "Short description",
+  fullDescription: "Detailed description",
+  image: "Photos that can be used/image.png",
+  category: "Hardware|Software",
+  date: "2024.01.28",
+  status: "Planning|In Progress|Complete|On Hold",
+  featured: true|false,
+  metadata: {
+    specs: "Location: Brooklyn, NY\nMaterials: Aluminum, Steel\nDimensions: 300x200x50mm\nTools: CNC Mill, Lathe"
+  }
+}
+```
+
+**UI/UX Enhancements:**
+- **Column Spacing**: Added `calc(var(--space-xl) + var(--space-md))` gap between columns
+- **Project ID Clarification**: Label changed to "ID (URL Slug)" with tooltip explanation
+- **Metadata Section**: Dedicated textarea for specs/address/details with placeholder examples
+- **Status Management**: Dropdown with standard project states
+- **Featured Toggle**: Simple Yes/No select for homepage display
+
+### File Structure
+
+```
+/admin/
+├── index.html (Clean admin interface layout)
+├── admin.css (Tom Sachs aesthetic styling)
+└── admin.js (GitHub API integration logic)
+```
+
+**Key Methods:**
+- `loadData()`: Fetches data.json from GitHub API with base64 decoding
+- `saveData()`: Updates data.json via GitHub API PUT with commit message
+- `updateProjectMetadata()`: Handles metadata.specs field updates
+- `createProjectForm()`: Generates complete project editing interface
+
+### Security & Permissions
+
+**GitHub Token Requirements:**
+```
+Personal Access Token Scopes:
+- repo (full repository access for content management)
+```
+
+**Benefits Over Workshop Mode:**
+- **True CMS Functionality**: Add/delete/reorder any content
+- **Built-in Version Control**: Every change is a proper Git commit
+- **No Serverless Complexity**: Direct GitHub API, no Netlify Functions needed
+- **Familiar Interface**: Standard admin panel UX that users expect
+- **Complete Project Management**: Full metadata support with structured fields
+
+This admin panel approach delivers the content management functionality the user originally envisioned while maintaining the site's aesthetic integrity and providing professional-grade version control through GitHub's native commit system.
+
+---
+
 ## 🏗️ TECH ARCHITECTURE
 
 - **Framework / language**: Vanilla HTML/CSS/JavaScript - Chosen for maximum simplicity, performance, and maintainability without build complexity
@@ -728,7 +828,13 @@ This Workshop Mode architecture represents the perfect evolution of the site - m
 ## 🧱 ROADMAP & PIPELINE
 
 ### NOW
-- **WORKSHOP MODE CMS COMPLETE** ✅ **ALL PHASES IMPLEMENTED**
+- **GITHUB-BASED ADMIN PANEL COMPLETE** ✅ **FULL IMPLEMENTATION**
+  - Clean two-column layout for wide screens with proper spacing
+  - Complete project data structure with metadata section
+  - GitHub API integration for content management with version history
+  - Tom Sachs aesthetic styling matching site design
+  - Full CRUD operations for Explorer Log entries and Featured Projects
+- **WORKSHOP MODE CMS COMPLETE** ✅ **ALL PHASES IMPLEMENTED** (Pivoted to Admin Panel)
   - Phase I: ✅ Konami code + PIN authentication system
   - Phase II: ✅ Live inline editing with optimistic UI updates
   - Phase III: ✅ Netlify Functions backend with real persistence

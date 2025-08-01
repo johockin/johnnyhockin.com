@@ -201,6 +201,10 @@ class AdminPanel {
     createProjectForm(project) {
         const div = document.createElement('div');
         div.className = 'entry-form';
+        
+        // Ensure metadata exists
+        if (!project.metadata) project.metadata = {};
+        
         div.innerHTML = `
             <div class="form-row">
                 <div class="form-group">
@@ -209,9 +213,10 @@ class AdminPanel {
                            onchange="adminPanel.updateProject('${project.id}', 'title', this.value)" />
                 </div>
                 <div class="form-group small">
-                    <label>ID</label>
+                    <label>ID (URL Slug)</label>
                     <input type="text" value="${project.id}" 
-                           onchange="adminPanel.updateProject('${project.id}', 'id', this.value)" />
+                           onchange="adminPanel.updateProject('${project.id}', 'id', this.value)" 
+                           title="Used in URL: project.html?id=this-value" />
                 </div>
                 <div class="form-group actions">
                     <button class="delete-btn" onclick="adminPanel.deleteProject('${project.id}')">Delete</button>
@@ -219,20 +224,58 @@ class AdminPanel {
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>Short Description</label>
                     <textarea onchange="adminPanel.updateProject('${project.id}', 'description', this.value)">${project.description || ''}</textarea>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Image URL</label>
-                    <input type="text" value="${project.image || ''}" 
-                           onchange="adminPanel.updateProject('${project.id}', 'image', this.value)" />
+                    <label>Full Description</label>
+                    <textarea onchange="adminPanel.updateProject('${project.id}', 'fullDescription', this.value)">${project.fullDescription || ''}</textarea>
                 </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group">
-                    <label>Link URL</label>
-                    <input type="text" value="${project.link || ''}" 
-                           onchange="adminPanel.updateProject('${project.id}', 'link', this.value)" />
+                    <label>Image Path</label>
+                    <input type="text" value="${project.image || ''}" 
+                           onchange="adminPanel.updateProject('${project.id}', 'image', this.value)" 
+                           placeholder="Photos that can be used/image.png" />
+                </div>
+                <div class="form-group small">
+                    <label>Category</label>
+                    <input type="text" value="${project.category || ''}" 
+                           onchange="adminPanel.updateProject('${project.id}', 'category', this.value)" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group small">
+                    <label>Date</label>
+                    <input type="text" value="${project.date || ''}" 
+                           onchange="adminPanel.updateProject('${project.id}', 'date', this.value)" 
+                           placeholder="2024.01.28" />
+                </div>
+                <div class="form-group small">
+                    <label>Status</label>
+                    <select onchange="adminPanel.updateProject('${project.id}', 'status', this.value)">
+                        <option value="Planning" ${project.status === 'Planning' ? 'selected' : ''}>Planning</option>
+                        <option value="In Progress" ${project.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                        <option value="Complete" ${project.status === 'Complete' ? 'selected' : ''}>Complete</option>
+                        <option value="On Hold" ${project.status === 'On Hold' ? 'selected' : ''}>On Hold</option>
+                    </select>
+                </div>
+                <div class="form-group small">
+                    <label>Featured</label>
+                    <select onchange="adminPanel.updateProject('${project.id}', 'featured', this.value === 'true')">
+                        <option value="false" ${!project.featured ? 'selected' : ''}>No</option>
+                        <option value="true" ${project.featured ? 'selected' : ''}>Yes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Metadata (Specs/Address/Details)</label>
+                    <textarea onchange="adminPanel.updateProjectMetadata('${project.id}', 'specs', this.value)" 
+                              placeholder="Location: Brooklyn, NY&#10;Materials: Aluminum, Steel&#10;Dimensions: 300x200x50mm&#10;Tools: CNC Mill, Lathe">${project.metadata.specs || ''}</textarea>
                 </div>
             </div>
         `;
@@ -286,6 +329,16 @@ class AdminPanel {
             } else {
                 project[field] = value;
             }
+            this.markChanged();
+        }
+    }
+
+    updateProjectMetadata(id, field, value) {
+        if (!this.data.projects) this.data.projects = [];
+        const project = this.data.projects.find(p => p.id === id);
+        if (project) {
+            if (!project.metadata) project.metadata = {};
+            project.metadata[field] = value;
             this.markChanged();
         }
     }

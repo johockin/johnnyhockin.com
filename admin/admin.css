@@ -117,7 +117,7 @@ body {
 @media (min-width: 1024px) {
     .admin-main {
         grid-template-columns: 1fr 1fr;
-        gap: var(--space-xl);
+        gap: calc(var(--space-xl) + var(--space-md));
     }
     
     /* Log entries get first column, projects get second */
