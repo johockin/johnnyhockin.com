@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnny Hockin - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>Admin Panel</h1>
+            <div class="admin-nav">
+                <a href="../" class="back-link">← Back to Site</a>
+                <button id="save-all" class="save-btn" disabled>Save All Changes</button>
+            </div>
+        </header>
+
+        <div class="admin-status" id="status">
+            <p>Loading content...</p>
+        </div>
+
+        <main class="admin-main">
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>Explorer Log</h2>
+                    <button id="add-log-entry" class="add-btn">+ Add Entry</button>
+                </div>
+                <div id="log-entries" class="entries-container">
+                    <!-- Log entries will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>Featured Projects</h2>
+                    <button id="add-project" class="add-btn">+ Add Project</button>
+                </div>
+                <div id="projects" class="entries-container">
+                    <!-- Projects will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>Site Configuration</h2>
+                </div>
+                <div id="site-config" class="config-container">
+                    <!-- Site config will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
