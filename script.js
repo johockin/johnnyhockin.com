@@ -208,21 +208,19 @@ class SiteManager {
           const specLines = specs.split('\n').map(line => line.trim()).filter(line => line);
           
           return `
-          <div class="project-table-item">
             ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-table-image">` : '<div class="project-table-image-placeholder">NO IMAGE</div>'}
-          </div>
-          <div class="project-table-item">
-            <div class="project-table-title">${project.title}</div>
-            ${project.category ? `<div class="project-table-category">${project.category}</div>` : ''}
-            ${project.date ? `<div class="project-table-date">${project.date}</div>` : ''}
-            ${project.status ? `<div class="project-table-status">${project.status}</div>` : ''}
-            ${specLines.length > 0 ? `<div class="project-table-specs">${specLines.map(line => `<div class="spec-line">${line}</div>`).join('')}</div>` : ''}
-          </div>
-          <div class="project-table-item">
-            <div class="project-table-description">${project.fullDescription || project.description}</div>
-            ${project.process ? `<div class="project-table-process">${project.process}</div>` : ''}
-          </div>
-        `;
+            <div class="project-table-meta">
+              <div class="project-table-title">${project.title}</div>
+              ${project.category ? `<div class="project-table-category">${project.category}</div>` : ''}
+              ${project.date ? `<div class="project-table-date">${project.date}</div>` : ''}
+              ${project.status ? `<div class="project-table-status">${project.status}</div>` : ''}
+              ${specLines.length > 0 ? `<div class="project-table-specs">${specLines.map(line => `<div class="spec-line">${line}</div>`).join('')}</div>` : ''}
+            </div>
+            <div class="project-table-content">
+              <div class="project-table-description">${project.fullDescription || project.description}</div>
+              ${project.process ? `<div class="project-table-process">${project.process}</div>` : ''}
+            </div>
+          `;
         }).join('');
       } else {
         // Legacy grid layout

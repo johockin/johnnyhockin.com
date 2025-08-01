@@ -514,8 +514,10 @@ a:hover {
   width: 100%;
 }
 
-.project-table-item {
-  display: contents;
+/* Direct grid children - no wrapper divs needed */
+.project-table-meta,
+.project-table-content {
+  /* These will be direct grid children */
 }
 
 .project-table-image {
@@ -616,14 +618,19 @@ a:hover {
     gap: var(--space-md);
   }
   
-  .project-table-item {
-    display: block;
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-accent);
+  .project-table-image,
+  .project-table-meta,
+  .project-table-content {
+    margin-bottom: var(--space-sm);
   }
   
-  .project-table-item:last-child {
+  .project-table-content {
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-accent);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .project-table-content:last-child {
     border-bottom: none;
   }
 }
