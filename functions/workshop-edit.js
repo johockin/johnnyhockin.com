@@ -152,12 +152,28 @@ exports.handler = async (event, context) => {
       });
 
       // Validate content type and element ID format
-      const validContentTypes = ['explorer-log', 'project-title', 'project-description', 'project-table-title', 'project-table-description'];
+      const validContentTypes = [
+        'explorer-log', 
+        'explorer-log-date',
+        'project-title', 
+        'project-description', 
+        'project-table-title', 
+        'project-table-description',
+        'section-title',
+        'text'
+      ];
+      
       if (!validContentTypes.includes(contentType)) {
+        console.log('Invalid content type received:', contentType);
+        console.log('Valid types:', validContentTypes);
         return {
           statusCode: 400,
           headers,
-          body: JSON.stringify({ error: 'Invalid content type' }),
+          body: JSON.stringify({ 
+            error: 'Invalid content type',
+            received: contentType,
+            validTypes: validContentTypes
+          }),
         };
       }
 

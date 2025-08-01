@@ -832,12 +832,12 @@ class WorkshopManager {
   
   getContentType(selector) {
     const typeMap = {
-      '.log-content': 'log-content',
-      '.log-date': 'log-date', 
+      '.log-content': 'explorer-log',
+      '.log-date': 'explorer-log-date', 
       '.project-title a': 'project-title',
       '.project-description': 'project-description',
-      '.project-table-title': 'project-title',
-      '.project-table-description': 'project-description',
+      '.project-table-title': 'project-table-title',
+      '.project-table-description': 'project-table-description',
       '.section-title': 'section-title'
     };
     return typeMap[selector] || 'text';
