@@ -77,12 +77,14 @@ class AdminPanel {
     }
 
     async saveData() {
+        console.log('💾 saveData called, hasChanges:', this.hasChanges);
         if (!this.hasChanges) {
             this.showStatus('No changes to save', 'success');
             return;
         }
 
         try {
+            console.log('📤 Saving data to GitHub:', this.data);
             this.showStatus('Saving changes to GitHub...', 'info');
             
             const content = btoa(JSON.stringify(this.data, null, 2));
@@ -386,6 +388,7 @@ class AdminPanel {
     }
 
     updateProject(id, field, value) {
+        console.log('🔄 updateProject called:', { id, field, value });
         if (!this.data.projects) this.data.projects = [];
         const project = this.data.projects.find(p => p.id === id);
         if (project) {
@@ -394,7 +397,10 @@ class AdminPanel {
             } else {
                 project[field] = value;
             }
+            console.log('✅ Project updated:', project);
             this.markChanged();
+        } else {
+            console.error('❌ Project not found:', id);
         }
     }
 

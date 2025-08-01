@@ -198,7 +198,9 @@ class SiteManager {
   }
 
   loadProjectsPage(data) {
+    console.log('🔍 loadProjectsPage called with:', data.projects?.length, 'projects');
     const container = document.getElementById('allProjects');
+    console.log('📦 Container found:', !!container, 'with classes:', container?.className);
     if (container && data.projects) {
       // Check if we're using the new table layout
       if (container.classList.contains('projects-table') || container.parentElement.classList.contains('projects-layout')) {
