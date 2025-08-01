@@ -578,6 +578,37 @@ a:hover {
   color: var(--color-text);
 }
 
+/* New metadata fields styling */
+.project-table-status {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: var(--space-xs);
+}
+
+.project-table-specs {
+  margin-top: var(--space-sm);
+}
+
+.spec-line {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 2px;
+}
+
+.project-table-process {
+  margin-top: var(--space-sm);
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  font-style: italic;
+}
+
 /* Responsive projects table */
 @media (max-width: 900px) {
   .projects-table {

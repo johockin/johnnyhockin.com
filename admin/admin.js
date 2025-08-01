@@ -134,6 +134,49 @@ class AdminPanel {
         document.getElementById('add-project').addEventListener('click', () => {
             this.addProject();
         });
+
+        // Category tooltip functionality
+        this.setupCategoryTooltips();
+    }
+
+    setupCategoryTooltips() {
+        // Use event delegation since forms are dynamically created
+        document.addEventListener('focus', (e) => {
+            if (e.target.hasAttribute('data-category-input')) {
+                const tooltip = e.target.parentNode.querySelector('.category-tooltip');
+                if (tooltip) {
+                    tooltip.style.display = 'block';
+                }
+            }
+        }, true);
+
+        document.addEventListener('blur', (e) => {
+            if (e.target.hasAttribute('data-category-input')) {
+                // Delay hiding to allow for clicks
+                setTimeout(() => {
+                    const tooltip = e.target.parentNode.querySelector('.category-tooltip');
+                    if (tooltip) {
+                        tooltip.style.display = 'none';
+                    }
+                }, 150);
+            }
+        }, true);
+
+        // Handle tooltip clicks
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.category-tooltip')) {
+                const tooltipItem = e.target.closest('.category-tooltip div');
+                if (tooltipItem) {
+                    const tooltip = e.target.closest('.category-tooltip');
+                    const input = tooltip.parentNode.querySelector('[data-category-input]');
+                    if (input) {
+                        input.value = tooltipItem.textContent;
+                        input.dispatchEvent(new Event('change'));
+                        tooltip.style.display = 'none';
+                    }
+                }
+            }
+        });
     }
 
     renderContent() {
@@ -244,7 +287,17 @@ class AdminPanel {
                 <div class="form-group small">
                     <label>Category</label>
                     <input type="text" value="${project.category || ''}" 
-                           onchange="adminPanel.updateProject('${project.id}', 'category', this.value)" />
+                           onchange="adminPanel.updateProject('${project.id}', 'category', this.value)"
+                           data-category-input
+                           placeholder="Hardware, Software..." />
+                    <div class="category-tooltip" style="display: none;">
+                        <div>Hardware</div>
+                        <div>Software</div>
+                        <div>Film</div>
+                        <div>Music</div>
+                        <div>Art</div>
+                        <div>Research</div>
+                    </div>
                 </div>
             </div>
             <div class="form-row">

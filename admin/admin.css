@@ -12,6 +12,7 @@
   --space-sm: clamp(0.5rem, 2vw, 1.5rem);
   --space-md: clamp(1rem, 3vw, 2.5rem);
   --space-lg: clamp(1.5rem, 4vw, 4rem);
+  --space-xl: clamp(2rem, 5vw, 6rem);
   
   /* Typography */
   --type-uniform: clamp(11px, 2.25vw, 14px);
@@ -281,6 +282,38 @@ body {
     min-height: 80px;
     resize: vertical;
     line-height: 1.4;
+}
+
+/* Category tooltip */
+.form-group {
+    position: relative;
+}
+
+.category-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-text);
+    border-radius: 0;
+    z-index: 1000;
+    min-width: 120px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.category-tooltip div {
+    padding: var(--space-xs);
+    font-size: var(--type-uniform);
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-tooltip div:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
 }
 
 /* Authentication Form */

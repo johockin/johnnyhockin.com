@@ -202,20 +202,28 @@ class SiteManager {
     if (container && data.projects) {
       // Check if we're using the new table layout
       if (container.classList.contains('projects-table') || container.parentElement.classList.contains('projects-layout')) {
-        container.innerHTML = data.projects.map(project => `
+        container.innerHTML = data.projects.map(project => {
+          // Parse metadata specs for location and other details
+          const specs = project.metadata?.specs || '';
+          const specLines = specs.split('\n').map(line => line.trim()).filter(line => line);
+          
+          return `
           <div class="project-table-item">
             ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-table-image">` : '<div class="project-table-image-placeholder">NO IMAGE</div>'}
           </div>
           <div class="project-table-item">
             <div class="project-table-title">${project.title}</div>
-            <div class="project-table-location">${project.location || 'Personal Studio, Toronto'}</div>
-            <div class="project-table-date">${project.date || new Date().getFullYear()}</div>
-            <div class="project-table-category">${project.category || ''}</div>
+            ${project.category ? `<div class="project-table-category">${project.category}</div>` : ''}
+            ${project.date ? `<div class="project-table-date">${project.date}</div>` : ''}
+            ${project.status ? `<div class="project-table-status">${project.status}</div>` : ''}
+            ${specLines.length > 0 ? `<div class="project-table-specs">${specLines.map(line => `<div class="spec-line">${line}</div>`).join('')}</div>` : ''}
           </div>
           <div class="project-table-item">
-            <div class="project-table-description">${project.description}</div>
+            <div class="project-table-description">${project.fullDescription || project.description}</div>
+            ${project.process ? `<div class="project-table-process">${project.process}</div>` : ''}
           </div>
-        `).join('');
+        `;
+        }).join('');
       } else {
         // Legacy grid layout
         container.innerHTML = data.projects.map(project => `
