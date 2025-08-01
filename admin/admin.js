@@ -294,7 +294,7 @@ class AdminPanel {
                                 onclick="document.getElementById('image-upload-${project.id}').click()"
                                 class="upload-btn">Browse</button>
                     </div>
-                    ${project.image ? `<div class="current-image"><img src="../${project.image}" alt="Current image" class="image-preview" /></div>` : ''}
+                    ${project.image ? `<div class="current-image"><img src="../${project.image}" alt="Current image" class="image-preview" onerror="console.error('Image failed to load:', this.src)" /></div>` : ''}
                 </div>
                 <div class="form-group small">
                     <label>Category</label>
@@ -441,7 +441,8 @@ class AdminPanel {
             // Re-render projects to show new image
             this.renderProjects();
 
-            this.showStatus('Image uploaded successfully!', 'success');
+            this.showStatus(`Image uploaded successfully! Path: ${githubPath}`, 'success');
+            console.log('🖼️ Image uploaded to:', githubPath);
 
         } catch (error) {
             console.error('Upload failed:', error);
@@ -488,7 +489,10 @@ class AdminPanel {
     }
 
     async uploadFileToGitHub(path, base64Content) {
-        const url = `https://api.github.com/repos/${this.repo}/contents/${path}`;
+        const encodedPath = encodeURIComponent(path).replace(/%2F/g, '/');
+        const url = `https://api.github.com/repos/${this.repo}/contents/${encodedPath}`;
+        
+        console.log('🔄 Uploading to GitHub:', url);
         
         const response = await fetch(url, {
             method: 'PUT',
@@ -506,10 +510,13 @@ class AdminPanel {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
+            console.error('GitHub API Error:', errorData);
+            throw new Error(`GitHub API error: ${response.status} - ${errorData.message || 'Unknown error'}`);
         }
 
-        return response.json();
+        const result = await response.json();
+        console.log('✅ GitHub upload successful:', result.content?.path);
+        return result;
     }
 
     // Add methods
