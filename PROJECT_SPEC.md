@@ -317,6 +317,35 @@ After completing the responsive system, the user provided screenshots from Tom S
 }
 ```
 
+### Projects Layout Refinements - Fixed Width & White Space
+
+**User Feedback Evolution**: 
+- "Can the max width of the description be a little skinnier? I want it to leave a little white space on the right"
+- "I'd like the centre column of the responsive layout to just be a fixed width i think!"
+- "Can we add a fixed width column on the right? Of like 20% of the view? And also just dial up the width of the photo column by 10% of the page?"
+
+**Final Grid Structure**:
+```css
+.projects-table {
+  display: grid;
+  grid-template-columns: 1.1fr 250px 1.5fr;
+  width: 80%;
+}
+```
+
+**Design Rationale**:
+- **Fixed 250px metadata column**: Creates systematic, predictable layout regardless of content length
+- **1.1fr photo column**: 10% wider than original proportional scaling for better image prominence
+- **80% table width**: Achieves 20% right margin white space without requiring empty 4th column
+- **Row height**: Each row height determined by tallest cell content (typically images)
+
+**Technical Benefits**:
+- Maintains 3-column structure matching 3-element JavaScript generation
+- Avoids layout breaks from empty columns
+- Preserves responsive behavior on mobile
+- Creates clean right-margin breathing room
+- Systematic metadata column prevents content expansion issues
+
 ### CSS Columns vs CSS Grid Decision Matrix
 
 **CSS Columns Chosen For**:
