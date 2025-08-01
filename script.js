@@ -218,7 +218,6 @@ class SiteManager {
             </div>
             <div class="project-table-content">
               <div class="project-table-description">${project.fullDescription || project.description}</div>
-              ${project.process ? `<div class="project-table-process">${project.process}</div>` : ''}
             </div>
           `;
         }).join('');
@@ -333,9 +332,6 @@ class SiteManager {
         <h1 class="page-title">${project.title}</h1>
         <div class="project-meta">${project.date} • ${project.category}</div>
         <div class="project-description">${project.fullDescription || project.description}</div>
-        ${project.process ? `<h3>Process</h3><div class="project-process">${project.process}</div>` : ''}
-        ${project.links ? `<div class="project-links">${project.links.map(link => `<a href="${link.url}" target="_blank">${link.title}</a>`).join('')}</div>` : ''}
-        ${project.notes ? `<h3>Notes</h3><div class="project-notes">${project.notes}</div>` : ''}
       `;
     }
   }

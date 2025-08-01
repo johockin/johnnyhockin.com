@@ -37,7 +37,7 @@
     },
     {
       "id": "log-007",
-      "date": "2024.01.08", 
+      "date": "2024.01.08",
       "content": "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable. Total build time: 3 hours. Added a simple pomodoro timer and session analytics. The data is revealing some interesting patterns about my productivity cycles."
     },
     {
@@ -101,78 +101,34 @@
       "id": "mechanical-keyboard",
       "title": "Custom Mechanical Keyboard",
       "description": "Building a 60% keyboard from scratch. PCB design, firmware, and case machining.",
-      "image": "Photos that can be used/prt_275x115_1495567625_2x.png",
       "fullDescription": "A completely custom 60% mechanical keyboard built from the ground up. This project involves PCB design in KiCad, custom firmware development, and precision case machining. The goal is to create a keyboard that matches my exact typing preferences while learning about hardware design. The keyboard features hot-swappable switches, per-key RGB lighting, and a custom layout optimized for programming workflows. The case is CNC machined from a single block of aluminum with a subtle sandblasted finish.",
+      "image": "Photos that can be used/prt_275x115_1495567625_2x.png",
       "category": "Hardware",
       "date": "2024.01.28",
       "status": "In Progress",
-      "featured": true,
-      "process": "Started with extensive switch testing—tried over 20 different switch types before settling on Gateron Brown tactile switches with 67g actuation force. The PCB design in KiCad took three major revisions to get right. The most challenging aspect was routing the traces while maintaining proper spacing for the USB-C connector and ensuring electromagnetic compatibility. The firmware is based on QMK but heavily customized with macros for common programming patterns. Currently in the assembly phase—the PCBs arrived from JLCPCB with excellent quality. The case machining is being done on a friend's CNC mill using 6061 aluminum stock.",
-      "links": [
-        {
-          "title": "PCB Files (KiCad)",
-          "url": "#github-pcb-files"
-        },
-        {
-          "title": "Firmware Repository", 
-          "url": "#github-firmware"
-        },
-        {
-          "title": "3D Models (Fusion 360)",
-          "url": "#fusion360-models"
-        }
-      ],
-      "notes": "The most challenging part was understanding the USB protocol implementation and debugging the key matrix. QMK firmware provides a solid foundation, but customizing the key mappings and implementing advanced features like tap-dance keys required diving deep into the codebase. Learned more about electrical engineering in this project than in any textbook. The satisfaction of typing on hardware you designed yourself is unmatched."
+      "featured": true
     },
     {
       "id": "gesture-recognition",
       "title": "Hand Gesture Recognition",
       "description": "Computer vision experiment for controlling devices through hand movements.",
-      "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "fullDescription": "A real-time hand gesture recognition system using computer vision to control devices and applications without physical contact. The system can recognize complex hand gestures and translate them into MIDI commands, mouse movements, or custom application controls. Built with Python and optimized for performance on edge devices like Raspberry Pi. The recognition engine uses a combination of MediaPipe for hand tracking and a custom neural network for gesture classification. Supports training custom gestures through a simple interface.",
+      "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "category": "Software",
-      "date": "2024.01.19", 
+      "date": "2024.01.19",
       "status": "Active Development",
-      "featured": true,
-      "process": "Started with OpenCV but quickly switched to MediaPipe for better performance and accuracy. The breakthrough came when I realized I needed to track gesture sequences over time rather than just static hand positions. Implemented a sliding window approach to capture gesture dynamics. Trained the classifier using TensorFlow Lite with a dataset of 2,000 gesture samples across 12 different gestures. The system now achieves 97% accuracy with sub-50ms latency on Raspberry Pi 4. Added MIDI output capabilities to control synthesizers and DAWs in real-time.",
-      "links": [
-        {
-          "title": "Python Source Code",
-          "url": "#github-gesture-recognition"
-        },
-        {
-          "title": "Training Dataset",
-          "url": "#gesture-dataset"
-        },
-        {
-          "title": "Demo Video",
-          "url": "#gesture-demo"
-        }
-      ],
-      "notes": "The most interesting discovery was that gesture recognition accuracy improved dramatically when I included temporal information. Hand positions alone aren't enough—the movement patterns contain crucial information. This project opened my eyes to the potential of computer vision for creative applications. Currently exploring integration with Ableton Live for live musical performance."
+      "featured": true
     },
     {
       "id": "led-matrix",
-      "title": "LED Matrix Controller", 
+      "title": "LED Matrix Controller",
       "description": "Real-time graphics on a 32x32 RGB LED matrix. Custom protocols and timing.",
-      "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "fullDescription": "A high-performance controller for driving 32x32 RGB LED matrices with real-time graphics and animations. Features custom communication protocols and precise timing control.",
+      "image": "Photos that can be used/prt_275x139_1495568799_2x.png",
       "category": "Hardware",
       "date": "2024.01.05",
       "status": "Completed",
-      "featured": true,
-      "process": "The main challenge was understanding the timing requirements for the LED matrix protocol. PWM frequency had to be carefully balanced with refresh rate to avoid interference.",
-      "links": [
-        {
-          "title": "Controller Code",
-          "url": "#"
-        },
-        {
-          "title": "Hardware Schematics",
-          "url": "#"
-        }
-      ],
-      "notes": "This project taught me more about hardware timing than any textbook. The devil is truly in the details when working with real-time systems."
+      "featured": true
     },
     {
       "id": "coding-tracker",
@@ -181,10 +137,8 @@
       "fullDescription": "A simple yet effective application for tracking daily coding sessions, built with vanilla JavaScript and local storage. No external dependencies, no complex build process—just pure functionality.",
       "category": "Software",
       "date": "2024.01.08",
-      "status": "Completed", 
-      "featured": false,
-      "process": "Built in a single 3-hour session using only vanilla JavaScript and browser local storage. The interface is intentionally minimal to avoid distraction from actual coding.",
-      "notes": "Sometimes the best tools are the simplest ones. This tracker has been more useful than any complex productivity app I've tried."
+      "status": "Completed",
+      "featured": false
     },
     {
       "id": "oscilloscope",
@@ -194,55 +148,29 @@
       "category": "Hardware",
       "date": "2023.12.15",
       "status": "Completed",
-      "featured": false,
-      "process": "Used ADC sampling with DMA for data acquisition and custom rendering code for the OLED display. Implemented FFT analysis using ESP32's built-in DSP libraries. Added a simple signal generator using the DAC output. The biggest challenge was optimizing the display refresh rate while maintaining sample accuracy.",
-      "notes": "Total cost was $12. Not lab-quality, but incredibly useful for educational purposes and basic signal analysis. This project taught me more about signal processing than any textbook. The ESP32's dual-core architecture allowed me to separate acquisition from display rendering."
+      "featured": false
     },
     {
       "id": "webgl-visualizer",
       "title": "WebGL Audio Visualizer",
       "description": "Real-time audio visualization using WebGL shaders and Web Audio API.",
-      "image": "Photos that can be used/prt_275x148_1495568489_2x.jpg.jpeg",
       "fullDescription": "A high-performance audio visualizer built with WebGL that creates stunning real-time visuals synchronized to music. Features include particle systems, fractals, and procedural textures all running at 60fps. The visualizer analyzes audio frequencies in real-time and maps them to various visual parameters including color, movement, and geometric transformations.",
+      "image": "Photos that can be used/prt_275x148_1495568489_2x.jpg.jpeg",
       "category": "Software",
       "date": "2024.01.25",
       "status": "Completed",
-      "featured": true,
-      "process": "Started with basic Canvas 2D but quickly hit performance limits. Migrated to WebGL for GPU acceleration. The key breakthrough was using instanced rendering to draw thousands of particles efficiently. Web Audio API provides real-time frequency analysis. Shader programming was intimidating at first but incredibly powerful once mastered.",
-      "links": [
-        {
-          "title": "Live Demo",
-          "url": "#webgl-visualizer-demo"
-        },
-        {
-          "title": "Source Code",
-          "url": "#github-webgl-visualizer"
-        }
-      ],
-      "notes": "This project pushed my understanding of graphics programming to new levels. The math behind shader programming is complex but the visual results are magical. Managing 10,000+ particles at 60fps required careful optimization of GPU memory and draw calls."
+      "featured": true
     },
     {
       "id": "midi-controller",
       "title": "Arcade Button MIDI Controller",
       "description": "Custom MIDI controller built from salvaged arcade buttons with velocity-sensitive RGB feedback.",
-      "image": "Photos that can be used/prt_275x115_1495567625_2x.png",
       "fullDescription": "A unique MIDI controller built from salvaged arcade buttons, each with individual RGB LEDs that respond to velocity and provide visual feedback. The controller connects via USB and is compatible with all major DAWs. Features include customizable velocity curves, programmable LED patterns, and a robust aluminum enclosure. The tactile response is superior to commercial controllers due to the high-quality arcade switches.",
+      "image": "Photos that can be used/prt_275x115_1495567625_2x.png",
       "category": "Hardware",
       "date": "2024.01.22",
       "status": "Completed",
-      "featured": true,
-      "process": "Sourced 16 authentic arcade buttons from a local arcade that was closing down. Each button required custom wiring for both the switch and LED. Used an Arduino Pro Micro for USB MIDI capability. The enclosure is laser-cut acrylic with an aluminum base for stability. Programming the velocity-sensitive LEDs required careful calibration to match musical dynamics.",
-      "links": [
-        {
-          "title": "Build Photos",
-          "url": "#midi-controller-build"
-        },
-        {
-          "title": "Arduino Code",
-          "url": "#github-midi-controller"
-        }
-      ],
-      "notes": "The tactile feedback of real arcade buttons is incredible—each press has weight and authority that cheap MIDI controllers can't match. Total cost was $45 but the build quality rivals controllers costing 10x more. This reinforced my belief that the best tools are often the ones you build yourself."
+      "featured": true
     },
     {
       "id": "pcb-business-card",
@@ -252,19 +180,7 @@
       "category": "Hardware",
       "date": "2023.11.18",
       "status": "Completed",
-      "featured": false,
-      "process": "Designed the PCB to meet standard business card dimensions while accommodating all components. The challenge was fitting everything into a 2-layer board with such tight space constraints. Used KiCad for design and JLCPCB for manufacturing. The IR communication protocol is simple but effective—cards broadcast contact info when activated.",
-      "links": [
-        {
-          "title": "PCB Design Files",
-          "url": "#github-pcb-card"
-        },
-        {
-          "title": "Assembly Instructions",
-          "url": "#pcb-card-assembly"
-        }
-      ],
-      "notes": "Each card costs about $3 to manufacture but makes an unforgettable impression. The gerber files are works of art in themselves—functional circuit board as aesthetic object. Several people have kept them as desk decorations rather than throwing them away like normal business cards."
+      "featured": false
     },
     {
       "id": "mesh-sensor-network",
@@ -274,19 +190,7 @@
       "category": "Hardware",
       "date": "2023.12.25",
       "status": "Deployed",
-      "featured": false,
-      "process": "Started with ESP-NOW protocol but migrated to ESP-MESH for better scalability and self-healing capabilities. Each node includes BME280 sensors for environmental data and PIR sensors for motion detection. 3D printed enclosures house the electronics and batteries. The mesh network automatically routes data through the most efficient path to the gateway node.",
-      "links": [
-        {
-          "title": "Node Firmware",
-          "url": "#github-mesh-sensors"
-        },
-        {
-          "title": "Web Dashboard",
-          "url": "#mesh-dashboard-demo"
-        }
-      ],
-      "notes": "The ESP32 mesh capabilities are impressive once you understand the API. Each node costs about $8 and provides months of battery life. The self-healing mesh topology means the network continues working even if individual nodes fail. Real-world testing revealed interesting patterns about air circulation and temperature gradients in the house."
+      "featured": false
     },
     {
       "id": "modular-synthesizer",
@@ -296,9 +200,7 @@
       "category": "Hardware",
       "date": "2023.12.10",
       "status": "Completed",
-      "featured": false,
-      "process": "Started with breadboard prototypes of classic analog circuits. The filter design is based on the Moog transistor ladder but simplified for easier construction. 3D printed the Eurorack-compatible panels with integrated mounting posts. Hand-wound inductors using salvaged transformer cores from old CRT monitors. Each module was tested extensively before final assembly.",
-      "notes": "The sound has that raw, unpredictable quality that digital synths struggle to replicate. Hand-wound components add unique character—no two modules sound exactly the same. This project deepened my appreciation for analog circuit design and the pioneers who created these sounds in the 1960s."
+      "featured": false
     },
     {
       "id": "neural-schematic-parser",
@@ -308,14 +210,12 @@
       "category": "Software",
       "date": "2023.11.22",
       "status": "Research",
-      "featured": false,
-      "process": "Started by building a dataset of hand-drawn circuits paired with their digital equivalents. Used a combination of object detection for component recognition and graph neural networks to understand connectivity. The biggest challenge is handling the variability in how people draw circuits—there's no standard way to sketch a resistor or capacitor.",
-      "notes": "Initial results are promising but the dataset is small. Need to generate more training data to handle edge cases. This could be incredibly useful for rapid prototyping—sketch an idea and get a working schematic instantly. The intersection of computer vision and electronic design is fascinating."
+      "featured": false
     }
   ],
   "otherProjects": [
     "Automated Plant Watering System",
-    "Solar-Powered Weather Station", 
+    "Solar-Powered Weather Station",
     "Arduino-Based Smart Door Lock",
     "LED Strip Audio Visualizer",
     "Custom Macro Keyboard",
