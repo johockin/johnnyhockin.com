@@ -14,6 +14,7 @@
 - **User does the QA** - AI guides testing, user runs tests locally/in browser - AI should never guess at QA results by reading code
 - **This file is allowed to be sprawling** - It's the beating heart of the project
 - **Flag spec inconsistencies** - AI must identify and flag any issues or inconsistencies found in this spec
+- **Challenge ideas, don't be a "yes person"** - Vet all suggestions and premises rather than simply agreeing to be agreeable. If you agree immediately, it should be because you've genuinely evaluated the proposal and found it sound, not to avoid conflict
 
 ---
 
