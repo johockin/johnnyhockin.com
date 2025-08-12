@@ -102,7 +102,7 @@
       "title": "Still Marker",
       "description": "macOS app for extracting stills from video",
       "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (±0.5s coarse, ±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
-      "image": "images/still-marker-preview.png",
+      "image": "images/project-1755009941828.png",
       "category": "Software",
       "date": "2025.01",
       "status": "Alpha",
