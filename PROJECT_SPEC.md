@@ -746,6 +746,13 @@ This admin panel approach delivers the content management functionality the user
 - **TONE**: Raw, honest project descriptions that align with Tom Sachs aesthetic
 - **CATEGORIES**: Software tools (filmmaker-focused) and Video/Commercial work
 - **STATUS**: Ready for MVP launch with real portfolio content
+### 2025-08-12 - Content Corrections & Line Break Rendering Fix
+- **CORRECTED CONTENT**: Replaced AI-generated content with actual filmmaker tools and bio
+- **REAL PROJECTS**: Still Marker (video stills), Maggy (DIT transfer), To Don't (todo app), Subway Canada (video series)
+- **AUTHENTIC BIO**: "Inventor-storyteller shipping films, code, objects fast" with real credentials
+- **LINE BREAK FIX**: Added formatLineBreaks() helper to convert \n to <br> tags in all content display
+- **IMAGE ASSETS**: Added actual project images via CMS (Still Marker, Maggy screenshots)
+- **STATUS**: Site now accurately represents actual work and CMS line breaks display properly
 ### 2025-08-12 - ASCII DVD Bouncer 404 Page: Delightful Error Handling
 - **NEW FEATURE**: Created custom 404.html with ASCII DVD screensaver bouncing animation
 - **PHYSICS ENGINE**: Vanilla JS bouncing physics with meditative pacing (0.5/0.3 velocity)

@@ -284,22 +284,9 @@ class SiteManager {
 
   loadLogPage(data) {
     const container = document.getElementById('logArchiveEntries');
-    if (container) {
-      // Extended log data with placeholder links for archive
-      const archiveEntries = [
-        { date: "2024.01.28", content: "Keyboard project update: The PCB arrived from <a href=\"https://jlcpcb.com\" target=\"_blank\">JLCPCB</a> today. Quality looks excellent—the silkscreen is crisp and all the vias are properly filled. Time to start assembly. Found a potential issue with the USB-C footprint that might cause problems with some cables." },
-        { date: "2024.01.25", content: "Deep dive into WebGL shaders for a new visualization project. The math is brutal but the results are worth it. Managed to get real-time particle systems running at 60fps with 10,000 particles. The key was batching draw calls and using <a href=\"https://webglfundamentals.org/webgl/lessons/webgl-instanced-drawing.html\" target=\"_blank\">instanced rendering</a>." },
-        { date: "2024.01.22", content: "Spent the weekend building a custom MIDI controller from salvaged arcade buttons. The tactile feedback is incredible—way better than any commercial controller I've used. Posted some photos on <a href=\"#\" target=\"_blank\">my Instagram</a>." },
-        { date: "2024.01.19", content: "Breakthrough on the gesture recognition project. Switched from OpenCV to <a href=\"https://mediapipe.dev/\" target=\"_blank\">MediaPipe</a> and the performance improvement is dramatic. Latency dropped from 150ms to 45ms. The hand tracking is incredibly smooth now." },
-        { date: "2024.01.15", content: "Started building a custom mechanical keyboard. The switches arrived today—tactile, 67g actuation. The PCB design is proving more complex than expected. Using <a href=\"https://kicad.org/\" target=\"_blank\">KiCad</a> for the first time." },
-        { date: "2024.01.12", content: "Experimenting with mesh networking protocols. ESP32 boards scattered around the house are finally talking to each other reliably. Range tests tomorrow. Following <a href=\"https://github.com/gmag11/painlessMesh\" target=\"_blank\">painlessMesh</a> examples." },
-        { date: "2024.01.08", content: "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable. Code is up on <a href=\"#\" target=\"_blank\">GitHub</a>." },
-        { date: "2024.01.05", content: "Found an interesting bug in my LED matrix controller. The issue wasn't in the code—it was in my understanding of the hardware timing requirements. <a href=\"https://www.adafruit.com/product/2278\" target=\"_blank\">This Adafruit guide</a> finally clarified the SPI timing." },
-        { date: "2024.01.02", content: "New year, new experiments. Planning to document everything more thoroughly this time. Raw process notes, not polished blog posts. Inspired by <a href=\"https://notes.andymatuschak.org/\" target=\"_blank\">Andy Matuschak's working notes</a>." },
-        { date: "2023.12.28", content: "Finished the neural network schematic parser. It can now convert hand-drawn circuit diagrams into proper schematics with 85% accuracy. The training data was the hardest part—had to draw hundreds of circuits by hand." },
-        { date: "2023.12.22", content: "Modular synthesizer build is coming along. 3D printed the panels this week. The <a href=\"https://www.muffwiggler.com/\" target=\"_blank\">Muff Wiggler forums</a> have been incredibly helpful for troubleshooting the VCA circuit." },
-        { date: "2023.12.18", content: "Made progress on the PCB business cards. The IR communication is working, but the range is shorter than expected. Need to experiment with different LED power levels. <a href=\"https://learn.adafruit.com/ir-sensor/overview\" target=\"_blank\">This Adafruit tutorial</a> has some good tips." }
-      ];
+    if (container && data.explorerLog) {
+      // Use all entries from data.json for the archive page, skip the first 5 (shown on homepage)
+      const archiveEntries = data.explorerLog.slice(5);
       
       container.innerHTML = archiveEntries.map(entry => `
         <div class="log-archive-entry">
@@ -431,37 +418,27 @@ class SiteManager {
     }));
   }
   
-  // Fallback placeholder content
+  // Fallback placeholder content - use embedded data if available
   loadPlaceholderContent() {
     const path = window.location.pathname;
     
     if (path === '/' || path === '/index.html') {
-      this.loadLogEntries([
-        { date: "2024.01.15", content: "Started building a custom mechanical keyboard. The switches arrived today—tactile, 67g actuation. The PCB design is proving more complex than expected." },
-        { date: "2024.01.12", content: "Experimenting with computer vision for detecting hand gestures. OpenCV is overkill for what I need, but the precision is incredible." },
-        { date: "2024.01.08", content: "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable." },
-        { date: "2024.01.05", content: "Found an interesting bug in my LED matrix controller. The issue wasn't in the code—it was in my understanding of the hardware timing requirements." },
-        { date: "2024.01.02", content: "New year, new experiments. Planning to document everything more thoroughly this time. Raw process notes, not polished blog posts." }
-      ]);
-      
-      this.loadFeaturedProjects([
-        { 
-          id: "mechanical-keyboard", 
-          title: "01 Custom Mechanical Keyboard", 
-          description: "Building a 60% keyboard from scratch. PCB design, firmware, and case machining.",
-          image: "images/project-1754075814066.png",
-          category: "Hardware",
-          date: "2024.01.15"
-        },
-        { 
-          id: "gesture-recognition", 
-          title: "02 Hand Gesture Recognition", 
-          description: "Computer vision experiment for controlling devices through hand movements.",
-          image: "images/project-1754076096369.png",
-          category: "Software", 
-          date: "2024.01.12"
+      // Try to use embedded data as placeholder instead of hardcoded content
+      if (window.EMBEDDED_SITE_DATA && window.EMBEDDED_SITE_DATA.explorerLog) {
+        this.loadLogEntries(window.EMBEDDED_SITE_DATA.explorerLog.slice(0, 3));
+        this.loadFeaturedProjects(window.EMBEDDED_SITE_DATA.projects.filter(p => p.featured).slice(0, 2));
+      } else {
+        // Only if no embedded data available, show minimal message
+        const logContainer = document.getElementById('logEntries');
+        const projectContainer = document.getElementById('projectGrid');
+        
+        if (logContainer) {
+          logContainer.innerHTML = '<div class="log-entry"><div class="log-content">Loading content...</div></div>';
         }
-      ]);
+        if (projectContainer) {
+          projectContainer.innerHTML = '<div class="project-item"><div class="project-description">Loading projects...</div></div>';
+        }
+      }
     }
   }
 }
