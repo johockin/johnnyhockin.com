@@ -180,8 +180,9 @@ class SiteManager {
       console.log('📍 Loading log page...');
       this.loadLogPage(data);
     } else if (path === '/project.html' || path.endsWith('/project.html')) {
-      console.log('📍 Loading project page...');
-      this.loadProjectPage(data);
+      console.log('🚫 Individual project pages disabled for MVP - redirecting to projects list');
+      window.location.href = 'projects.html';
+      return;
     } else {
       console.warn('⚠️ No route match found for path:', path);
     }
@@ -242,6 +243,15 @@ class SiteManager {
         container.innerHTML = projectsHTML;
         console.log('✅ HTML inserted into container');
         
+        // Make project images clickable - redirect to projects page
+        const projectImages = container.querySelectorAll('.project-table-image, .project-image');
+        projectImages.forEach(img => {
+          img.style.cursor = 'pointer';
+          img.addEventListener('click', () => {
+            window.location.href = 'projects.html';
+          });
+        });
+        
       } else {
         console.log('📋 Using legacy grid layout');
         // Legacy grid layout
@@ -249,7 +259,7 @@ class SiteManager {
           <div class="project-item">
             ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
             <div class="project-title">
-              <a href="project.html?id=${project.id}">${project.title}</a>
+              <a href="projects.html">${project.title}</a>
             </div>
             <div class="project-description">${project.description}</div>
           </div>
@@ -341,7 +351,7 @@ class SiteManager {
         <div class="project-item">
           ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
           <div class="project-title">
-            <a href="project.html?id=${project.id}">${project.title}</a>
+            <a href="projects.html">${project.title}</a>
           </div>
           <div class="project-description">${project.description}</div>
         </div>
@@ -359,6 +369,15 @@ class SiteManager {
       if (!container.parentElement.querySelector('.more-projects-link')) {
         container.parentElement.appendChild(moreProjectsLink);
       }
+      
+      // Make homepage project images clickable - redirect to projects page
+      const projectImages = container.querySelectorAll('.project-image');
+      projectImages.forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+          window.location.href = 'projects.html';
+        });
+      });
     }
   }
 
@@ -384,8 +403,7 @@ class SiteManager {
     const shuffleBtn = document.getElementById('shuffleBtn');
     if (shuffleBtn) {
       shuffleBtn.addEventListener('click', () => {
-        const randomProject = projects[Math.floor(Math.random() * projects.length)];
-        window.location.href = `project.html?id=${randomProject.id}`;
+        window.location.href = 'projects.html';
       });
     }
   }
