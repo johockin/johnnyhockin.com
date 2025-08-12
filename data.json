@@ -114,7 +114,7 @@
       "title": "Maggy",
       "description": "DIT software for secure footage transfers",
       "fullDescription": "Hedge costs $299 for copying files and verifying them.\nThat's insane.\n\nMaggy dumps your mags, verifies transfers, manages your queue.\nSequential copying so your drives don't melt.\nBuilt for DITs who just need their footage safe.\n\nCurrent features:\n- Drag cards to destinations (up to 3)\n- Queue all transfers at once\n- SHA-256 verification (xxHash coming)\n- Glass UI with stage lighting (seriously)\n- Smart duplicate detection planned\n\nLooking for brave DITs to test.\nCurrently saving people $299.",
-      "image": "images/maggy-preview.png",
+      "image": "images/project-1755009969548.png",
       "category": "Software",
       "date": "2025.01",
       "status": "Alpha",
