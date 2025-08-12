@@ -7,14 +7,36 @@
   status = 301
 
 [[redirects]]
+  from = "/projects/"
+  to = "/projects.html"
+  status = 301
+
+[[redirects]]
   from = "/project"
   to = "/projects.html"
   status = 301
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404
+  from = "/project/"
+  to = "/projects.html"
+  status = 301
+
+# Handle other common variations
+[[redirects]]
+  from = "/bio"
+  to = "/bio.html"
+  status = 301
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+
+[[redirects]]
+  from = "/log"
+  to = "/log.html"
+  status = 301
+
 
 [build.environment]
   NODE_VERSION = "18"
