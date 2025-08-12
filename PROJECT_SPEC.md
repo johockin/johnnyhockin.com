@@ -1,5 +1,8 @@
 # JOHNNY HOCKIN PERSONAL WEBSITE - PROJECT SPEC
 
+# Current date: August 12, 2025
+# Development started: July 14, 2025
+
 ⚠️ This is the **living god file** for the personal inventor-storyteller website project. This document is the source of truth for all project decisions, architectural intentions, user needs, tech stack context, and collaborator expectations.
 
 ---
@@ -806,7 +809,7 @@ This admin panel approach delivers the content management functionality the user
 - **Refined**: Project grid spacing to match log entries exactly (1.5rem gap)
 - **Commit**: "Fix responsive layout issues" - consolidated navigation and spacing improvements
 
-### 2025-01-30 - Navigation & Link Styling Refinement
+### 2025-07-30 - Navigation & Link Styling Refinement
 - **Changed**: Navigation from centered to left-aligned (NEVER center principle established)
 - **Changed**: Custom underlines moved from 2px to -1px below text for natural positioning
 - **Added**: Site-wide custom link styling with consistent underlines
@@ -815,32 +818,32 @@ This admin panel approach delivers the content management functionality the user
 - **Updated**: Documentation structure and git initialization
 - **Decision**: All links should have subtle custom underlines except in CMS content
 
-### 2025-01-30 - Grid System Evolution
+### 2025-07-25 - Grid System Evolution
 - **Changed**: Grid system from 100px to 180px for better proportions
 - **Refined**: Spacing uses mathematical relationships (1x, 2x, 4x grid units)
 - **Decision**: True grid system means elements snap to grid increments, no arbitrary spacing
 - **Reference**: Tom Sachs website grid principles studied and incorporated
 
-### 2025-01-30 - View Controls Repositioning  
+### 2025-07-22 - View Controls Repositioning  
 - **Moved**: Font and chaos toggles from nav to left edge of screen
 - **Added**: Vertical text orientation for view controls
 - **Changed**: Font toggle displays in opposite font for clarity
 - **Decision**: Interface controls grouped together but separate from main navigation
 
-### 2025-01-30 - Navigation Structure Simplification
+### 2025-07-20 - Navigation Structure Simplification
 - **Removed**: Explorer Log as separate page (homepage only now)
 - **Fixed**: Navigation links from "/" to relative paths (index.html, etc.)
 - **Added**: Placeholder content throughout site for realistic feel
 - **Decision**: Explorer Log belongs on homepage only, not as separate archive
 
-### 2025-01-30 - Design Philosophy Establishment
+### 2025-07-18 - Design Philosophy Establishment
 - **Established**: No boxes/borders around content sections
 - **Established**: Left-aligned text only, never centered
 - **Established**: Modular grid-based layout over arbitrary positioning
 - **Rejected**: "Cliche and obvious" design patterns
 - **Added**: Custom cursor and favicon implementation
 
-### 2025-01-30 - Initial Implementation
+### 2025-07-14 - Initial Implementation
 - **Created**: Full site structure with vanilla HTML/CSS/JS
 - **Implemented**: JSON-based CMS with extensive placeholder content
 - **Added**: Font switching functionality
