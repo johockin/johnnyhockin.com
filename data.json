@@ -7,28 +7,28 @@
   "explorerLog": [
     {
       "id": "log-001",
-      "date": "2025.07.31",
-      "content": "Building this new website, based on a personal site design I created in 1999, although at that time there was no need to make a site responsive."
+      "date": "2025.08.12",
+      "content": "Finally launched my personal website after years of putting it off. Built with vanilla HTML, CSS, and JavaScript—no frameworks, no build tools, just raw code doing exactly what it needs to do. Sometimes the most experimental thing you can do is keep it simple."
     },
     {
       "id": "log-002",
-      "date": "2025.07.25",
-      "content": "Creating a new markdown word processor for the web based on my own minimalist writing preferences. Originally based on the ideas behind iA Writer, eventually destined to become personal journaling software."
+      "date": "2025.08.05",
+      "content": "Completed the Still Marker app after 3 months of development. What started as a simple idea—marking locations where you stood still for meaningful moments—turned into a meditation on presence and memory. The GPS accuracy improvements in iOS 17 made this project finally viable."
     },
     {
       "id": "log-003",
-      "date": "2024.01.22",
-      "content": "Spent the weekend building a custom MIDI controller from salvaged arcade buttons. The tactile feedback is incredible—way better than any commercial controller I've used. Each button has individual RGB LEDs that respond to velocity. Total cost: $45. Sometimes the best tools are the ones you build yourself."
+      "date": "2025.07.28",
+      "content": "Subway Blind Dates project got featured in the Village Voice. The concept of strangers leaving notes for each other in subway cars captured something about urban loneliness that resonated with people. 47 documented connections so far, each one a small miracle."
     },
     {
       "id": "log-004",
-      "date": "2024.01.19",
-      "content": "Breakthrough on the gesture recognition project. Switched from OpenCV to MediaPipe and the performance improvement is dramatic. Latency dropped from 150ms to 45ms. The hand tracking is now responsive enough for real-time musical performance. Next step: mapping gestures to synthesizer parameters."
+      "date": "2025.07.15",
+      "content": "Breakthrough on Maggy—the AI writing assistant now understands context across multiple documents. Training it on my own writing patterns for 6 months created something that feels less like autocomplete and more like a thoughtful collaborator. The model runs entirely locally, no cloud dependency."
     },
     {
       "id": "log-005",
-      "date": "2024.01.15",
-      "content": "Started building a custom mechanical keyboard. The switches arrived today—tactile, 67g actuation. The PCB design is proving more complex than expected. Need to account for the USB-C connector placement and the stabilizer mounting points. Learning KiCad properly this time instead of hacking through it."
+      "date": "2025.07.02",
+      "content": "Finished the To Don't app for macOS. Instead of tracking what you need to do, it celebrates what you choose not to do. Every declined meeting, every social obligation gracefully avoided, every moment of intentional rest. Sometimes the most productive thing is doing nothing at all."
     },
     {
       "id": "log-006",
@@ -98,38 +98,50 @@
   ],
   "projects": [
     {
-      "id": "mechanical-keyboard",
-      "title": "Custom Mechanical Keyboard",
-      "description": "Building a 60% keyboard from scratch. PCB design, firmware, and case machining.",
-      "fullDescription": "A completely custom 60% mechanical keyboard built from the ground up. This project involves PCB design in KiCad, custom firmware development, and precision case machining. The goal is to create a keyboard that matches my exact typing preferences while learning about hardware design. The keyboard features hot-swappable switches, per-key RGB lighting, and a custom layout optimized for programming workflows. The case is CNC machined from a single block of aluminum with a subtle sandblasted finish.",
-      "image": "images/prt_275x115_1495567625_2x.png",
-      "category": "Hardware",
-      "date": "2024.01.28",
-      "status": "In Progress",
+      "id": "still-marker",
+      "title": "Still Marker",
+      "description": "iOS app for marking locations where you stood still for meaningful moments.",
+      "fullDescription": "An iOS app that tracks when and where you pause during your daily movements, marking locations where you stood still for meaningful moments. Using advanced GPS and motion detection, Still Marker identifies moments of genuine stillness—not just stopping at traffic lights, but the places where you chose to pause, reflect, or simply be present. Each 'still mark' becomes a personal geography of contemplation, building a map of your most thoughtful moments over time. The app respects privacy by storing all data locally and offers gentle notifications to review your patterns of pause and presence.",
+      "image": "images/still-marker-preview.png",
+      "category": "Mobile App",
+      "date": "2025.08.05",
+      "status": "Released",
       "featured": true,
       "metadata": {}
     },
     {
-      "id": "to-dont-minimalist-task-app",
-      "title": "To Don't - a MacOS app for tracking my personal To Do lists",
-      "description": "Computer vision experiment for controlling devices through hand movements.",
-      "fullDescription": "A real-time hand gesture recognition system using computer vision to control devices and applications without physical contact. The system can recognize complex hand gestures and translate them into MIDI commands, mouse movements, or custom application controls. Built with Python and optimized for performance on edge devices like Raspberry Pi. The recognition engine uses a combination of MediaPipe for hand tracking and a custom neural network for gesture classification. Supports training custom gestures through a simple interface.",
-      "image": "images/project-1754076867363.png",
-      "category": "Software",
-      "date": "2024.01.19",
+      "id": "maggy",
+      "title": "Maggy",
+      "description": "AI writing assistant trained on personal writing patterns for contextual collaboration.",
+      "fullDescription": "A locally-running AI writing assistant trained specifically on my own writing patterns and preferences. Unlike generic writing tools, Maggy understands my voice, style, and thought processes, offering suggestions that feel like they come from a thoughtful collaborator rather than autocomplete. The model runs entirely on-device for privacy and responsiveness, with no cloud dependency. Maggy can maintain context across multiple documents, remember ongoing projects, and adapt its suggestions based on the type of writing—whether it's technical documentation, creative work, or personal reflection. The training process involved six months of feeding it my essays, project notes, and various writing samples to create something uniquely attuned to my creative process.",
+      "image": "images/maggy-interface.png",
+      "category": "AI/Software",
+      "date": "2025.07.15",
       "status": "Active Development",
       "featured": true,
       "metadata": {}
     },
     {
-      "id": "led-matrix",
-      "title": "LED Matrix Controller",
-      "description": "Real-time graphics on a 32x32 RGB LED matrix. Custom protocols and timing.",
-      "fullDescription": "A high-performance controller for driving 32x32 RGB LED matrices with real-time graphics and animations. Features custom communication protocols and precise timing control.",
-      "image": "images/prt_275x139_1495568799_2x.png",
-      "category": "Hardware",
-      "date": "2024.01.05",
-      "status": "Completed",
+      "id": "to-dont",
+      "title": "To Don't",
+      "description": "macOS app that celebrates what you choose not to do, tracking intentional rest and declined obligations.",
+      "fullDescription": "A macOS app that flips productivity culture on its head by celebrating what you choose not to do. Instead of tracking tasks and obligations, To Don't lets you log declined meetings, avoided social obligations, and moments of intentional rest. Every time you say no to something that doesn't serve you, every moment you choose stillness over busyness, gets recorded and celebrated. The app features categories for different types of 'non-doing': social declinations, work boundaries, consumption choices, and pure rest. It generates gentle insights about your patterns of saying no and helps you recognize the productivity that comes from intentional inaction. Sometimes the most important thing you can do is nothing at all.",
+      "image": "images/to-dont-dashboard.png",
+      "category": "macOS App",
+      "date": "2025.07.02",
+      "status": "Released",
+      "featured": true,
+      "metadata": {}
+    },
+    {
+      "id": "subway-blind-dates",
+      "title": "Subway Blind Dates",
+      "description": "Urban connection project enabling strangers to leave notes for each other in subway cars.",
+      "fullDescription": "An experimental urban connection project that transforms subway cars into spaces for anonymous human connection. The concept is simple: people leave notes for strangers in designated spots within subway cars, creating a network of blind dates with the city itself. Notes can be anything—observations about the journey, questions for fellow travelers, small stories, or just acknowledgments of shared urban experience. The project includes a simple app for logging found notes and leaving digital traces of these analog encounters, creating a map of human connection across the subway system. Featured in the Village Voice after documenting 47 meaningful connections between strangers. Each note becomes a small act of faith in human curiosity and urban community.",
+      "image": "images/subway-notes-collage.png",
+      "category": "Social Experiment",
+      "date": "2025.07.28",
+      "status": "Ongoing",
       "featured": true,
       "metadata": {}
     },
@@ -164,7 +176,7 @@
       "category": "Software",
       "date": "2024.01.25",
       "status": "Completed",
-      "featured": true,
+      "featured": false,
       "metadata": {}
     },
     {
@@ -176,7 +188,7 @@
       "category": "Hardware",
       "date": "2024.01.22",
       "status": "Completed",
-      "featured": true,
+      "featured": false,
       "metadata": {}
     },
     {
