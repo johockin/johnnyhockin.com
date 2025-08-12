@@ -736,55 +736,14 @@ This admin panel approach delivers the content management functionality the user
 
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
 
-### 2025-07-31 - Workshop Mode Phase IV: Complete Frontend-Backend Integration
-- **INTEGRATED**: Frontend Workshop Mode now uses real Netlify Functions instead of localStorage simulation
-- **AUTHENTICATION**: `validatePin()` method calls `/.netlify/functions/workshop-auth` with JWT session token storage
-- **PERSISTENCE**: `saveContentChange()` method calls `/.netlify/functions/workshop-edit` for real data.json updates
-- **SESSION MANAGEMENT**: Automatic session validation, expiry handling, and persistent Workshop Mode across page navigation
-- **ELEMENT MAPPING**: Auto-generated workshop IDs for precise backend content mapping
-- **ERROR HANDLING**: Network failures, session expiry, authentication errors with graceful fallbacks
-- **USER EXPERIENCE**: Seamless integration - Workshop Mode survives browser refresh and page navigation
-
-### 2025-07-31 - Workshop Mode Phase III: Netlify Functions Backend Implementation
-- **IMPLEMENTED**: Complete Netlify Functions backend for Workshop Mode CMS
-- **CREATED**: `functions/workshop-auth.js` - PIN authentication with SHA-256 hashing and JWT session tokens
-- **CREATED**: `functions/workshop-edit.js` - Real-time content persistence to data.json with automatic embedded data sync
-- **CREATED**: `functions/workshop-sync.js` - GitHub API integration for version control (optional)
-- **UPDATED**: `netlify.toml` with functions directory configuration
-- **ADDED**: Environment variables setup (.env template) for secure PIN hashing
-- **ARCHITECTURE**: Complete serverless backend replacing localStorage simulation
-- **SECURITY**: Multi-layer authentication with session tokens, rate limiting, and CORS protection
-- **PERSISTENCE**: Real data.json updates with automatic data-embedded.js synchronization
-
-### 2025-07-31 - Workshop Mode Completion & Contact Page Updates
-- **FIXED**: Critical Workshop Mode navigation bug - editing now persists across page navigation
-- **IMPLEMENTED**: Event-driven content loading system for Workshop Mode coordination
-- **ADDED**: `siteContentReady` custom event system to sync content loading with Workshop Mode
-- **UPDATED**: Contact page content with new personal voice and direct links
-- **REPLACED**: Contact page CSS columns with CSS Grid for responsive layout control
-- **FIXED**: Contact page alignment issues - columns now properly align at "Direct Links" level
-- **ADDED**: Undo/redo system (Ctrl+Z/Y) for Workshop Mode editing
-- **ADDED**: Empty content protection with "[Click to edit]" placeholder
-- **TECHNICAL**: Workshop Mode uses observer pattern with custom events for bulletproof persistence
-- **DECISION**: Grid layout provides precise control vs unpredictable CSS columns behavior
-
-### 2025-07-31 - Workshop Mode Phase II Implementation
-- **IMPLEMENTED**: Full inline editing capabilities for Explorer Log and Projects
-- **ADDED**: Smart editor selection - textarea for multi-line content, input for single-line
-- **ADDED**: Optimistic UI updates with instant visual feedback
-- **ADDED**: Simulated backend persistence (preparation for Netlify Functions)
-- **TECHNICAL**: Click-to-edit functionality with proper content preservation
-- **UI**: Edit indicators appear on hover for editable content
-- **SECURITY**: All edits require active Workshop Mode session
-
-### 2025-07-31 - Workshop Mode Phase I Implementation  
-- **IMPLEMENTED**: Complete Konami code detection (↑↑↓↓←→←→BA)
-- **ADDED**: PIN authentication system with Web Crypto API hashing
-- **ADDED**: Session management with 24-hour expiration in localStorage
-- **ADDED**: Rate limiting (5 attempts, 5-minute lockout)
-- **UI**: Custom modal for PIN entry with workshop aesthetic
-- **VISUAL**: Workshop Mode indicator (subtle left border) when active
-- **SECURITY**: PIN hashed with SHA-256, never stored in plain text
+### 2025-08-12 - Workshop Mode Removal: Simplification & CMS Strategy
+- **REMOVED**: Complete Workshop Mode system to eliminate dual CMS complexity
+- **DELETED**: Netlify Functions (`workshop-auth.js`, `workshop-edit.js`, `workshop-sync.js`)
+- **CLEANED**: Frontend Workshop Mode code from `script.js` and `styles.css`
+- **STRATEGY**: Admin Panel positioned as single CMS solution for maintainability
+- **RATIONALE**: Dual CMS creates confusion and maintenance overhead
+- **ALIGNMENT**: Follows "No magic" principle and simplifies user experience
+- **BENEFIT**: Cleaner architecture with GitHub API as single source of truth
 
 ### 2025-07-31 - Tom Sachs Projects Table Layout Implementation
 - **Redesigned**: Projects page with Tom Sachs exhibition-style table layout (image | title/metadata | description)
@@ -864,18 +823,17 @@ This admin panel approach delivers the content management functionality the user
   - GitHub API integration for content management with version history
   - Tom Sachs aesthetic styling matching site design
   - Full CRUD operations for Explorer Log entries and Featured Projects
-- **WORKSHOP MODE CMS COMPLETE** ✅ **ALL PHASES IMPLEMENTED** (Pivoted to Admin Panel)
-  - Phase I: ✅ Konami code + PIN authentication system
-  - Phase II: ✅ Live inline editing with optimistic UI updates
-  - Phase III: ✅ Netlify Functions backend with real persistence
-  - Phase IV: ✅ Frontend-backend integration with session management
+- **WORKSHOP MODE REMOVED** ✅ **SIMPLIFIED ARCHITECTURE**
+  - Eliminated dual CMS complexity for maintainability
+  - Admin Panel positioned as single content management solution
+  - Cleaner codebase with GitHub API as single source of truth
 - Contact page updated with new content and responsive grid layout
 - All core site features operational
 
 ### NEXT  
 - **PRODUCTION DEPLOYMENT & TESTING**
-  - Set environment variables in Netlify dashboard
-  - Test complete Workshop Mode end-to-end functionality
+  - Deploy Admin Panel with GitHub API integration
+  - Test complete content management functionality
   - Monitor and refine user experience
 - Test and refine Tom Sachs projects table layout with real project data
 - Optimize image sizing and loading for projects table layout
@@ -895,6 +853,7 @@ This admin panel approach delivers the content management functionality the user
 - Separate Explorer Log page (moved to homepage only)
 - Centered navigation (changed to left-aligned)
 - Box-based section layouts (removed for clean grid)
+- Workshop Mode CMS (removed 2025-08-12 - dual CMS complexity eliminated)
 
 ---
 
@@ -906,8 +865,8 @@ This admin panel approach delivers the content management functionality the user
 - **M4**: Content structure and CMS implementation
 - **M5**: Comprehensive responsive system implementation (4-tier layout)
 - **M6**: Tom Sachs aesthetic layouts (Biography CSS columns, Contact 3-column, Projects exhibition table)
-- **M7**: Workshop Mode Phase III - Complete Netlify Functions backend implementation
-- **M8**: Workshop Mode Phase IV - Complete frontend-backend integration with real persistence
+- **M7**: Workshop Mode removed - Simplified to single Admin Panel CMS solution
+- **M8**: Admin Panel complete - GitHub API integration for content management
 
 ---
 
