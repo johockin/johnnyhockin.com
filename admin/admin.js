@@ -336,8 +336,12 @@ class AdminPanel {
                     <label>Status</label>
                     <select onchange="adminPanel.updateProject('${project.id}', 'status', this.value)">
                         <option value="Planning" ${project.status === 'Planning' ? 'selected' : ''}>Planning</option>
+                        <option value="Alpha" ${project.status === 'Alpha' ? 'selected' : ''}>Alpha</option>
                         <option value="In Progress" ${project.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
                         <option value="Complete" ${project.status === 'Complete' ? 'selected' : ''}>Complete</option>
+                        <option value="Completed" ${project.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                        <option value="Deployed" ${project.status === 'Deployed' ? 'selected' : ''}>Deployed</option>
+                        <option value="Research" ${project.status === 'Research' ? 'selected' : ''}>Research</option>
                         <option value="On Hold" ${project.status === 'On Hold' ? 'selected' : ''}>On Hold</option>
                     </select>
                 </div>
