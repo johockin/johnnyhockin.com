@@ -746,6 +746,13 @@ This admin panel approach delivers the content management functionality the user
 - **TONE**: Raw, honest project descriptions that align with Tom Sachs aesthetic
 - **CATEGORIES**: Software tools (filmmaker-focused) and Video/Commercial work
 - **STATUS**: Ready for MVP launch with real portfolio content
+### 2025-08-12 - CMS/Data Consistency & Project Cleanup
+- **CMS STATUS FIX**: Added missing status options (Alpha, Completed, Deployed, Research) to admin.js dropdown
+- **PERFECT CONSISTENCY**: CMS dropdowns now match all status values in data.json exactly
+- **PLACEHOLDER REMOVAL**: Deleted 8 fake projects, kept only 4 real ones (Still Marker, Maggy, To Don't, Subway Canada)
+- **ARCHITECTURE DECISION**: Canonical status dropdown + metadata field for custom details (per user preference)
+- **DATA SOURCES**: Verified all content pulls from data.json, removed hardcoded archive entries
+- **RESULT**: CMS has complete control, zero inconsistencies between editing and display
 ### 2025-08-12 - Content Corrections & Line Break Rendering Fix
 - **CORRECTED CONTENT**: Replaced AI-generated content with actual filmmaker tools and bio
 - **REAL PROJECTS**: Still Marker (video stills), Maggy (DIT transfer), To Don't (todo app), Subway Canada (video series)
@@ -869,6 +876,12 @@ This admin panel approach delivers the content management functionality the user
   - Classic DVD screensaver physics with corner hit color cycling
   - Meditative pacing turns missing pages into zen moments
   - Fully responsive with trickster aesthetic matching site personality
+- **PERFECT CMS/DATA CONSISTENCY** ✅ **ZERO INCONSISTENCIES**
+  - CMS dropdowns match all status values in data.json exactly
+  - All content sources from single data.json file (no hardcoded entries)
+  - Only 4 real projects (removed 8 placeholder projects)
+  - Line breaks render correctly from CMS to display
+  - Canonical status dropdown + metadata field for custom details
 
 ### NEXT  
 - **LAUNCH & MONITOR**
