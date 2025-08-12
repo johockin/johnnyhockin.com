@@ -13,6 +13,10 @@ class SiteManager {
   }
 
   init() {
+    console.log('🚀 SiteManager initializing...');
+    console.log('📍 Current path:', window.location.pathname);
+    console.log('🔍 Search params:', window.location.search);
+    
     this.setupFontToggle();
     this.setupChaosToggle();
     this.setupEasterEgg();
@@ -160,15 +164,26 @@ class SiteManager {
     // Route-specific content loading using the loaded data
     const path = window.location.pathname;
     console.log('🔀 Current path:', path, '| Data source:', data === window.EMBEDDED_SITE_DATA ? 'embedded' : 'external');
+    console.log('🔍 Route matching check:');
+    console.log('  - Is homepage?', path === '/' || path === '/index.html');
+    console.log('  - Is projects page?', path === '/projects.html' || path.endsWith('/projects.html'));
+    console.log('  - Is log page?', path === '/log.html' || path.endsWith('/log.html'));
+    console.log('  - Is project page?', path === '/project.html' || path.endsWith('/project.html'));
     
-    if (path === '/' || path === '/index.html') {
+    if (path === '/' || path === '/index.html' || path.endsWith('/index.html')) {
+      console.log('📍 Loading homepage...');
       this.loadHomepage(data);
     } else if (path === '/projects.html' || path.endsWith('/projects.html')) {
+      console.log('📍 Loading projects page...');
       this.loadProjectsPage(data);
     } else if (path === '/log.html' || path.endsWith('/log.html')) {
+      console.log('📍 Loading log page...');
       this.loadLogPage(data);
     } else if (path === '/project.html' || path.endsWith('/project.html')) {
+      console.log('📍 Loading project page...');
       this.loadProjectPage(data);
+    } else {
+      console.warn('⚠️ No route match found for path:', path);
     }
     
     // Content loading complete
@@ -283,13 +298,28 @@ class SiteManager {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
     
-    if (projectId && data.projects) {
-      const project = data.projects.find(p => p.id === projectId);
-      if (project) {
-        this.displayProject(project);
-        this.setupProjectShuffle(data.projects);
-        this.loadOtherProjects(data.projects.filter(p => p.id !== projectId));
-      }
+    console.log('🔍 loadProjectPage called with projectId:', projectId);
+    console.log('📊 Available projects:', data.projects?.length);
+    
+    if (!projectId) {
+      console.warn('⚠️ No project ID provided in URL parameters');
+      return;
+    }
+    
+    if (!data.projects) {
+      console.error('❌ No projects data available');
+      return;
+    }
+    
+    const project = data.projects.find(p => p.id === projectId);
+    if (project) {
+      console.log('✅ Found project:', project.title);
+      this.displayProject(project);
+      this.setupProjectShuffle(data.projects);
+      this.loadOtherProjects(data.projects.filter(p => p.id !== projectId));
+    } else {
+      console.error('❌ Project not found:', projectId);
+      console.log('Available project IDs:', data.projects.map(p => p.id));
     }
   }
 
@@ -344,6 +374,7 @@ class SiteManager {
       container.innerHTML = `
         <h1 class="page-title">${project.title}</h1>
         <div class="project-meta">${project.date} • ${project.category}</div>
+        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
         <div class="project-description">${project.fullDescription || project.description}</div>
       `;
     }
@@ -390,8 +421,22 @@ class SiteManager {
       ]);
       
       this.loadFeaturedProjects([
-        { id: "mechanical-keyboard", title: "01 Custom Mechanical Keyboard", description: "Building a 60% keyboard from scratch. PCB design, firmware, and case machining." },
-        { id: "gesture-recognition", title: "02 Hand Gesture Recognition", description: "Computer vision experiment for controlling devices through hand movements." }
+        { 
+          id: "mechanical-keyboard", 
+          title: "01 Custom Mechanical Keyboard", 
+          description: "Building a 60% keyboard from scratch. PCB design, firmware, and case machining.",
+          image: "images/project-1754075814066.png",
+          category: "Hardware",
+          date: "2024.01.15"
+        },
+        { 
+          id: "gesture-recognition", 
+          title: "02 Hand Gesture Recognition", 
+          description: "Computer vision experiment for controlling devices through hand movements.",
+          image: "images/project-1754076096369.png",
+          category: "Software", 
+          date: "2024.01.12"
+        }
       ]);
     }
   }
