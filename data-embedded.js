@@ -11,28 +11,28 @@ window.EMBEDDED_SITE_DATA = {
   "explorerLog": [
     {
       "id": "log-001",
-      "date": "2025.08.12",
-      "content": "Finally launched my personal website after years of putting it off. Built with vanilla HTML, CSS, and JavaScript—no frameworks, no build tools, just raw code doing exactly what it needs to do. Sometimes the most experimental thing you can do is keep it simple."
+      "date": "2025.01.30",
+      "content": "Finally pulled the trigger on deleting Workshop Mode from the site. Two CMS systems was one too many. Sometimes the best feature is the one you remove."
     },
     {
       "id": "log-002",
-      "date": "2025.08.05",
-      "content": "Completed the Still Marker app after 3 months of development. What started as a simple idea—marking locations where you stood still for meaningful moments—turned into a meditation on presence and memory. The GPS accuracy improvements in iOS 17 made this project finally viable."
+      "date": "2025.01.29",
+      "content": "Still Marker hit alpha. Named it after Chris Marker because extracting stills from La Jetée is basically what this tool does. Filmmakers need their frames."
     },
     {
       "id": "log-003",
-      "date": "2025.07.28",
-      "content": "Subway Blind Dates project got featured in the Village Voice. The concept of strangers leaving notes for each other in subway cars captured something about urban loneliness that resonated with people. 47 documented connections so far, each one a small miracle."
+      "date": "2025.01.28",
+      "content": "Maggy's glass UI is either brilliant or insane. Stage lighting in a file transfer app? Why not. If you're going to stare at progress bars, they might as well be beautiful."
     },
     {
       "id": "log-004",
-      "date": "2025.07.15",
-      "content": "Breakthrough on Maggy—the AI writing assistant now understands context across multiple documents. Training it on my own writing patterns for 6 months created something that feels less like autocomplete and more like a thoughtful collaborator. The model runs entirely locally, no cloud dependency."
+      "date": "2025.01.27",
+      "content": "Testing To Don't on myself. Currently 23% accurate at estimating task duration. The app is working perfectly - I'm the bug."
     },
     {
       "id": "log-005",
-      "date": "2025.07.02",
-      "content": "Finished the To Don't app for macOS. Instead of tracking what you need to do, it celebrates what you choose not to do. Every declined meeting, every social obligation gracefully avoided, every moment of intentional rest. Sometimes the most productive thing is doing nothing at all."
+      "date": "2025.01.26",
+      "content": "Realized all my projects are about removing friction. Still Marker removes Premiere. Maggy removes Hedge's price tag. To Don't removes features. Pattern recognized."
     },
     {
       "id": "log-006",
@@ -104,48 +104,48 @@ window.EMBEDDED_SITE_DATA = {
     {
       "id": "still-marker",
       "title": "Still Marker",
-      "description": "iOS app for marking locations where you stood still for meaningful moments.",
-      "fullDescription": "An iOS app that tracks when and where you pause during your daily movements, marking locations where you stood still for meaningful moments. Using advanced GPS and motion detection, Still Marker identifies moments of genuine stillness—not just stopping at traffic lights, but the places where you chose to pause, reflect, or simply be present. Each 'still mark' becomes a personal geography of contemplation, building a map of your most thoughtful moments over time. The app respects privacy by storing all data locally and offers gentle notifications to review your patterns of pause and presence.",
+      "description": "macOS app for extracting stills from video",
+      "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (±0.5s coarse, ±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
       "image": "images/still-marker-preview.png",
-      "category": "Mobile App",
-      "date": "2025.08.05",
-      "status": "Released",
+      "category": "Software",
+      "date": "2025.01",
+      "status": "Alpha",
       "featured": true,
       "metadata": {}
     },
     {
       "id": "maggy",
       "title": "Maggy",
-      "description": "AI writing assistant trained on personal writing patterns for contextual collaboration.",
-      "fullDescription": "A locally-running AI writing assistant trained specifically on my own writing patterns and preferences. Unlike generic writing tools, Maggy understands my voice, style, and thought processes, offering suggestions that feel like they come from a thoughtful collaborator rather than autocomplete. The model runs entirely on-device for privacy and responsiveness, with no cloud dependency. Maggy can maintain context across multiple documents, remember ongoing projects, and adapt its suggestions based on the type of writing—whether it's technical documentation, creative work, or personal reflection. The training process involved six months of feeding it my essays, project notes, and various writing samples to create something uniquely attuned to my creative process.",
-      "image": "images/maggy-interface.png",
-      "category": "AI/Software",
-      "date": "2025.07.15",
-      "status": "Active Development",
+      "description": "DIT software for secure footage transfers",
+      "fullDescription": "Hedge costs $299 for copying files and verifying them.\nThat's insane.\n\nMaggy dumps your mags, verifies transfers, manages your queue.\nSequential copying so your drives don't melt.\nBuilt for DITs who just need their footage safe.\n\nCurrent features:\n- Drag cards to destinations (up to 3)\n- Queue all transfers at once\n- SHA-256 verification (xxHash coming)\n- Glass UI with stage lighting (seriously)\n- Smart duplicate detection planned\n\nLooking for brave DITs to test.\nCurrently saving people $299.",
+      "image": "images/maggy-preview.png",
+      "category": "Software",
+      "date": "2025.01",
+      "status": "Alpha",
       "featured": true,
       "metadata": {}
     },
     {
       "id": "to-dont",
       "title": "To Don't",
-      "description": "macOS app that celebrates what you choose not to do, tracking intentional rest and declined obligations.",
-      "fullDescription": "A macOS app that flips productivity culture on its head by celebrating what you choose not to do. Instead of tracking tasks and obligations, To Don't lets you log declined meetings, avoided social obligations, and moments of intentional rest. Every time you say no to something that doesn't serve you, every moment you choose stillness over busyness, gets recorded and celebrated. The app features categories for different types of 'non-doing': social declinations, work boundaries, consumption choices, and pure rest. It generates gentle insights about your patterns of saying no and helps you recognize the productivity that comes from intentional inaction. Sometimes the most important thing you can do is nothing at all.",
-      "image": "images/to-dont-dashboard.png",
-      "category": "macOS App",
-      "date": "2025.07.02",
-      "status": "Released",
+      "description": "macOS app for tracking personal to-do lists",
+      "fullDescription": "I have too many to-do apps.\nThey all have syncing, tagging, reminders, badges, accountability systems. None of them help me get things done. I wanted to join in the chorus of apps that don't help you get things done.\n\nTo Don't is my first Mac app.\nI made it as a design experiment. What are the fewest features that make a to-do list feel right?\nWhy am I so bad at estimating how much time it takes to do anything? Can I create a productivity app that helps me get better at that?\n\nRight now it:\n- Adds tasks, gives them time estimates\n- Starts timer, tracks how long it actually took\n- Star system for triaging tasks\n- Local-only, plaintext files\n- No accounts, no sync, no push notifications\n\nEventually it might:\n- Scoreboard: how accurate are you at guessing your own time?\n- Chart time estimation scores over time\n- Stop being so buggy\n- Allow for multiple to-do lists or sync\n\nIt might never be finished.\nI'm still messing with the textures.\n\nPlanning to release v1 to let people play with it soon.",
+      "image": "images/to-dont-preview.png",
+      "category": "Software",
+      "date": "2024.03",
+      "status": "In Progress",
       "featured": true,
       "metadata": {}
     },
     {
       "id": "subway-blind-dates",
-      "title": "Subway Blind Dates",
-      "description": "Urban connection project enabling strangers to leave notes for each other in subway cars.",
-      "fullDescription": "An experimental urban connection project that transforms subway cars into spaces for anonymous human connection. The concept is simple: people leave notes for strangers in designated spots within subway cars, creating a network of blind dates with the city itself. Notes can be anything—observations about the journey, questions for fellow travelers, small stories, or just acknowledgments of shared urban experience. The project includes a simple app for logging found notes and leaving digital traces of these analog encounters, creating a map of human connection across the subway system. Featured in the Village Voice after documenting 47 meaningful connections between strangers. Each note becomes a small act of faith in human curiosity and urban community.",
-      "image": "images/subway-notes-collage.png",
-      "category": "Social Experiment",
-      "date": "2025.07.28",
-      "status": "Ongoing",
+      "title": "Subway Canada: Blind Dates",
+      "description": "Social experiment / video series",
+      "fullDescription": "We put strangers on blind dates in actual subway restaurants.\nSubway wanted 'authentic connection' content.\nWe gave them beautiful awkwardness.\n\nThe premise was simple:\n- Two strangers meet at Subway\n- They order sandwiches together\n- We film what happens\n- No script, just gentle prompting\n\nSome fell in love with the sandwiches.\nSome maybe fell in love with each other.\nMostly people discovered that sharing food with strangers is weird and wonderful.\n\nThe campaign did numbers.\nMore importantly, it was honest.",
+      "image": "images/subway-dates-preview.png",
+      "category": "Video",
+      "date": "2023",
+      "status": "Complete",
       "featured": true,
       "metadata": {}
     },
