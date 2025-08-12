@@ -181,7 +181,7 @@ class SiteManager {
       this.loadLogPage(data);
     } else if (path === '/project.html' || path.endsWith('/project.html')) {
       console.log('🚫 Individual project pages disabled for MVP - redirecting to projects list');
-      window.location.href = 'projects.html';
+      window.location.href = '/projects.html';
       return;
     } else {
       console.warn('⚠️ No route match found for path:', path);
@@ -248,7 +248,7 @@ class SiteManager {
         projectImages.forEach(img => {
           img.style.cursor = 'pointer';
           img.addEventListener('click', () => {
-            window.location.href = 'projects.html';
+            window.location.href = '/projects.html';
           });
         });
         
@@ -259,7 +259,7 @@ class SiteManager {
           <div class="project-item">
             ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
             <div class="project-title">
-              <a href="projects.html">${project.title}</a>
+              <a href="/projects.html">${project.title}</a>
             </div>
             <div class="project-description">${project.description}</div>
           </div>
@@ -351,7 +351,7 @@ class SiteManager {
         <div class="project-item">
           ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
           <div class="project-title">
-            <a href="projects.html">${project.title}</a>
+            <a href="/projects.html">${project.title}</a>
           </div>
           <div class="project-description">${project.description}</div>
         </div>
@@ -364,7 +364,7 @@ class SiteManager {
       const moreProjectsLink = container.parentElement.querySelector('.more-projects-link') || 
         document.createElement('div');
       moreProjectsLink.className = 'more-projects-link';
-      moreProjectsLink.innerHTML = '<a href="projects.html">MORE PROJECTS...</a>';
+      moreProjectsLink.innerHTML = '<a href="/projects.html">MORE PROJECTS...</a>';
       
       if (!container.parentElement.querySelector('.more-projects-link')) {
         container.parentElement.appendChild(moreProjectsLink);
@@ -375,7 +375,7 @@ class SiteManager {
       projectImages.forEach(img => {
         img.style.cursor = 'pointer';
         img.addEventListener('click', () => {
-          window.location.href = 'projects.html';
+          window.location.href = '/projects.html';
         });
       });
     }
@@ -403,7 +403,7 @@ class SiteManager {
     const shuffleBtn = document.getElementById('shuffleBtn');
     if (shuffleBtn) {
       shuffleBtn.addEventListener('click', () => {
-        window.location.href = 'projects.html';
+        window.location.href = '/projects.html';
       });
     }
   }
