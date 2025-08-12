@@ -12,6 +12,12 @@ class SiteManager {
     this.init();
   }
 
+  // Helper function to convert line breaks to HTML
+  formatLineBreaks(text) {
+    if (!text) return '';
+    return text.replace(/\n/g, '<br>');
+  }
+
   init() {
     console.log('🚀 SiteManager initializing...');
     console.log('📍 Current path:', window.location.pathname);
@@ -234,7 +240,7 @@ class SiteManager {
               ${specLines.length > 0 ? `<div class="project-table-specs">${specLines.map(line => `<div class="spec-line">${line}</div>`).join('')}</div>` : ''}
             </div>
             <div class="project-table-content">
-              <div class="project-table-description">${project.fullDescription || project.description}</div>
+              <div class="project-table-description">${this.formatLineBreaks(project.fullDescription || project.description)}</div>
             </div>
           `;
         }).join('');
@@ -261,7 +267,7 @@ class SiteManager {
             <div class="project-title">
               <a href="/projects.html">${project.title}</a>
             </div>
-            <div class="project-description">${project.description}</div>
+            <div class="project-description">${this.formatLineBreaks(project.description)}</div>
           </div>
         `).join('');
       }
@@ -298,7 +304,7 @@ class SiteManager {
       container.innerHTML = archiveEntries.map(entry => `
         <div class="log-archive-entry">
           <div class="log-date">${entry.date}</div>
-          <div class="log-content">${entry.content}</div>
+          <div class="log-content">${this.formatLineBreaks(entry.content)}</div>
         </div>
       `).join('');
     }
@@ -338,7 +344,7 @@ class SiteManager {
       container.innerHTML = entries.map(entry => `
         <div class="log-entry">
           <div class="log-date">${entry.date}</div>
-          <div class="log-content">${entry.content}</div>
+          <div class="log-content">${this.formatLineBreaks(entry.content)}</div>
         </div>
       `).join('');
     }
@@ -353,7 +359,7 @@ class SiteManager {
           <div class="project-title">
             <a href="/projects.html">${project.title}</a>
           </div>
-          <div class="project-description">${project.description}</div>
+          <div class="project-description">${this.formatLineBreaks(project.description)}</div>
         </div>
       `).join('');
       
@@ -394,7 +400,7 @@ class SiteManager {
         <h1 class="page-title">${project.title}</h1>
         <div class="project-meta">${project.date} • ${project.category}</div>
         ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image">` : ''}
-        <div class="project-description">${project.fullDescription || project.description}</div>
+        <div class="project-description">${this.formatLineBreaks(project.fullDescription || project.description)}</div>
       `;
     }
   }
