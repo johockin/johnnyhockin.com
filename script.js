@@ -165,21 +165,21 @@ class SiteManager {
     const path = window.location.pathname;
     console.log('🔀 Current path:', path, '| Data source:', data === window.EMBEDDED_SITE_DATA ? 'embedded' : 'external');
     console.log('🔍 Route matching check:');
-    console.log('  - Is homepage?', path === '/' || path === '/index.html');
-    console.log('  - Is projects page?', path === '/projects.html' || path.endsWith('/projects.html'));
-    console.log('  - Is log page?', path === '/log.html' || path.endsWith('/log.html'));
-    console.log('  - Is project page?', path === '/project.html' || path.endsWith('/project.html'));
+    console.log('  - Is homepage?', path === '/' || path === '/index.html' || path.endsWith('/index.html'));
+    console.log('  - Is projects page?', path === '/projects.html' || path.endsWith('/projects.html') || path === '/projects' || path === '/projects/');
+    console.log('  - Is log page?', path === '/log.html' || path.endsWith('/log.html') || path === '/log' || path === '/log/');
+    console.log('  - Is project page?', path === '/project.html' || path.endsWith('/project.html') || path === '/project' || path === '/project/');
     
     if (path === '/' || path === '/index.html' || path.endsWith('/index.html')) {
       console.log('📍 Loading homepage...');
       this.loadHomepage(data);
-    } else if (path === '/projects.html' || path.endsWith('/projects.html')) {
+    } else if (path === '/projects.html' || path.endsWith('/projects.html') || path === '/projects' || path === '/projects/') {
       console.log('📍 Loading projects page...');
       this.loadProjectsPage(data);
-    } else if (path === '/log.html' || path.endsWith('/log.html')) {
+    } else if (path === '/log.html' || path.endsWith('/log.html') || path === '/log' || path === '/log/') {
       console.log('📍 Loading log page...');
       this.loadLogPage(data);
-    } else if (path === '/project.html' || path.endsWith('/project.html')) {
+    } else if (path === '/project.html' || path.endsWith('/project.html') || path === '/project' || path === '/project/') {
       console.log('🚫 Individual project pages disabled for MVP - redirecting to projects list');
       window.location.href = '/projects.html';
       return;
