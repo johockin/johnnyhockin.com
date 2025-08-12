@@ -13,7 +13,7 @@
     {
       "id": "log-002",
       "date": "2025.07.29",
-      "content": "Still Marker hit alpha. It works! Named it after Chris Marker because extracting stills from La Jet�e is basically what this tool does. Filmmakers need their frames."
+      "content": "Still Marker hit alpha. It works! Named it after Chris Marker because taking your film and turning it into La Jetée is basically what this tool does. Filmmakers and archivists need their frames."
     },
     {
       "id": "log-003",
@@ -46,7 +46,7 @@
       "id": "still-marker",
       "title": "Still Marker",
       "description": "macOS app for extracting stills from video",
-      "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (±0.5s coarse, ±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
+      "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (Â±0.5s coarse, Â±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
       "image": "images/project-1755009941828.png",
       "category": "Software",
       "date": "2025.01",
