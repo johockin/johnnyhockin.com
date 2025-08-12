@@ -126,7 +126,7 @@
       "title": "To Don't",
       "description": "macOS app for tracking personal to-do lists",
       "fullDescription": "I have too many to-do apps.\nThey all have syncing, tagging, reminders, badges, accountability systems. None of them help me get things done. I wanted to join in the chorus of apps that don't help you get things done.\n\nTo Don't is my first Mac app.\nI made it as a design experiment. What are the fewest features that make a to-do list feel right?\nWhy am I so bad at estimating how much time it takes to do anything? Can I create a productivity app that helps me get better at that?\n\nRight now it:\n- Adds tasks, gives them time estimates\n- Starts timer, tracks how long it actually took\n- Star system for triaging tasks\n- Local-only, plaintext files\n- No accounts, no sync, no push notifications\n\nEventually it might:\n- Scoreboard: how accurate are you at guessing your own time?\n- Chart time estimation scores over time\n- Stop being so buggy\n- Allow for multiple to-do lists or sync\n\nIt might never be finished.\nI'm still messing with the textures.\n\nPlanning to release v1 to let people play with it soon.",
-      "image": "images/to-dont-preview.png",
+      "image": "images/project-1755010027419.png",
       "category": "Software",
       "date": "2024.03",
       "status": "In Progress",
