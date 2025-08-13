@@ -745,11 +745,13 @@ This admin panel approach delivers the content management functionality the user
 - **PHOTO OPTIMIZATION**: 175px left-aligned photo with minimal spacing (0.5em margin) in left column
 - **PARAGRAPH FORMATTING**: Added proper `<p>` tags with 1.4em spacing for true paragraph separation
 - **SIMPLIFIED JOURNEY TEXT**: "How it started/going" as understated paragraph (no special formatting)
+- **MTV PHOTO INTEGRATION**: Added Jess Baumung photo with direct image links on all MTV mentions
+- **RAW IMAGE LINKS**: MTV text links open photo directly in new tab (target="_blank")
 - **REMOVED COMPLEX LAYOUTS**: Deleted two-column journey section, restored original column flow
 - **WEB OPTIMIZATION**: Profile image optimized from 4.1MB to 39KB (99% reduction)
 - **TYPOGRAPHY REFINEMENT**: Proper paragraph breaks create readable text flow vs wall of text
 - **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
-- **STATUS**: Bio page now has clean three-column layout with readable typography and optimized assets
+- **STATUS**: Bio page now has clean three-column layout with readable typography and contextual photo links
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
 - **CHAOS MODE AUDIO**: Added background music to chaos mode with 7% volume (fine-tuned for ambient effect)
