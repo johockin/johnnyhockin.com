@@ -509,9 +509,10 @@ a:hover {
 .projects-table {
   display: grid;
   grid-template-columns: 1.3fr 250px 1.5fr;
-  row-gap: var(--space-lg);
-  column-gap: var(--space-sm);
-  width: 80%;
+  row-gap: var(--space-xs);
+  column-gap: var(--space-xs);
+  width: 100%;
+  max-width: 1400px;
 }
 
 /* Direct grid children - no wrapper divs needed */
@@ -539,7 +540,7 @@ a:hover {
 
 .project-table-meta {
   font-size: var(--type-uniform);
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
 }
 
@@ -548,27 +549,27 @@ a:hover {
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
   margin-bottom: var(--space-xs);
 }
 
 .project-table-location {
   font-size: var(--type-uniform);
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
   margin-bottom: var(--space-xs);
 }
 
 .project-table-date {
   font-size: var(--type-uniform);
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
 }
 
 .project-table-category {
   font-size: var(--type-uniform);
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -584,7 +585,7 @@ a:hover {
 /* New metadata fields styling */
 .project-table-status {
   font-size: var(--type-uniform);
-  line-height: 1.4;
+  line-height: 1.2;
   color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -592,7 +593,7 @@ a:hover {
 }
 
 .project-table-specs {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-xs);
 }
 
 .spec-line {
@@ -610,19 +611,19 @@ a:hover {
 @media (max-width: 900px) {
   .projects-table {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: var(--space-xs);
   }
   
   .project-table-image,
   .project-table-meta,
   .project-table-content {
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
   
   .project-table-content {
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
     border-bottom: 1px solid var(--color-accent);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-sm);
   }
   
   .project-table-content:last-child {
