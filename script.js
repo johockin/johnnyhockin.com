@@ -8,7 +8,7 @@ class SiteManager {
     // Setup chaos mode audio
     this.chaosAudio = new Audio('audio/chaos-mode.m4a');
     this.chaosAudio.loop = true;
-    this.chaosAudio.volume = 0.2; // 20% volume
+    this.chaosAudio.volume = 0.1; // 10% volume
     
     console.log('🚀 SiteManager initializing...');
     
