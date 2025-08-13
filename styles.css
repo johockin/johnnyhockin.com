@@ -580,6 +580,7 @@ a:hover {
   line-height: 1.4;
   color: var(--color-text);
   max-width: 90%;
+  margin-bottom: var(--space-sm);
 }
 
 /* New metadata fields styling */
