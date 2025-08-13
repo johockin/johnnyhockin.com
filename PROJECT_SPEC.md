@@ -751,7 +751,7 @@ This admin panel approach delivers the content management functionality the user
 - **WEB OPTIMIZATION**: Profile image optimized from 4.1MB to 39KB (99% reduction)
 - **TYPOGRAPHY REFINEMENT**: Proper paragraph breaks create readable text flow vs wall of text
 - **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
-- **EDUCATION UPDATE**: Replaced education section with accurate McGill Music (2003-04), TMU Film (2004-06), and self-directed study
+- **EDUCATION UPDATE**: Comprehensive education section with McGill Music, TMU Film, and detailed 28-year self-directed learning timeline
 - **PROJECTS OVERHAUL**: Comprehensive career timeline from 2001-2025 with bold year formatting for clear chronological scanning
 - **STATUS**: Bio page now has clean three-column layout with readable typography and contextual photo links
 
