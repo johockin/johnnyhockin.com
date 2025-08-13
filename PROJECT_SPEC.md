@@ -740,16 +740,16 @@ This admin panel approach delivers the content management functionality the user
 
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
 
-### 2025-08-13 - Bio Page Enhancements: Profile Photo & Journey Section
-- **PROFILE PHOTO INTEGRATION**: Added Johnny's googly eyes photo with grayscale-to-color hover effect (bio.html:85-87)
-- **JOURNEY COMPARISON**: Created two-column "How It Started / How It's Going" section after main bio text
-- **HAND-DRAWN CSS ELEMENTS**: MTV bordered box, Red Bull rotated text, lightbulb emoji, underlined Juniper Island, dashed AI border
-- **WEB OPTIMIZATION**: Resized profile image from 4.1MB to 39KB (99% reduction) using sips for fast loading
-- **RESPONSIVE DESIGN**: Bio header flexbox layout, journey section grid that stacks on mobile
-- **CHAOS MODE SUPPORT**: New elements get neon colors, borders, and psychedelic image filter effects
-- **SOCIAL SHARING UPDATE**: Open Graph meta tag now uses profile photo instead of lightbulb favicon
-- **ARCHITECTURAL ADDITION**: New CSS classes (.bio-header, .bio-photo, .journey-section, .journey-column) (styles.css:730-855)
-- **STATUS**: Bio page now has authentic personal touch with visual storytelling elements
+### 2025-08-13 - Bio Page Complete Overhaul: Layout Fixes & Typography
+- **CRITICAL LAYOUT RESTORATION**: Fixed birth year (1984), restored three-column CSS layout structure
+- **PHOTO OPTIMIZATION**: 175px left-aligned photo with minimal spacing (0.5em margin) in left column
+- **PARAGRAPH FORMATTING**: Added proper `<p>` tags with 1.4em spacing for true paragraph separation
+- **SIMPLIFIED JOURNEY TEXT**: "How it started/going" as understated paragraph (no special formatting)
+- **REMOVED COMPLEX LAYOUTS**: Deleted two-column journey section, restored original column flow
+- **WEB OPTIMIZATION**: Profile image optimized from 4.1MB to 39KB (99% reduction)
+- **TYPOGRAPHY REFINEMENT**: Proper paragraph breaks create readable text flow vs wall of text
+- **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
+- **STATUS**: Bio page now has clean three-column layout with readable typography and optimized assets
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
 - **CHAOS MODE AUDIO**: Added background music to chaos mode with 7% volume (fine-tuned for ambient effect)
