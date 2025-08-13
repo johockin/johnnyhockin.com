@@ -730,8 +730,8 @@ a:hover {
 /* Bio Photo in Column */
 .bio-photo-column {
   break-inside: avoid;
-  margin: 1.4em 0;
-  text-align: center;
+  margin: 0.5em 0;
+  text-align: left;
 }
 
 .profile-image-column {
