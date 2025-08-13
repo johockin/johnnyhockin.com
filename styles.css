@@ -727,6 +727,133 @@ a:hover {
   }
 }
 
+/* Bio Header with Photo */
+.bio-header {
+  break-inside: avoid;
+  margin-bottom: var(--space-xl);
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.bio-content {
+  flex: 1;
+}
+
+.bio-photo {
+  flex-shrink: 0;
+  width: 200px;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.profile-image:hover {
+  filter: grayscale(0%);
+}
+
+/* How It Started / How It's Going Section */
+.journey-section {
+  break-inside: avoid;
+  margin-bottom: var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.journey-column {
+  border-left: 2px solid var(--color-text);
+  padding-left: var(--space-md);
+}
+
+.journey-title {
+  font-size: var(--type-uniform);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.journey-logos {
+  margin-bottom: var(--space-md);
+  min-height: 80px;
+}
+
+.journey-logos > div {
+  font-size: var(--type-uniform);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+.logo-mtv {
+  font-weight: bold;
+  border: 2px solid var(--color-text);
+  padding: 4px 8px;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+.logo-rbma {
+  font-weight: bold;
+  font-size: calc(var(--type-uniform) * 0.8);
+  transform: rotate(1deg);
+  margin-left: 20px;
+  margin-top: var(--space-xs);
+}
+
+.logo-lightbulb {
+  font-size: calc(var(--type-uniform) * 2);
+  line-height: 1;
+}
+
+.logo-juniper {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transform: rotate(-1deg);
+}
+
+.logo-ai {
+  font-weight: bold;
+  border: 1px dashed var(--color-text);
+  padding: 2px 6px;
+  display: inline-block;
+  transform: rotate(2deg);
+  margin-top: var(--space-xs);
+}
+
+.journey-points {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bio-header {
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .bio-photo {
+    width: 150px;
+    align-self: flex-start;
+  }
+  
+  .journey-section {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
 /* Tom Sachs-inspired Contact Layout - Grid-based for precise control */
 .contact-main {
   padding: var(--space-sm) var(--page-margin);
@@ -1229,6 +1356,27 @@ body.chaos-mode .font-toggle:hover,
 body.chaos-mode .chaos-toggle:hover {
   color: var(--color-accent);
   text-shadow: 0 0 8px currentColor;
+}
+
+/* Chaos mode support for bio elements */
+body.chaos-mode .journey-column {
+  border-left-color: var(--color-link);
+}
+
+body.chaos-mode .logo-mtv {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  text-shadow: 0 0 3px currentColor;
+}
+
+body.chaos-mode .logo-ai {
+  border-color: var(--color-link);
+  color: var(--color-link);
+  text-shadow: 0 0 3px currentColor;
+}
+
+body.chaos-mode .profile-image {
+  filter: grayscale(0%) hue-rotate(45deg) saturate(1.5);
 }
 
 @keyframes pulse {
