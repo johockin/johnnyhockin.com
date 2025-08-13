@@ -740,6 +740,17 @@ This admin panel approach delivers the content management functionality the user
 
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
 
+### 2025-08-13 - Bio Page Enhancements: Profile Photo & Journey Section
+- **PROFILE PHOTO INTEGRATION**: Added Johnny's googly eyes photo with grayscale-to-color hover effect (bio.html:85-87)
+- **JOURNEY COMPARISON**: Created two-column "How It Started / How It's Going" section after main bio text
+- **HAND-DRAWN CSS ELEMENTS**: MTV bordered box, Red Bull rotated text, lightbulb emoji, underlined Juniper Island, dashed AI border
+- **WEB OPTIMIZATION**: Resized profile image from 4.1MB to 39KB (99% reduction) using sips for fast loading
+- **RESPONSIVE DESIGN**: Bio header flexbox layout, journey section grid that stacks on mobile
+- **CHAOS MODE SUPPORT**: New elements get neon colors, borders, and psychedelic image filter effects
+- **SOCIAL SHARING UPDATE**: Open Graph meta tag now uses profile photo instead of lightbulb favicon
+- **ARCHITECTURAL ADDITION**: New CSS classes (.bio-header, .bio-photo, .journey-section, .journey-column) (styles.css:730-855)
+- **STATUS**: Bio page now has authentic personal touch with visual storytelling elements
+
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
 - **CHAOS MODE AUDIO**: Added background music to chaos mode with 7% volume (fine-tuned for ambient effect)
 - **AUDIO CONVERSION**: Converted MOV file to web-friendly M4A format using macOS afconvert
