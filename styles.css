@@ -693,6 +693,14 @@ a:hover {
   margin-bottom: var(--space-lg);
 }
 
+.bio-description p {
+  margin-bottom: 1.4em;
+}
+
+.bio-description p:last-child {
+  margin-bottom: 0;
+}
+
 .bio-section {
   break-inside: avoid;
   margin-bottom: var(--space-lg);
