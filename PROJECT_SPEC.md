@@ -752,7 +752,7 @@ This admin panel approach delivers the content management functionality the user
 - **TYPOGRAPHY REFINEMENT**: Proper paragraph breaks create readable text flow vs wall of text
 - **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
 - **EDUCATION UPDATE**: Comprehensive education section with McGill Music, TMU Film, and detailed 28-year self-directed learning timeline
-- **PROJECTS OVERHAUL**: Comprehensive career timeline from 2001-2025 with bold year formatting, detailed Subway campaign narrative, and campaign image
+- **PROJECTS OVERHAUL**: Comprehensive career timeline with Subway Canada: Meat Cute campaign (data.json and bio page synced)
 - **SECTION REMOVAL**: Deleted Technical Focuses and Tools sections for cleaner, story-focused bio
 - **STATUS**: Bio page now has streamlined three-column layout focusing on personal story, education, and projects
 
