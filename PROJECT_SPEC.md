@@ -754,7 +754,7 @@ This admin panel approach delivers the content management functionality the user
 - **EDUCATION UPDATE**: Comprehensive education section with McGill Music, TMU Film, and detailed 28-year self-directed learning timeline
 - **PROJECTS OVERHAUL**: Comprehensive career timeline with tightened Tom Sachs workshop table spacing and dense layout aesthetic
 - **SECTION REMOVAL**: Deleted Technical Focuses and Tools sections for cleaner, story-focused bio
-- **PROJECTS PAGE SPACING**: Tightened grid gaps to var(--space-xs), added description bottom margin (var(--space-sm)) for visual separation
+- **PROJECTS PAGE SPACING**: Narrowed metadata column (250px→200px), expanded description column (1.5fr→1.7fr) for better readability balance
 - **STATUS**: Bio page now has streamlined three-column layout focusing on personal story, education, and projects
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
