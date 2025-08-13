@@ -752,7 +752,7 @@ This admin panel approach delivers the content management functionality the user
 - **TYPOGRAPHY REFINEMENT**: Proper paragraph breaks create readable text flow vs wall of text
 - **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
 - **EDUCATION UPDATE**: Comprehensive education section with McGill Music, TMU Film, and detailed 28-year self-directed learning timeline
-- **PROJECTS OVERHAUL**: Comprehensive career timeline with tightened Tom Sachs workshop table spacing and dense layout aesthetic
+- **PROJECTS OVERHAUL**: Comprehensive career timeline with brief mentions (full writeups in data.json/projects page)
 - **SECTION REMOVAL**: Deleted Technical Focuses and Tools sections for cleaner, story-focused bio
 - **PROJECTS PAGE SPACING**: Narrowed metadata column (250px→200px), expanded description column (1.5fr→1.7fr) for better readability balance
 - **STATUS**: Bio page now has streamlined three-column layout focusing on personal story, education, and projects
