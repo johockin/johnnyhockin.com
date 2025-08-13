@@ -753,7 +753,8 @@ This admin panel approach delivers the content management functionality the user
 - **LEFT-ALIGNED PRINCIPLE**: Photo and all content follows site's "NEVER center" aesthetic
 - **EDUCATION UPDATE**: Comprehensive education section with McGill Music, TMU Film, and detailed 28-year self-directed learning timeline
 - **PROJECTS OVERHAUL**: Comprehensive career timeline from 2001-2025 with bold year formatting for clear chronological scanning
-- **STATUS**: Bio page now has clean three-column layout with readable typography and contextual photo links
+- **SECTION REMOVAL**: Deleted Technical Focuses and Tools sections for cleaner, story-focused bio
+- **STATUS**: Bio page now has streamlined three-column layout focusing on personal story, education, and projects
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
 - **CHAOS MODE AUDIO**: Added background music to chaos mode with 7% volume (fine-tuned for ambient effect)
