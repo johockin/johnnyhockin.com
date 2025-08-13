@@ -1,5 +1,5 @@
 // Embedded Data Fallback - Auto-generated from data.json
-// Last updated: 2025-08-12
+// Last updated: 2025-08-13
 // This file provides complete fallback data when external data.json cannot be loaded
 
 window.EMBEDDED_SITE_DATA = {
@@ -11,93 +11,38 @@ window.EMBEDDED_SITE_DATA = {
   "explorerLog": [
     {
       "id": "log-001",
-      "date": "2025.01.30",
-      "content": "Finally pulled the trigger on deleting Workshop Mode from the site. Two CMS systems was one too many. Sometimes the best feature is the one you remove."
+      "date": "2025.08.12",
+      "content": "Hello World. \nFinished development on first version of this site. Celebrated by adding 'chaos mode' feature."
     },
     {
       "id": "log-002",
-      "date": "2025.01.29",
-      "content": "Still Marker hit alpha. Named it after Chris Marker because extracting stills from La Jetée is basically what this tool does. Filmmakers need their frames."
+      "date": "2025.07.29",
+      "content": "Still Marker hit alpha. It works! Named it after Chris Marker because taking your film and turning it into La Jetée is basically what this tool does. Filmmakers and archivists need their frames."
     },
     {
       "id": "log-003",
-      "date": "2025.01.28",
-      "content": "Maggy's glass UI is either brilliant or insane. Stage lighting in a file transfer app? Why not. If you're going to stare at progress bars, they might as well be beautiful."
-    },
-    {
-      "id": "log-004",
-      "date": "2025.01.27",
-      "content": "Testing To Don't on myself. Currently 23% accurate at estimating task duration. The app is working perfectly - I'm the bug."
+      "date": "2025.07.28",
+      "content": "It feels kind of funny to be designing MacOS software right now when you know the next beta is out and has hyper-glassy look and feel. Not touching that yet. "
     },
     {
       "id": "log-005",
-      "date": "2025.01.26",
+      "date": "2025.07.26",
       "content": "Realized all my projects are about removing friction. Still Marker removes Premiere. Maggy removes Hedge's price tag. To Don't removes features. Pattern recognized."
     },
     {
       "id": "log-006",
       "date": "2024.01.12",
-      "content": "Experimenting with computer vision for detecting hand gestures. OpenCV is overkill for what I need, but the precision is incredible. Managed to get reliable detection at 30fps on the Pi 4. Next: reducing the model size. The real challenge is filtering out false positives when the lighting changes."
+      "content": "Designed this web page based on the way I designed my diaryland and live journal sites when I was a teenager. But the real catalyst was every time I'd go to tomsachs.com and see that he had the same design, which made me extremely jealous. I find jealousy is one of my most useful emotions for creativity. "
     },
     {
       "id": "log-007",
       "date": "2024.01.08",
-      "content": "Built a small app to track my daily coding sessions. No fancy frameworks—just vanilla JS and local storage. Sometimes the simplest tools are the most reliable. Total build time: 3 hours. Added a simple pomodoro timer and session analytics. The data is revealing some interesting patterns about my productivity cycles."
-    },
-    {
-      "id": "log-008",
-      "date": "2024.01.05",
-      "content": "Found an interesting bug in my LED matrix controller. The issue wasn't in the code—it was in my understanding of the hardware timing requirements. PWM frequency was interfering with the refresh rate. Fixed by adjusting the timer prescaler. This kind of debugging is why I love embedded systems—when it works, you know exactly why."
+      "content": "Creating an app called ToDon't because I have time blindness - it's a to do list app with time tracking but only because I want to be able to score my inability to estimate how much time my daily tasks will take. Theory: tracking my poor estimation and keeping stats will improve my estimations."
     },
     {
       "id": "log-009",
       "date": "2024.01.02",
-      "content": "New year, new experiments. Planning to document everything more thoroughly this time. Raw process notes, not polished blog posts. The goal is authentic documentation of the making process. Started a physical notebook alongside this digital log—there's something about pen and paper for initial sketches that screens can't replicate."
-    },
-    {
-      "id": "log-010",
-      "date": "2023.12.28",
-      "content": "Finished the first prototype of the gesture-controlled drawing tablet. The latency is still too high for real-time drawing, but the concept works. Using MediaPipe for hand tracking. The breakthrough was realizing I needed to predict gesture completion rather than just detect current state. Machine learning for motion prediction is surprisingly accessible now."
-    },
-    {
-      "id": "log-011",
-      "date": "2023.12.25",
-      "content": "Christmas hack session: Built a wireless sensor network using ESP32s to monitor temperature and humidity throughout the house. The mesh networking is surprisingly robust. Each node costs about $8 and runs for months on a battery. Data visualization through a simple web interface. Sometimes the best gifts are the ones that solve real problems."
-    },
-    {
-      "id": "log-012",
-      "date": "2023.12.20",
-      "content": "Discovered that the Arduino IDE has a secret terminal emulator buried in the tools menu. How did I not know this for three years? This changes everything for debugging embedded projects. Also found that you can script the IDE with external tools. The documentation is terrible but the functionality is powerful."
-    },
-    {
-      "id": "log-013",
-      "date": "2023.12.15",
-      "content": "Built a simple oscilloscope using an ESP32 and a small OLED display. Not accurate enough for serious work, but perfect for understanding signal basics. Cost: $12. The sample rate is limited by the display refresh, but for audio frequency analysis it's surprisingly useful. Added FFT visualization for spectrum analysis."
-    },
-    {
-      "id": "log-014",
-      "date": "2023.12.10",
-      "content": "Prototyping a modular synthesizer using 3D printed parts and analog circuits. The filter design is based on the Moog ladder filter but simplified for easier construction. Hand-wound inductors using salvaged transformer cores. The sound has that raw, unpredictable quality that digital synths struggle to replicate."
-    },
-    {
-      "id": "log-015",
-      "date": "2023.12.05",
-      "content": "Started working on a Bluetooth mesh network for home automation. The ESP32 mesh capabilities are impressive but poorly documented. Spent most of the day reading source code to understand the API. Once you get past the learning curve, the possibilities are endless. Planning to use this for distributed sensor monitoring."
-    },
-    {
-      "id": "log-016",
-      "date": "2023.11.28",
-      "content": "Film project update: Finished editing the documentary about local makers. The story came together better than expected. Used DaVinci Resolve for color grading—the learning curve is steep but the results are professional quality. The film has been accepted to three local festivals. Sometimes the best stories are hiding in plain sight."
-    },
-    {
-      "id": "log-017",
-      "date": "2023.11.22",
-      "content": "Deep learning experiment: Training a neural network to recognize hand-drawn circuit diagrams and convert them to proper schematics. The initial results are promising but the dataset is small. Need to generate more training data. This could be incredibly useful for rapid prototyping—sketch an idea and get a working schematic instantly."
-    },
-    {
-      "id": "log-018",
-      "date": "2023.11.18",
-      "content": "Built a custom PCB business card with an embedded microcontroller and LEDs. The gerber files are works of art in themselves. Each card costs about $3 to manufacture but makes an unforgettable impression. Added a simple contact exchange feature—cards can communicate via IR when brought close together. Technology as conversation starter."
+      "content": "New year, new experiments. Planning to document everything more thoroughly this time. Raw process notes, not polished blog posts. The goal is authentic documentation of the making process. Started a physical notebook alongside this digital log...there's something about pen and paper for initial sketches that screens can't replicate."
     }
   ],
   "projects": [
@@ -105,7 +50,7 @@ window.EMBEDDED_SITE_DATA = {
       "id": "still-marker",
       "title": "Still Marker",
       "description": "macOS app for extracting stills from video",
-      "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (±0.5s coarse, ±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
+      "fullDescription": "Named after Chris Marker.\nBuilt because I needed to grab stills from footage without opening Premiere or Resolve.\n\nDrop in your video, it extracts frames at smart intervals.\nFor a 30-second spot, you get 15 frames. For a 10-minute short, you get 40.\nFull resolution, proper color space, no bullshit.\n\nFeatures:\n- Progressive frame loading (no crashes on long videos)\n- Frame refinement (Â±0.5s coarse, Â±1 frame fine)\n- Export all or individual frames\n- Kodak Gold aesthetic because why not\n- Chris Marker-inspired dark interface\n\nLooking for filmmakers to test.\nIt works. It's ready.",
       "image": "images/project-1755009941828.png",
       "category": "Software",
       "date": "2025.01",
@@ -139,12 +84,12 @@ window.EMBEDDED_SITE_DATA = {
     },
     {
       "id": "subway-blind-dates",
-      "title": "Subway Canada: Blind Dates",
-      "description": "Social experiment / video series",
-      "fullDescription": "We put strangers on blind dates in actual subway restaurants.\nSubway wanted 'authentic connection' content.\nWe gave them beautiful awkwardness.\n\nThe premise was simple:\n- Two strangers meet at Subway\n- They order sandwiches together\n- We film what happens\n- No script, just gentle prompting\n\nSome fell in love with the sandwiches.\nSome maybe fell in love with each other.\nMostly people discovered that sharing food with strangers is weird and wonderful.\n\nThe campaign did numbers.\nMore importantly, it was honest.",
+      "title": "Subway Canada: Meat Cute",
+      "description": "Video / Social Campaign",
+      "fullDescription": "SUBWAY CANADA: MEAT CUTE\nVIDEO / SOCIAL CAMPAIGN\n2024\nCOMPLETE\n\nWe set up unsuspecting singles for impromptu lunch dates at Subway.\nThe campaign played matchmaker in real life - no apps, no swiping, just sandwiches.\n\nCreated with Dentsu Creative to combat dating app fatigue.\nReal people, real awkwardness, real connections.\n\nThe premise:\n- Grab singles off the street\n- Pair them up over Subway sandwiches\n- Film what happens\n- Let chemistry (or lack thereof) unfold\n\nSome found love. Some found lunch.\nAll found themselves in a beautifully awkward social experiment.\n\nThe campaign rolled out across Subway Canada's social channels for Valentine's Day 2024.\nBecause sometimes the best connections happen over a footlong.\n\nAgency: Dentsu Creative\nProduction: Juniper Island",
       "image": "images/subway-dates-preview.png",
       "category": "Video",
-      "date": "2023",
+      "date": "2024",
       "status": "Complete",
       "featured": true,
       "metadata": {}
