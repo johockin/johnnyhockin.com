@@ -5,6 +5,11 @@ class SiteManager {
     this.chaosMode = localStorage.getItem('chaos') === 'true';
     this.easterEggClicks = 0;
     
+    // Setup chaos mode audio
+    this.chaosAudio = new Audio('audio/chaos-mode.m4a');
+    this.chaosAudio.loop = true;
+    this.chaosAudio.volume = 0.2; // 20% volume
+    
     console.log('🚀 SiteManager initializing...');
     
     // Workshop Mode removed - using Admin Panel for content management
@@ -107,8 +112,15 @@ class SiteManager {
   applyChaos() {
     if (this.chaosMode) {
       document.body.classList.add('chaos-mode');
+      // Play chaos mode background music
+      this.chaosAudio.play().catch(e => {
+        console.log('🎵 Audio autoplay blocked by browser policy - user must interact first');
+      });
     } else {
       document.body.classList.remove('chaos-mode');
+      // Stop chaos mode background music
+      this.chaosAudio.pause();
+      this.chaosAudio.currentTime = 0;
     }
   }
 
