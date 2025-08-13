@@ -741,7 +741,7 @@ This admin panel approach delivers the content management functionality the user
 ## 📒 CHANGELOG (REVERSE CHRONOLOGICAL)
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
-- **CHAOS MODE AUDIO**: Added background music to chaos mode with 20% volume
+- **CHAOS MODE AUDIO**: Added background music to chaos mode with 7% volume (fine-tuned for ambient effect)
 - **AUDIO CONVERSION**: Converted MOV file to web-friendly M4A format using macOS afconvert
 - **AUDIO INTEGRATION**: SiteManager class handles audio playback (loop, start/stop, volume control)
 - **BROWSER COMPATIBILITY**: Graceful handling of autoplay restrictions
