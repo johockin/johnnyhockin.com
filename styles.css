@@ -703,6 +703,26 @@ a:hover {
   margin-bottom: 0;
 }
 
+.bio-spacer {
+  height: 2.8em; /* Double paragraph space */
+  break-inside: avoid;
+}
+
+.bio-journey {
+  font-size: var(--type-uniform);
+  line-height: 1.4;
+  color: var(--color-text);
+  break-inside: avoid;
+}
+
+.bio-journey p {
+  margin: 0;
+}
+
+.bio-education {
+  break-before: column;
+}
+
 .bio-section {
   break-inside: avoid;
   margin-bottom: var(--space-lg);
