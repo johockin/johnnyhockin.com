@@ -755,7 +755,7 @@ This admin panel approach delivers the content management functionality the user
 - **PROJECTS OVERHAUL**: Comprehensive career timeline with brief mentions (full writeups in data.json/projects page)
 - **SECTION REMOVAL**: Deleted Technical Focuses and Tools sections for cleaner, story-focused bio
 - **PROJECTS PAGE SPACING**: Narrowed metadata column (250px→200px), expanded description column (1.5fr→1.7fr) for better readability balance
-- **BIO LAYOUT RESTRUCTURE**: Added double-spaced sections with journey text between bio and projects, Education starts in new column
+- **BIO LAYOUT RESTRUCTURE**: Added 1.5x spaced sections with journey text, only Education starts in new column
 - **STATUS**: Bio page now has streamlined three-column layout focusing on personal story, projects, and education
 
 ### 2025-08-12 - Chaos Mode Audio Enhancement & SEO Optimization
