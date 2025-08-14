@@ -704,7 +704,7 @@ a:hover {
 }
 
 .bio-spacer {
-  height: 2.8em; /* Double paragraph space */
+  height: 2.1em; /* 1.5x paragraph space */
   break-inside: avoid;
 }
 
@@ -726,6 +726,10 @@ a:hover {
 .bio-section {
   break-inside: avoid;
   margin-bottom: var(--space-lg);
+}
+
+.bio-section:not(.bio-education) {
+  break-before: auto; /* Prevent unwanted column breaks */
 }
 
 .bio-section-title {
